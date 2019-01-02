@@ -72,4 +72,4 @@ $route['internal-api/guest/forgot_password']['post'] = 'authentication/forgot_pa
 $route['internal-api/guest/activate-account']['post'] = 'authentication/activate_account';
 $route['internal-api/guest/reset-password']['post'] = 'authentication/reset_password';
 $route['internal-api/auth/update-password']['post'] = 'authentication/update_password';
-$route['internal-api/auth/log-out'] = 'authentication/log_out';
+$route['public-api/auth/log-out'] = 'authentication/log_out';

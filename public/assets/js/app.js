@@ -2,7 +2,6 @@ $(document).ready(function() {
 
     function goBack() {
         if (window.history.length <= 2) {
-            //window.location.replace('/');
             Turbolinks.visit("/", { action: "replace" });
         } else {
             window.history.back()
@@ -15,7 +14,6 @@ $(document).ready(function() {
     
     $('#home_btn').mousedown(function() {
         if ((window.location.toString() != window.location.protocol+'//'+window.location.host+'/') && (window.location.toString() != window.location.protocol+'//'+window.location.host+'/#')) {
-            //window.location.replace('/');
             Turbolinks.visit("/", { action: "replace" });
         }
     });
@@ -51,7 +49,6 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
@@ -159,7 +156,6 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                //window.location.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
@@ -201,7 +197,6 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
@@ -246,7 +241,6 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
@@ -298,7 +292,6 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
@@ -333,29 +326,19 @@ $(document).ready(function() {
         if (confirm('Are you sure to logout ?') == false) {
             return;
         }
-        //$('#logout_btn').attr("disabled", "disabled");
-        //var data = {
-        //    'email': $('#inputEmail').val(),
-        //    'password': $('#inputPassword').val(),
-        //}
-        //data[window.csrf_token_name] = window.csrf_hash;
         var request = $.ajax({
-            url: "/internal-api/auth/log-out",
+            url: "/public-api/auth/log-out",
             method: "GET",
             dataType: "json"
         });
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
         request.fail(function(jqXHR) {
             console.log(jqXHR.responseJSON);
-        });
-        request.always(function() {
-            //$('#logout_btn').removeAttr("disabled");
         });
     });
 });
