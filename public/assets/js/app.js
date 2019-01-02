@@ -49,9 +49,7 @@ $(document).ready(function() {
             dataType: "json"
         });
         request.done(function(data) {
-            if (data.message != undefined) {
-                alert(data.message);
-            }
+            console.log(data.message);
             if (data.redirect != undefined) {
                 //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
@@ -106,11 +104,8 @@ $(document).ready(function() {
             dataType: "json"
         });
         request.done(function(data) {
-            if (data.message != undefined) {
-                alert(data.message);
-            }
+            console.log(data.message);
             if (data.redirect != undefined) {
-                //window.location.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
@@ -162,9 +157,7 @@ $(document).ready(function() {
             dataType: "json"
         });
         request.done(function(data) {
-            if (data.message != undefined) {
-                alert(data.message);
-            }
+            console.log(data.message);
             if (data.redirect != undefined) {
                 //window.location.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
@@ -206,9 +199,7 @@ $(document).ready(function() {
             dataType: "json"
         });
         request.done(function(data) {
-            if (data.message != undefined) {
-                alert(data.message);
-            }
+            console.log(data.message);
             if (data.redirect != undefined) {
                 //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
@@ -253,9 +244,7 @@ $(document).ready(function() {
             dataType: "json"
         });
         request.done(function(data) {
-            if (data.message != undefined) {
-                alert(data.message);
-            }
+            console.log(data.message);
             if (data.redirect != undefined) {
                 //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
@@ -307,9 +296,7 @@ $(document).ready(function() {
             dataType: "json"
         });
         request.done(function(data) {
-            if (data.message != undefined) {
-                alert(data.message);
-            }
+            console.log(data.message);
             if (data.redirect != undefined) {
                 //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })
@@ -358,9 +345,7 @@ $(document).ready(function() {
             dataType: "json"
         });
         request.done(function(data) {
-            if (data.message != undefined) {
-                alert(data.message);
-            }
+            console.log(data.message);
             if (data.redirect != undefined) {
                 //.replace(data.redirect);
                 Turbolinks.visit(data.redirect, { action: "replace" })

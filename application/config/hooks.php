@@ -15,16 +15,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $hook['post_controller_constructor'][] = function() {
     $CI = &get_instance();
     $CI->load->library('authenticator', array('user_table' => 'users', 'remember_token_table' => 'remember_tokens'));
-    if ($CI->uri->segment(1) == 'auth' && $CI->session->status == NULL) {
+    if ($CI->uri->segment(1) === 'auth' && $CI->session->status === NULL) {
         show_error('Unauthorized', 401, '401 - Unauthorized');
     }
-    if ($CI->uri->segment(1) == 'guest' && $CI->session->status != NULL) {
+    if ($CI->uri->segment(1) === 'guest' && $CI->session->status != NULL) {
         show_error('Forbidden Access', 403, '403 - Forbidden Access');
     }
-    if ($CI->uri->segment(1) == 'internal-api' && $CI->uri->segment(2) == 'auth' && $CI->session->status == NULL) {
+    if ($CI->uri->segment(1) === 'internal-api' && $CI->uri->segment(2) === 'auth' && $CI->session->status === NULL) {
         show_error('Unauthorized', 401, '401 - Unauthorized');
     }
-    if ($CI->uri->segment(1) == 'internal-api' && $CI->uri->segment(2) == 'guest' && $CI->session->status != NULL) {
+    if ($CI->uri->segment(1) === 'internal-api' && $CI->uri->segment(2) === 'guest' && $CI->session->status != NULL) {
         show_error('Forbidden Access', 403, '403 - Forbidden Access');
     }
 };

@@ -56,6 +56,9 @@ $route['welcome'] = '404_override';
 $route['welcome/(:any)'] = '404_override';
 $route['authentication/(:any)'] = '404_override';
 
+$route['public/registration'] = 'welcome/registration';
+$route['public/confirm'] = 'welcome/confirm';
+$route['public/reset'] = 'welcome/reset';
 $route['guest/login']['get'] = 'authentication/ui_login';
 $route['guest/register']['get'] = 'authentication/ui_register';
 $route['guest/forgot-password']['get'] = 'authentication/ui_forgot_password';

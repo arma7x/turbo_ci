@@ -23,25 +23,37 @@ class Authentication extends MY_Controller {
 		$this->form_validation->set_data($data);
 		$this->form_validation->set_rules('email', lang('L_EMAIL'), 'required|valid_email');
 		$this->form_validation->set_rules('password', lang('L_PASSWORD'), 'required|min_length[10]');
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() === FALSE) {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
 			$this->_renderJSON($data, 400);
 		} else {
-			$remember_me = $this->input->post_get('remember_me') == 'true' ? TRUE : FALSE;
+			$remember_me = $this->input->post_get('remember_me') === 'true' ? TRUE : FALSE;
 			$validate_credential = $this->authenticator->validate_credential(array('email' => strtolower($this->input->post_get('email', TRUE))), $this->input->post_get('password'), $remember_me);
-			if ($validate_credential == NULL) {
+			if ($validate_credential === TRUE) {
+				$data = array(
+					'message' => lang('M_SUCCESS_LOGIN'),
+					'redirect' => $this->config->item('base_url')
+				);
+				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_LOGIN')));
+				$this->_renderJSON($data, 200);
+			} else if ($validate_credential === 0) {
+				$data = array(
+					'message' => lang('M_FAIL_LOGIN_INACTIVE')
+				);
+				$this->_renderJSON($data, 400);
+			} else if ($validate_credential === -1) {
+				$data = array(
+					'message' => lang('M_FAIL_LOGIN_BANNED')
+				);
+				$this->_renderJSON($data, 400);
+			} else {
 				$data = array(
 					'message' => lang('M_FAIL_LOGIN')
 				);
 				$this->_renderJSON($data, 400);
 			}
-			$data = array(
-				'message' => lang('M_SUCCESS_LOGIN'),
-				'redirect' => $this->config->item('base_url')
-			);
-			$this->_renderJSON($data, 200);
 		}
 	}
 
@@ -64,7 +76,7 @@ class Authentication extends MY_Controller {
 		$this->form_validation->set_rules('email', lang('L_EMAIL'), 'required|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('password', lang('L_PASSWORD'), 'required|min_length[10]|matches[confirm_password]');
 		$this->form_validation->set_rules('confirm_password', lang('L_CONFIRM_PASSWORD'), 'required|min_length[10]|matches[password]');
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() === FALSE) {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
@@ -77,11 +89,13 @@ class Authentication extends MY_Controller {
 					'message' => lang('M_SUCCESS_REGISTER'),
 					'redirect' => $this->config->item('base_url')
 				);
+				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_REGISTER')));
 				$this->_renderJSON($data, 200);
 			} else {
 				$data = array(
 					'message' => lang('M_FAIL_REGISTER'),
 				);
+				$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_REGISTER')));
 				$this->_renderJSON($data, 400);
 			}
 		}
@@ -100,7 +114,7 @@ class Authentication extends MY_Controller {
 		);
 		$this->form_validation->set_data($data);
 		$this->form_validation->set_rules('email', lang('L_EMAIL'), 'required|valid_email');
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() === FALSE) {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
@@ -110,11 +124,22 @@ class Authentication extends MY_Controller {
 				'message' => lang('M_FORGOT_PASSWORD_LINK'),
 				'redirect' => $this->config->item('base_url')
 			);
+			$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_FORGOT_PASSWORD_LINK')));
 			$this->_renderJSON($data, 200);
 		}
 	}
 
 	public function ui_activate_account() {
+		if ($this->input->post_get('token', TRUE) !== NULL) {
+			$this->load->helper('url');
+			$result = $this->authenticator->validate_activation_token($this->input->post_get('token', TRUE));
+			if ($result) {
+				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_ACTIVE_ACCOUNT')));
+				redirect($this->config->item('base_url').'guest/login');
+			}
+			$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_ACTIVE_ACCOUNT')));
+			redirect($this->config->item('base_url'));
+		}
 		$this->data['title'] = 'Codeigniter | '.lang('H_ACTIVATE_ACCOUNT');
 		$this->data['page_name'] = lang('H_ACTIVATE_ACCOUNT');
 		$templates[] = 'auth/activate_account';
@@ -127,17 +152,25 @@ class Authentication extends MY_Controller {
 		);
 		$this->form_validation->set_data($data);
 		$this->form_validation->set_rules('email', lang('L_EMAIL'), 'required|valid_email');
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() === FALSE) {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
 			$this->_renderJSON($data, 400);
 		} else {
+			$result = $this->authenticator->issue_activation_token($data);
+			if ($result) {
+				$data = array(
+					'message' => lang('M_ACTIVE_ACCOUNT_LINK'),
+					'redirect' => $this->config->item('base_url')
+				);
+				$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_ACTIVE_ACCOUNT_LINK')));
+				$this->_renderJSON($data, 200);
+			}
 			$data = array(
-				'message' => lang('M_ACTIVE_ACCOUNT_LINK'),
-				'redirect' => $this->config->item('base_url')
+				'message' => lang('M_ACTIVE_ACCOUNT_LINK_INVALID')
 			);
-			$this->_renderJSON($data, 200);
+			$this->_renderJSON($data, 400);
 		}
 	}
 
@@ -156,7 +189,7 @@ class Authentication extends MY_Controller {
 		$this->form_validation->set_data($data);
 		$this->form_validation->set_rules('new_password', lang('L_NEW_PASSWORD'), 'required|min_length[10]|matches[confirm_password]');
 		$this->form_validation->set_rules('confirm_password', lang('L_CONFIRM_PASSWORD'), 'required|min_length[10]|matches[new_password]');
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() === FALSE) {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
@@ -166,6 +199,7 @@ class Authentication extends MY_Controller {
 				'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
 				'redirect' => $this->config->item('base_url').'guest/login',
 			);
+			$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
 			$this->_renderJSON($data, 200);
 		}
 	}
@@ -187,7 +221,7 @@ class Authentication extends MY_Controller {
 		$this->form_validation->set_rules('old_password', lang('L_OLD_PASSWORD'), 'required|min_length[10]');
 		$this->form_validation->set_rules('new_password', lang('L_NEW_PASSWORD'), 'required|min_length[10]|matches[confirm_password]');
 		$this->form_validation->set_rules('confirm_password', lang('L_CONFIRM_PASSWORD'), 'required|min_length[10]|matches[new_password]');
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() === FALSE) {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
@@ -200,6 +234,7 @@ class Authentication extends MY_Controller {
 					'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
 					'redirect' => $this->config->item('base_url')
 				);
+				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
 				$this->_renderJSON($data, 200);
 			}
 			$data = array(
@@ -215,6 +250,7 @@ class Authentication extends MY_Controller {
 			'message' => lang('M_SUCCESS_LOGOUT'),
 			'redirect' => $this->config->item('base_url')
 		);
+		$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_SUCCESS_LOGOUT')));
 		$this->_renderJSON($data, 200);
 	}
 }

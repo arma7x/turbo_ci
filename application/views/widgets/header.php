@@ -78,5 +78,12 @@
         </ul>
       </div>
     </nav>
-
+    <?php if($this->session->__notification): ?>
+    <div class="text-sm-center alert alert-<?php echo $this->session->__notification['type'] ?> alert-dismissible fade show" role="alert" style="margin-top:-23px;border-radius:0;">
+      <?php echo $this->session->__notification['message'] ?>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <?php endif; ?>
     <main role="main" class="container">

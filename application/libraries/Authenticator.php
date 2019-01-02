@@ -11,6 +11,7 @@ class Authenticator {
 	protected $USER_TABLE = 'users';
 	protected $REMEMBER_TOKEN_TABLE = 'remember_tokens';
 	protected $REMEMBER_TOKEN_NAME = 'remember_me';
+	protected $ACTIVATION_TOKEN_TABLE = 'activation_tokens';
 	protected $DEFAULT_ROLE = 2; // 0:ADMIN, 1:STAFF, 2:MEMBER
 	protected $DEFAULT_ACCESS_LEVEL = 999; // 0:SUDO
 	protected $DEFAULT_STATUS = 1; // 1:ACTIVE, 0:INACTIVE, -1:BAN
@@ -36,7 +37,7 @@ class Authenticator {
 	}
 
 	private function update_user_by_index($index, $data) {
-		if ($this->get_user_by_index($index) == NULL) {
+		if ($this->get_user_by_index($index) === NULL) {
 			return FALSE;
 		}
 		$this->CI->db->update($this->USER_TABLE, $data, $index);
@@ -66,16 +67,17 @@ class Authenticator {
 
 	public function validate_credential($index, $password, $remember_me) {
 		$user = $this->get_user_by_index($index);
-		if ($user == NULL) {
+		if ($user === NULL) {
 			return FALSE;
 		}
 		if ($user['status'] < $this->DEFAULT_STATUS) {
-			return FALSE;
+			return (int) $user['status'];
 		}
 		$this->CI->load->library('encryption');
 		$current_password = $this->CI->encryption->decrypt($user['password']);
 		$match = password_verify($this->generate_password_safe_length($password), $current_password);
 		if ($match) {
+			$this->CI->db->delete($this->ACTIVATION_TOKEN_TABLE, array('user' => $user['id']));
 			$this->CI->session->set_userdata(array('status' => TRUE, 'user' => $user));
 			if ($remember_me) {
 				$this->generate_remember_token($this->CI->session->user['id']);
@@ -90,7 +92,7 @@ class Authenticator {
 		$password = $this->CI->encryption->encrypt(password_hash($this->generate_password_safe_length($data['password'], TRUE), PASSWORD_DEFAULT));
 		$data['id'] = bin2hex($this->CI->security->get_random_bytes(5));
 		$data['password'] = $password;
-		$data['role'] = ($data['email'] == APP_ADMIN_EMAIL) ? 0 : $this->DEFAULT_ROLE;
+		$data['role'] = ($data['email'] === APP_ADMIN_EMAIL) ? 0 : $this->DEFAULT_ROLE;
 		$data['access_level'] = $this->DEFAULT_ACCESS_LEVEL;
 		$data['status'] = $this->DEFAULT_STATUS;
 		$data['avatar'] = $this->DEFAULT_AVATAR;
@@ -101,16 +103,16 @@ class Authenticator {
 
 	public function update_credential($index, $old_password, $new_password) {
 		$success = $this->validate_credential($index, $old_password, FALSE);
-		if ($success == FALSE) {
-			return FALSE;
+		if ($success === TRUE) {
+			$this->CI->load->library('encryption');
+			$password = $this->CI->encryption->encrypt(password_hash($this->generate_password_safe_length($new_password), PASSWORD_DEFAULT));
+			$data = array(
+				'password' => $password,
+				'updated_at' => time(),
+			);
+			return $this->update_user_by_index($index, $data);
 		}
-		$this->CI->load->library('encryption');
-		$password = $this->CI->encryption->encrypt(password_hash($this->generate_password_safe_length($new_password), PASSWORD_DEFAULT));
-		$data = array(
-			'password' => $password,
-			'updated_at' => time(),
-		);
-		return $this->update_user_by_index($index, $data);
+		return FALSE;
 	}
 
 	public function generate_remember_token($user_id) {
@@ -127,7 +129,7 @@ class Authenticator {
 	}
 
 	public function validate_remember_token() {
-		if ($this->CI->session->status == NULL) {
+		if ($this->CI->session->status === NULL) {
 			$this->CI->load->helper('cookie');
 			$value = get_cookie($this->REMEMBER_TOKEN_NAME);
 			if ($value != NULL) {
@@ -145,7 +147,7 @@ class Authenticator {
 					}
 				}
 			}
-		} else if ($this->CI->session->status == TRUE) {
+		} else if ($this->CI->session->status === TRUE) {
 			$this->CI->load->helper('cookie');
 			$value = get_cookie($this->REMEMBER_TOKEN_NAME);
 			if ($value != NULL) {
@@ -175,8 +177,35 @@ class Authenticator {
 
 	public function validate_reset_token() {}
 
-	public function issue_activation_token() {}
+	public function issue_activation_token($index) {
+		$user = $this->get_user_by_index($index);
+		if ($user === NULL) {
+			return FALSE;
+		}
+		if ((int) $user['status'] === 0) {
+			$this->CI->db->delete($this->ACTIVATION_TOKEN_TABLE, array('user' => $user['id']));
+			$id = bin2hex($this->CI->security->get_random_bytes(25));
+			$data = array(
+				'id' => $id,
+				'user' => $user['id'],
+			);
+			$this->CI->db->insert($this->ACTIVATION_TOKEN_TABLE, $data);
+			return TRUE;
+		}
+		return FALSE;
+	}
 
-	public function validate_activation_token() {}
+	public function validate_activation_token($token) {
+		$exist = $this->CI->db->get_where($this->ACTIVATION_TOKEN_TABLE, array('id' => $token), 1)->row_array();
+		if ($exist === NULL) {
+			return FALSE;
+		}
+		$success = $this->update_user_by_index(array('id' => $exist['user']), array('status' => 1, 'updated_at' => time()));
+		if ($success) {
+			$this->CI->db->delete($this->ACTIVATION_TOKEN_TABLE, array('user' => $exist['user']));
+			RETURN TRUE;
+		}
+		return FALSE;
+	}
 
 }
