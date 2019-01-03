@@ -11,6 +11,6 @@
 		<p>The corresponding controller for this page is found at:</p>
 		<code>application/controllers/Welcome.php</code>
 
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="https://codeigniter.com/user_guide/" target="_blank">User Guide</a>.</p>
+		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="https://codeigniter.com/user_guide/" target="_blank" rel="noopener">User Guide</a>.</p>
 	</div>
 </div>
