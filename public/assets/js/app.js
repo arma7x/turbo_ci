@@ -1,8 +1,12 @@
 $(document).ready(function() {
 
+    function getQueryStringValue(key) {  
+        return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
+    }
+
     function goBack() {
         if (window.history.length <= 2) {
-            Turbolinks.visit("/", { action: "replace" });
+            Turbolinks.visit("/");
         } else {
             window.history.back()
         }
@@ -14,7 +18,7 @@ $(document).ready(function() {
     
     $('#home_btn').mousedown(function() {
         if ((window.location.toString() != window.location.protocol+'//'+window.location.host+'/') && (window.location.toString() != window.location.protocol+'//'+window.location.host+'/#')) {
-            Turbolinks.visit("/", { action: "replace" });
+            Turbolinks.visit("/");
         }
     });
     
@@ -49,7 +53,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect, { action: "replace" })
+                Turbolinks.visit(data.redirect)
             }
         });
         request.fail(function(jqXHR) {
@@ -103,7 +107,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect, { action: "replace" })
+                Turbolinks.visit(data.redirect)
             }
         });
         request.fail(function(jqXHR) {
@@ -156,7 +160,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect, { action: "replace" })
+                Turbolinks.visit(data.redirect)
             }
         });
         request.fail(function(jqXHR) {
@@ -197,7 +201,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect, { action: "replace" })
+                Turbolinks.visit(data.redirect)
             }
         });
         request.fail(function(jqXHR) {
@@ -228,6 +232,7 @@ $(document).ready(function() {
         $('#inputConfirmPasswordError').removeClass('border-danger');
         $('#inputConfirmPasswordErrorText').text('');
         var data = {
+            'token': getQueryStringValue("token"),
             'new_password': $('#inputNewPassword').val(),
             'confirm_password': $('#inputConfirmPassword').val(),
         }
@@ -241,7 +246,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect, { action: "replace" })
+                Turbolinks.visit(data.redirect)
             }
         });
         request.fail(function(jqXHR) {
@@ -258,6 +263,10 @@ $(document).ready(function() {
                     if (jqXHR.responseJSON.errors.new_password != undefined) {
                         $('#inputNewPasswordError').addClass('border-danger');
                         $('#inputNewPasswordErrorText').text(jqXHR.responseJSON.errors.new_password);
+                    }
+                    if (jqXHR.responseJSON.errors.token != undefined) {
+                        $('#formMessage').text(jqXHR.responseJSON.errors.token);
+                        $('#formMessage').removeClass('sr-only');
                     }
                 }
             }
@@ -292,7 +301,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect, { action: "replace" })
+                Turbolinks.visit(data.redirect)
             }
         });
         request.fail(function(jqXHR) {
@@ -334,7 +343,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect, { action: "replace" })
+                Turbolinks.visit(data.redirect)
             }
         });
         request.fail(function(jqXHR) {

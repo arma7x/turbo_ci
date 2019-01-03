@@ -19,15 +19,15 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-sm navbar-dark bg-primary fixed-top shadow-header">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
       <div>
         <?php if ($this->uri->segment(1) != NULL): ?>
         <a id="back_btn_sm" class="d-sm-none navbar-brand" href="#" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">&#xe5c4;</i></a>
         <?php endif; ?>
-        <a id="home_btn" class="navbar-brand"  href="#" data-turbolinks="false">Codeigniter</a>
+        <a id="home_btn" class="navbar-brand"  href="#" data-turbolinks="false">TurboCI</a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
-        <i class="material-icons text-white" style="font-size:1.7em;">&#xe5d2;</i>
+        <i class="material-icons text-dark" style="font-size:1.7em;">&#xe5d2;</i>
       </button>
 
       <div class="collapse navbar-collapse" id="navCollapsed">
@@ -39,16 +39,16 @@
           <?php endif; ?>
           <?php if($this->session->status == NULL): ?>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/guest/login' ? ' active' : ''?>">
-            <a class="nav-link" href="/guest/login"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/guest/login' ? ' text-primary' : ''?>" href="/guest/login"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/guest/register' ? ' active' : ''?>">
-            <a class="nav-link" href="/guest/register"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/guest/register' ? ' text-primary' : ''?>" href="/guest/register"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/guest/forgot-password' ? ' active' : ''?>">
-            <a class="nav-link" href="/guest/forgot-password"><i class="material-icons">&#xe898;</i> <?php echo lang('H_FORGOT_PASSWORD');?></a>
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/guest/forgot-password' ? ' text-primary' : ''?>" href="/guest/forgot-password"><i class="material-icons">&#xe898;</i> <?php echo lang('H_FORGOT_PASSWORD');?></a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/guest/activate-account' ? ' active' : ''?>">
-            <a class="nav-link" href="/guest/activate-account"><i class="material-icons">&#xe8e8;</i> <?php echo lang('H_ACTIVATE_ACCOUNT');?></a>
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/guest/activate-account' ? ' text-primary' : ''?>" href="/guest/activate-account"><i class="material-icons">&#xe8e8;</i> <?php echo lang('H_ACTIVATE_ACCOUNT');?></a>
           </li>
           <?php endif; ?>
           <?php if($this->session->status == TRUE): ?>
@@ -59,7 +59,7 @@
             </a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/auth/update-password' ? ' active' : ''?>">
-            <a class="nav-link" href="/auth/update-password"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/guest/update-password' ? ' text-primary' : ''?>" href="/auth/update-password"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
           </li>
           <li class="nav-item">
             <a id="logout_btn" class="nav-link" href="#" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>

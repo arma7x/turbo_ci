@@ -3,6 +3,7 @@
 <div class="row justify-content-sm-center align-items-center" style="min-height:60vh;">
   <form class="form-center">
     <h1 class="h3 mb-3 font-weight-normal text-uppercase text-center"><?php echo $page_name ? $page_name : 'Codeigniter' ;?></h1>
+    <input id="username" name="username" type="text" class="sr-only" value="<?php echo $user['email'] ?>">
     <div class="form-group">
       <label for="inputNewPassword" class="sr-only"><?php echo lang('L_NEW_PASSWORD');?></label>
       <div id="inputNewPasswordError" class="input-group border rounded">

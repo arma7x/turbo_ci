@@ -101,34 +101,6 @@ class Authentication extends MY_Controller {
 		}
 	}
 
-	public function ui_forgot_password() {
-		$this->data['title'] = 'Codeigniter | '.lang('H_FORGOT_PASSWORD');
-		$this->data['page_name'] = lang('H_FORGOT_PASSWORD');
-		$templates[] = 'auth/forgot_password';
-		$this->_render($templates);
-	}
-
-	public function forgot_password() {
-		$data = array(
-			'email' => strtolower($this->input->post_get('email', TRUE)),
-		);
-		$this->form_validation->set_data($data);
-		$this->form_validation->set_rules('email', lang('L_EMAIL'), 'required|valid_email');
-		if ($this->form_validation->run() === FALSE) {
-			$data = array(
-				'errors' => $this->form_validation->error_array()
-			);
-			$this->_renderJSON($data, 400);
-		} else {
-			$data = array(
-				'message' => lang('M_FORGOT_PASSWORD_LINK'),
-				'redirect' => $this->config->item('base_url')
-			);
-			$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_FORGOT_PASSWORD_LINK')));
-			$this->_renderJSON($data, 200);
-		}
-	}
-
 	public function ui_activate_account() {
 		if ($this->input->post_get('token', TRUE) !== NULL) {
 			$this->load->helper('url');
@@ -174,19 +146,69 @@ class Authentication extends MY_Controller {
 		}
 	}
 
-	public function ui_reset_password() {
-		$this->data['title'] = 'Codeigniter | '.lang('H_RESET_PASSWORD');
-		$this->data['page_name'] = lang('H_RESET_PASSWORD');
-		$templates[] = 'auth/reset_password';
+	public function ui_forgot_password() {
+		$this->data['title'] = 'Codeigniter | '.lang('H_FORGOT_PASSWORD');
+		$this->data['page_name'] = lang('H_FORGOT_PASSWORD');
+		$templates[] = 'auth/forgot_password';
 		$this->_render($templates);
+	}
+
+	public function forgot_password() {
+		$data = array(
+			'email' => strtolower($this->input->post_get('email', TRUE)),
+		);
+		$this->form_validation->set_data($data);
+		$this->form_validation->set_rules('email', lang('L_EMAIL'), 'required|valid_email');
+		if ($this->form_validation->run() === FALSE) {
+			$data = array(
+				'errors' => $this->form_validation->error_array()
+			);
+			$this->_renderJSON($data, 400);
+		} else {
+			$result = $this->authenticator->issue_reset_token($data);
+			if ($result !== FALSE) {
+				$data = array(
+					'token' => $result,
+					'message' => lang('M_FORGOT_PASSWORD_LINK'),
+					'redirect' => $this->config->item('base_url')
+				);
+				$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_FORGOT_PASSWORD_LINK')));
+				$this->_renderJSON($data, 200);
+			}
+			$data = array(
+				'message' => lang('M_FORGOT_PASSWORD_LINK_INVALID')
+			);
+			$this->_renderJSON($data, 400);
+		}
+	}
+
+	public function ui_reset_password() {
+		$this->load->helper('url');
+		if ($this->input->post_get('token', TRUE) !== NULL) {
+			$result = $this->authenticator->verify_reset_token($this->input->post_get('token', TRUE));
+			if ($result === FALSE) {
+				$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FORGOT_PASSWORD_LINK_INVALID_TOKEN')));
+				redirect($this->config->item('base_url'));
+			}
+			$this->data['title'] = 'Codeigniter | '.lang('H_RESET_PASSWORD');
+			$this->data['page_name'] = lang('H_RESET_PASSWORD');
+			$this->data['user'] = $result;
+			$templates[] = 'auth/reset_password';
+			$this->_render($templates);
+		} else {
+			$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FORGOT_PASSWORD_LINK_INVALID_TOKEN')));
+			redirect($this->config->item('base_url'));
+		}
 	}
 
 	public function reset_password() {
 		$data = array(
+			'token' => $this->input->post_get('token', TRUE),
 			'new_password' => $this->input->post_get('new_password'),
 			'confirm_password' => $this->input->post_get('confirm_password'),
 		);
 		$this->form_validation->set_data($data);
+		$this->form_validation->set_rules('token', lang('L_TOKEN'), 'required');
 		$this->form_validation->set_rules('new_password', lang('L_NEW_PASSWORD'), 'required|min_length[10]|matches[confirm_password]');
 		$this->form_validation->set_rules('confirm_password', lang('L_CONFIRM_PASSWORD'), 'required|min_length[10]|matches[new_password]');
 		if ($this->form_validation->run() === FALSE) {
@@ -195,12 +217,20 @@ class Authentication extends MY_Controller {
 			);
 			$this->_renderJSON($data, 400);
 		} else {
-			$data = array(
-				'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
-				'redirect' => $this->config->item('base_url').'guest/login',
-			);
-			$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
-			$this->_renderJSON($data, 200);
+			$result = $this->authenticator->validate_reset_token($this->input->post_get('token', TRUE), $this->input->post_get('new_password'));
+			if ($result) {
+				$data = array(
+					'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
+					'redirect' => $this->config->item('base_url').'guest/login',
+				);
+				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
+				$this->_renderJSON($data, 200);
+			} else {
+				$data = array(
+					'message' => lang('M_FAIL_UPDATE_PASSWORD'),
+				);
+				$this->_renderJSON($data, 400);
+			}
 		}
 	}
 

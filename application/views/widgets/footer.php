@@ -1,8 +1,8 @@
     </main>
 
-    <footer class="footer bg-primary">
+    <footer class="footer bg-light border-top border-primary">
       <div class="container">
-        <span class="text-white"><?php echo str_replace('%s', $this->benchmark->elapsed_time(), lang('L_F_RENDER_ELAPSED'));?>/<?php echo $this->benchmark->memory_usage() ?></span>
+        <span class="text-dark"><?php echo str_replace('%s', $this->benchmark->elapsed_time(), lang('L_F_RENDER_ELAPSED'));?>/<?php echo $this->benchmark->memory_usage() ?></span>
       </div>
     </footer>
 

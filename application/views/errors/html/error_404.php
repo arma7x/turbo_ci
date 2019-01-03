@@ -59,6 +59,7 @@ p {
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
+		<p><a class="" href="<?php echo config_item('base_url') ?>">Homepage</a></p>
 	</div>
 </body>
 </html>

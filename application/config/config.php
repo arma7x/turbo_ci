@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$DB_URL = 'mysqli://root:@localhost/ci_starter';
+$DB_URL = 'mysqli://root:root@localhost/ci_starter';
 $URL = parse_url($DB_URL == 'HEROKU' ? getenv('DATABASE_URL') : $DB_URL);
 $APP_DATABASE_CONN = array(
     'hostname' => isset($URL['host']) ? $URL['host'].(isset($URL['port']) ? ':'.($URL['port']) : '') : '',
