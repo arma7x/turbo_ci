@@ -31,7 +31,7 @@ class MY_Exceptions extends CI_Exceptions {
 
 		$ajax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 
-		if ($ajax === false) {
+		if ($ajax) {
 			header('Content-Type: application/json');
 			set_status_header($status_code);
 			echo json_encode(array('message' => $message_json));
@@ -75,7 +75,7 @@ class MY_Exceptions extends CI_Exceptions {
 
 		$ajax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 
-		if ($ajax === false) {
+		if ($ajax) {
 			header('Content-Type: application/json');
 			set_status_header(500);
 			echo json_encode(array(
@@ -128,7 +128,7 @@ class MY_Exceptions extends CI_Exceptions {
 
 		$ajax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 
-		if ($ajax === false) {
+		if ($ajax) {
 			header('Content-Type: application/json');
 			set_status_header(500);
 			echo json_encode(array(

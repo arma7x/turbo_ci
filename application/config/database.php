@@ -75,11 +75,11 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => APP_DATABASE_CONN['hostname'],
-	'username' => APP_DATABASE_CONN['username'],
-	'password' => APP_DATABASE_CONN['password'],
-	'database' => APP_DATABASE_CONN['database'],
-	'dbdriver' => APP_DATABASE_CONN['dbdriver'],
+	'hostname' => APP_DATABASE_AUTH['hostname'],
+	'username' => APP_DATABASE_AUTH['username'],
+	'password' => APP_DATABASE_AUTH['password'],
+	'database' => APP_DATABASE_AUTH['database'],
+	'dbdriver' => APP_DATABASE_AUTH['dbdriver'],
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),

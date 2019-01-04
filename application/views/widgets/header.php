@@ -59,7 +59,7 @@
             </a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/auth/update-password' ? ' active' : ''?>">
-            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/guest/update-password' ? ' text-primary' : ''?>" href="/auth/update-password"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/auth/update-password' ? ' text-primary' : ''?>" href="/auth/update-password"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
           </li>
           <li class="nav-item">
             <a id="logout_btn" class="nav-link" href="#" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>

@@ -89,7 +89,7 @@
   }
 
   a {
-    color: black;
+    color: #1a82e2;
   }
   </style>
 
@@ -98,7 +98,7 @@
 
   <!-- start preheader -->
   <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-    A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
+    Welcome, We're very excited to have you on board.
   </div>
   <!-- end preheader -->
 
@@ -118,8 +118,10 @@
           <!-- start copy -->
           <tr>
             <td bgcolor="#ffffff" align="left" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <h1 style="margin: 0 0 12px; font-size: 32px; font-weight: 400; line-height: 48px;">Welcome, Jason!</h1>
-              <p style="margin: 0;">Thank you for signing up with Paste. We strive to produce high quality email templates that you can use for your transactional or marketing needs.</p>
+              <h1 style="margin: 0 0 12px; font-size: 32px; font-weight: 400; line-height: 48px;">
+                Welcome, <?php echo isset($user) ? $user['username'] : 'Guest'?>!
+              </h1>
+              <p style="margin: 0;">Thank you for signing up with <?php echo APP_NAME ?>. To get started with our services please visit our website, click below:</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -133,7 +135,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                          <a href="https://sendgrid.com" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Do Something Sweet</a>
+                          <a href="<?php echo isset($url) ? $url : $this->config->item('base_url') ?>" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Do Something Sweet</a>
                         </td>
                       </tr>
                     </table>
@@ -146,8 +148,21 @@
 
           <!-- start copy -->
           <tr>
+            <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+              <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+              <p style="margin: 0;">
+                <a href="<?php echo isset($url) ? $url : $this->config->item('base_url') ?>" target="_blank">
+                  <?php echo isset($url) ? $url : $this->config->item('base_url') ?>
+                </a>
+              </p>
+            </td>
+          </tr>
+          <!-- end copy -->
+
+          <!-- start copy -->
+          <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
-              <p style="margin: 0;">Cheers,<br> Paste</p>
+              <p style="margin: 0;">Cheers,<br> <?php echo APP_NAME ?></p>
             </td>
           </tr>
           <!-- end copy -->
@@ -175,7 +190,7 @@
           <!-- start permission -->
           <tr>
             <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-              <p style="margin: 0;">You received this email because we received a request for [type_of_action] for your account. If you didn't request [type_of_action] you can safely delete this email.</p>
+              <p style="margin: 0;">You received this email because we received a request for account registration for your account. If you didn't submit this request, you can safely delete this email and contact us for further action.</p>
             </td>
           </tr>
           <!-- end permission -->
@@ -183,7 +198,9 @@
           <!-- start unsubscribe -->
           <tr>
             <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-              <p style="margin: 0;">All Right Reserved <?php echo '2019' ?></p>
+              <p style="margin: 0;">
+                Copyright © <?php echo date('Y') ?> <?php echo APP_NAME ?>. All rights reserved.
+              </p>
             </td>
           </tr>
           <!-- end unsubscribe -->

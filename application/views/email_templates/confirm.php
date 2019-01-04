@@ -4,7 +4,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Email Confirmation</title>
+  <title>Account Activation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style type="text/css">
   /**
@@ -98,7 +98,7 @@
 
   <!-- start preheader -->
   <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-    A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
+    You have received this email because a account activation request for <?php echo APP_NAME ?> account was received.
   </div>
   <!-- end preheader -->
 
@@ -116,7 +116,7 @@
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;">
-              <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Confirm Your Email Address</h1>
+              <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Activate Your Account</h1>
             </td>
           </tr>
         </table>
@@ -142,7 +142,9 @@
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">Tap the button below to confirm your email address. If you didn't create an account with <a href="https://sendgrid.com">Paste</a>, you can safely delete this email.</p>
+              <p>Username: <b><?php echo isset($user) ? $user['username'] : 'Guest'?></b></br>
+              Email Address: <b><?php echo isset($user) ? $user['email'] : 'jon@doe.com'?></b></p>
+              <p style="margin: 0;">Tap the button below to confirm your email address. If you didn't create an account with <a href="<?php echo $this->config->item('base_url') ?>" target="_blank"><?php echo APP_NAME ?></a>, you can safely delete this email and contact us for further action.</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -156,7 +158,7 @@
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                          <a href="https://sendgrid.com" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Do Something Sweet</a>
+                          <a href="<?php echo isset($url) ? $url : $this->config->item('base_url') ?>" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Activate My Account</a>
                         </td>
                       </tr>
                     </table>
@@ -167,11 +169,16 @@
           </tr>
           <!-- end button -->
 
+          
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
               <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
-              <p style="margin: 0;"><a href="https://sendgrid.com" target="_blank">https://same-link-as-button.url/xxx-xxx-xxxx</a></p>
+              <p style="margin: 0;">
+                <a href="<?php echo isset($url) ? $url : $this->config->item('base_url') ?>" target="_blank">
+                  <?php echo isset($url) ? $url : $this->config->item('base_url') ?>
+                </a>
+              </p>
             </td>
           </tr>
           <!-- end copy -->
@@ -179,7 +186,7 @@
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
-              <p style="margin: 0;">Cheers,<br> Paste</p>
+              <p style="margin: 0;">Cheers,<br> <?php echo APP_NAME ?></p>
             </td>
           </tr>
           <!-- end copy -->
@@ -207,7 +214,7 @@
           <!-- start permission -->
           <tr>
             <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-              <p style="margin: 0;">You received this email because we received a request for [type_of_action] for your account. If you didn't request [type_of_action] you can safely delete this email.</p>
+              <p style="margin: 0;">You received this email because we received a request for account activation for your account. If you didn't request submit this, you can safely delete this email.</p>
             </td>
           </tr>
           <!-- end permission -->
@@ -215,7 +222,9 @@
           <!-- start unsubscribe -->
           <tr>
             <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-              <p style="margin: 0;">All Right Reserved <?php echo '2019' ?></p>
+              <p style="margin: 0;">
+                Copyright © <?php echo date('Y') ?> <?php echo APP_NAME ?>. All rights reserved.
+              </p>
             </td>
           </tr>
           <!-- end unsubscribe -->

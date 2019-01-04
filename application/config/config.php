@@ -1,22 +1,33 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$DB_URL = 'mysqli://root:root@localhost/ci_starter';
-$URL = parse_url($DB_URL == 'HEROKU' ? getenv('DATABASE_URL') : $DB_URL);
-$APP_DATABASE_CONN = array(
-    'hostname' => isset($URL['host']) ? $URL['host'].(isset($URL['port']) ? ':'.($URL['port']) : '') : '',
-    'username' => isset($URL['user']) ? $URL['user'] : '',
-    'password' => isset($URL['pass']) ? $URL['pass'] : '',
-    'database' => isset($URL['path']) ? ltrim($URL['path'],'/') : '',
-    'dbdriver' => isset($URL['scheme']) ? $URL['scheme'] : '',
+$DATABASE_URL = 'SERVER'; // mysqli://root:root@localhost/ci_starter
+$DB_AUTH = parse_url($DATABASE_URL == 'SERVER' ? getenv('DATABASE_URL') : $DATABASE_URL);
+$APP_DATABASE_AUTH = array(
+    'hostname' => isset($DB_AUTH['host']) ? $DB_AUTH['host'].(isset($DB_AUTH['port']) ? ':'.($DB_AUTH['port']) : '') : '',
+    'username' => isset($DB_AUTH['user']) ? $DB_AUTH['user'] : '',
+    'password' => isset($DB_AUTH['pass']) ? $DB_AUTH['pass'] : '',
+    'database' => isset($DB_AUTH['path']) ? ltrim($DB_AUTH['path'],'/') : '',
+    'dbdriver' => isset($DB_AUTH['scheme']) ? $DB_AUTH['scheme'] : '',
 );
-define('APP_DATABASE_CONN', $APP_DATABASE_CONN);
+$ENCRYPTION_KEY = 'SERVER'; // 09FA7BE0A09C30D0050B05C6EE9974938094E5FF1C0FC59A3A6776242D0787D4
+$APP_ENCRYPTION_KEY = ($ENCRYPTION_KEY == 'SERVER') ? getenv('ENCRYPTION_KEY') : $ENCRYPTION_KEY;
 
-$KEY = '09FA7BE0A09C30D0050B05C6EE9974938094E5FF1C0FC59A3A6776242D0787D4';
-$APP_ENCRYPTION_KEY = ($KEY == 'HEROKU') ? getenv('ENCRYPTION_KEY') : $KEY;
-define('APP_ENCRYPTION_KEY', $APP_ENCRYPTION_KEY);
-
+$EMAIL_URL = 'SERVER'; // smtp://username@yahoo.com:password@smtp.mail.yahoo.com:587/tls
+$EMAIL_AUTH = parse_url($EMAIL_URL == 'SERVER' ? getenv('EMAIL_URL') : $EMAIL_URL);
+$APP_EMAIL_AUTH = array(
+    'protocol' => isset($EMAIL_AUTH['scheme']) ? $EMAIL_AUTH['scheme'] : '',
+    'smtp_host' => isset($EMAIL_AUTH['host']) ? $EMAIL_AUTH['host'] : '',
+    'smtp_user' => isset($EMAIL_AUTH['user']) ? $EMAIL_AUTH['user'] : '',
+    'smtp_pass' => isset($EMAIL_AUTH['pass']) ? $EMAIL_AUTH['pass'] : '',
+    'smtp_port' => isset($EMAIL_AUTH['port']) ? $EMAIL_AUTH['port'] : '',
+    'smtp_crypto' => isset($EMAIL_AUTH['path']) ? ltrim($EMAIL_AUTH['path'],'/') : '',
+);
+define('APP_NAME', 'TurboCI');
 define('APP_ADMIN_EMAIL', 'arma7x@live.com');
+define('APP_DATABASE_AUTH', $APP_DATABASE_AUTH);
+define('APP_ENCRYPTION_KEY', $APP_ENCRYPTION_KEY);
+define('APP_EMAIL_AUTH', $APP_EMAIL_AUTH);
 
 /*
 |--------------------------------------------------------------------------
