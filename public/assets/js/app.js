@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     function goBack() {
         if (window.history.length <= 2) {
-            Turbolinks.visit("/");
+            Turbolinks.visit("/", { action: "replace" });
         } else {
             window.history.back()
         }
@@ -18,7 +18,7 @@ $(document).ready(function() {
     
     $('#home_btn').mousedown(function() {
         if ((window.location.toString() != window.location.protocol+'//'+window.location.host+'/') && (window.location.toString() != window.location.protocol+'//'+window.location.host+'/#')) {
-            Turbolinks.visit("/");
+            Turbolinks.visit("/", { action: "replace" });
         }
     });
     
@@ -53,7 +53,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect)
+                Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
         request.fail(function(jqXHR) {
@@ -107,7 +107,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect)
+                Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
         request.fail(function(jqXHR) {
@@ -160,7 +160,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect)
+                Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
         request.fail(function(jqXHR) {
@@ -201,7 +201,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect)
+                Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
         request.fail(function(jqXHR) {
@@ -246,7 +246,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect)
+                Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
         request.fail(function(jqXHR) {
@@ -301,7 +301,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect)
+                Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
         request.fail(function(jqXHR) {
@@ -343,7 +343,7 @@ $(document).ready(function() {
         request.done(function(data) {
             console.log(data.message);
             if (data.redirect != undefined) {
-                Turbolinks.visit(data.redirect)
+                Turbolinks.visit(data.redirect, { action: "replace" })
             }
         });
         request.fail(function(jqXHR) {

@@ -73,7 +73,7 @@ class Authenticator {
 		if ($user === NULL) {
 			return FALSE;
 		}
-		if ($user['status'] < 1) {
+		if ((int) $user['status'] < 1) {
 			return (int) $user['status'];
 		}
 		$this->CI->load->library('encryption');
@@ -157,7 +157,7 @@ class Authenticator {
 						if (hash_equals(hash('sha384', $id__validator[1]), $token['validator_hash'])) {
 							$user = $this->get_user_by_index(array('id' => $token['user']), NULL);
 							if ($user != NULL) {
-								if ($user['status'] === 1) {
+								if ((int) $user['status'] === 1) {
 									$this->CI->session->set_userdata(array('status' => TRUE, 'user' => $user));
 									$this->set_token_cookie($value);
 								}
