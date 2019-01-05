@@ -113,7 +113,7 @@
         <tr>
         <td align="center" valign="top" width="600">
         <![endif]-->
-        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin-top:50px;">
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;">
               <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Activate Your Account</h1>
@@ -142,8 +142,7 @@
           <!-- start copy -->
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p>Username: <b><?php echo isset($user) ? $user['username'] : 'Guest'?></b></br>
-              Email Address: <b><?php echo isset($user) ? $user['email'] : 'jon@doe.com'?></b></p>
+              <h4>Username: <b><?php echo isset($user) ? $user['username'] : 'Guest'?> ~ <?php echo isset($user) ? $user['email'] : 'jon@doe.com'?></b></h4>
               <p style="margin: 0;">Tap the button below to confirm your email address. If you didn't create an account with <a href="<?php echo $this->config->item('base_url') ?>" target="_blank"><?php echo APP_NAME ?></a>, you can safely delete this email and contact us for further action.</p>
             </td>
           </tr>

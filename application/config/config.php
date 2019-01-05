@@ -24,7 +24,7 @@ $APP_EMAIL_AUTH = array(
     'smtp_crypto' => isset($EMAIL_AUTH['path']) ? ltrim($EMAIL_AUTH['path'],'/') : '',
 );
 define('APP_NAME', 'TurboCI');
-define('APP_ADMIN_EMAIL', 'arma7x@live.com');
+define('APP_ADMIN_EMAIL', 'zeon_msi@yahoo.com');
 define('APP_DATABASE_AUTH', $APP_DATABASE_AUTH);
 define('APP_ENCRYPTION_KEY', $APP_ENCRYPTION_KEY);
 define('APP_EMAIL_AUTH', $APP_EMAIL_AUTH);
@@ -251,7 +251,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------

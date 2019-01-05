@@ -15,7 +15,7 @@ class Authenticator {
 	protected $reset_token_table = 'reset_tokens';
 	protected $default_role = 2; // 0:ADMIN, 1:STAFF, 2:MEMBER
 	protected $default_access_level = 127; // 0:SUDO <- lowest is more power
-	protected $default_status = 1; // 1:ACTIVE, 0:INACTIVE, -1:BAN
+	protected $default_status = 0; // 1:ACTIVE, 0:INACTIVE, -1:BAN
 	protected $default_avatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAAAAAA7VNdtAAAACXBIWXMAAAA4AAAAOABi1B8JAAABTklEQVRIx+3Tv0vDUBDA8f6/p8FBLSQgaCtNoThEoXWoDgYEK4joIlRcRMTBH1DrIFXrL1rEKjGS5FwcFOzLu9w9R8Hv/D7Lvbvcx6/L/ZO/Q7CzVXNdb70VGxI8mYXv7GZsQt7rMFS5L5PABSX7TiK4AKmmXgTSBK0lZMnbhE6gw5I9QsAySzyKTMYMScYpAjcMCUgBpwwZ0OSYISFNzhiCeZI8chOrUcJOOHJIkVX2XyJHF9Y9v2NHOmlIm+ynRSmS7iVaVEXxWb5K3LSGNz8wOGS8Kv2I/DnK5Dp1lpU28iTesLSJ+SFHBnPUVxZ62eRpml5Lu5tFXmcgI6dHk2QeMiuEJNkGphUkyO0YR6ClE/RYAYVYI20Q2tdIVSJFTJH+iETgMkV2RAF+ilRk4iQKCUdlAg8KuTAQcKCQXRPSUMiaCakqpG5Cyl9vPwHZXW4PhaKQ+wAAAABJRU5ErkJggg==';
 
 	public function __construct() {
@@ -73,7 +73,7 @@ class Authenticator {
 		if ($user === NULL) {
 			return FALSE;
 		}
-		if ($user['status'] < $this->default_status) {
+		if ($user['status'] < 1) {
 			return (int) $user['status'];
 		}
 		$this->CI->load->library('encryption');
@@ -101,10 +101,21 @@ class Authenticator {
 		$data['access_level'] = $this->default_access_level;
 		$data['status'] = $this->default_status;
 		$data['avatar'] = $this->default_avatar;
-		$data['inserted_at'] = time();
+		$data['created_at'] = time();
 		$data['updated_at'] = time();
 		$data['last_logged_in'] = time();
-		return $this->save_user($data);
+		$mail = array(
+			'user' => $data,
+			'url' => $this->CI->config->item('base_url'),
+		);
+		$result = $this->save_user($data);
+		if ($result) {
+			$this->send_email($mail, 'email_templates/registration.php', 'Welcome Email');
+			if ($data['status'] === 0) {
+				$this->issue_activation_token(array('id' => $data['id']));
+			}
+		}
+		return $result;
 	}
 
 	public function update_credential($index, $old_password, $new_password) {
@@ -197,9 +208,11 @@ class Authenticator {
 				'user' => $user['id'],
 			);
 			$this->CI->db->insert($this->reset_token_table, $data);
-			//$user 'id, username, email, status'
-			//$id.'__'.$validator
-			//send via email
+			$mail = array(
+				'user' => $user,
+				'url' => $this->CI->config->item('base_url').'guest/reset-password?token='.$id.'__'.$validator,
+			);
+			$this->send_email($mail, 'email_templates/reset.php', 'Password Reset');
 			return $id.'__'.$validator;
 		}
 		return FALSE;
@@ -251,9 +264,11 @@ class Authenticator {
 				'user' => $user['id'],
 			);
 			$this->CI->db->insert($this->activation_token_table, $data);
-			//$user id, username, email, status
-			//$id
-			//send via email
+			$mail = array(
+				'user' => $user,
+				'url' => $this->CI->config->item('base_url').'guest/activate-account?token='.$id,
+			);
+			$this->send_email($mail, 'email_templates/confirm.php', 'Account Activation');
 			return TRUE;
 		}
 		return FALSE;
@@ -272,4 +287,28 @@ class Authenticator {
 		return FALSE;
 	}
 
+	public function send_email($data, $template, $subject) {
+		$this->CI->load->library('email');
+		$config = array();
+		$config['mailtype'] = "html";
+		$config['protocol'] = APP_EMAIL_AUTH['protocol'];
+		$config['smtp_host'] = APP_EMAIL_AUTH['smtp_host'];
+		$config['smtp_user'] = APP_EMAIL_AUTH['smtp_user'];
+		$config['smtp_pass'] = APP_EMAIL_AUTH['smtp_pass'];
+		$config['smtp_port'] = APP_EMAIL_AUTH['smtp_port'];
+		$config['smtp_crypto'] = APP_EMAIL_AUTH['smtp_crypto'];
+		$config['smtp_timeout'] = 600;
+		$config['priority'] = 1;
+		$config['newline'] = "\r\n";
+		$this->CI->email->initialize($config);
+		$this->CI->email->from(APP_ADMIN_EMAIL, APP_NAME);
+		$this->CI->email->to($data['user']['email']);
+		$this->CI->email->subject($subject);
+		$this->CI->email->message($this->CI->load->view($template, $data, TRUE));
+		if (!$this->CI->email->send(FALSE)) {
+			//echo $this->CI->email->print_debugger();
+			//var_dump($config);
+			log_message('error', $subject.'::'.$data['user']['email']);
+		}
+	}
 }
