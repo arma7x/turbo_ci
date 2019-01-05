@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+    $(document).on('turbolinks:before-visit', function(e){
+      // window.location.pathname here is the path *before* the new visit
+      if (window.location.pathname === 'ORIGIN_URL_WITH_CUSTOM_HISTORY_PUSHSTATEEVENTS' &&
+          window.location.href.indexOf('?') !== -1){
+        history.replaceState({ turbolinks: {} }, '');
+      }
+    });
+
     function getQueryStringValue(key) {  
         return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
     }
