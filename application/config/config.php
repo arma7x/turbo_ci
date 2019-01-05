@@ -24,6 +24,7 @@ $APP_EMAIL_AUTH = array(
     'smtp_crypto' => isset($EMAIL_AUTH['path']) ? ltrim($EMAIL_AUTH['path'],'/') : '',
 );
 define('APP_NAME', 'TurboCI');
+define('APP_URL', 'https://turboci.herokuapp.com/');
 define('APP_ADMIN_EMAIL', 'zeon_msi@yahoo.com');
 define('APP_DATABASE_AUTH', $APP_DATABASE_AUTH);
 define('APP_ENCRYPTION_KEY', $APP_ENCRYPTION_KEY);
@@ -51,7 +52,7 @@ define('APP_EMAIL_AUTH', $APP_EMAIL_AUTH);
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = ENVIRONMENT === 'production' ? 'https://turboci.herokuapp.com/' : 'http://127.0.0.1:1000/' ;
+$config['base_url'] = ENVIRONMENT === 'production' ? APP_URL : 'http://127.0.0.1:1000/' ;
 
 /*
 |--------------------------------------------------------------------------
