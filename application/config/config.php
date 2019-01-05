@@ -51,7 +51,7 @@ define('APP_EMAIL_AUTH', $APP_EMAIL_AUTH);
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://127.0.0.1:1000/';
+$config['base_url'] = ENVIRONMENT === 'production' ? 'https://turboci.herokuapp.com/' : 'http://127.0.0.1:1000/' ;
 
 /*
 |--------------------------------------------------------------------------
