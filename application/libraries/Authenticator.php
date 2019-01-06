@@ -143,7 +143,7 @@ class Authenticator {
 			'validator_hash' => $hash_validator,
 			'user' => $user_id,
 			'user_agent' => $agent,
-			'last_user' => time()
+			'last_used' => time()
 		);
 		$this->CI->db->insert($this->remember_token_table, $data);
 		$this->set_token_cookie($id.'__'.$validator);
@@ -168,7 +168,7 @@ class Authenticator {
 										'remember_token_id' => $id__validator[0],
 										'remember_token_validator' => $id__validator[1],
 									));
-									$this->CI->db->update($this->remember_token_table, array('last_user' => time()), array('id' => $id__validator[0]));
+									$this->CI->db->update($this->remember_token_table, array('last_used' => time()), array('id' => $id__validator[0]));
 									$this->set_token_cookie($value);
 								}
 							}
