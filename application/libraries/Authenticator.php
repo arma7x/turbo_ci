@@ -32,7 +32,7 @@ class Authenticator {
 	}
 
 	public function save_user($data) {
-		if ($this->get_user_by_index(array('id' => $data['id']), 'id') != NULL) {
+		if ($this->get_user_by_index(array('id' => $data['id']), 'id') !== NULL) {
 			return FALSE;
 		}
 		$this->CI->db->insert($this->user_table, $data);
@@ -133,6 +133,8 @@ class Authenticator {
 	}
 
 	public function generate_remember_token($user_id) {
+		$this->CI->load->library('user_agent');
+		$agent = $this->CI->agent->agent_string();
 		$id = bin2hex($this->CI->security->get_random_bytes(8));
 		$validator = bin2hex($this->CI->security->get_random_bytes(10));
 		$hash_validator = hash('sha384', $validator);
@@ -140,6 +142,8 @@ class Authenticator {
 			'id' => $id,
 			'validator_hash' => $hash_validator,
 			'user' => $user_id,
+			'user_agent' => $agent,
+			'last_user' => time()
 		);
 		$this->CI->db->insert($this->remember_token_table, $data);
 		$this->set_token_cookie($id.'__'.$validator);
@@ -149,16 +153,22 @@ class Authenticator {
 		if ($this->CI->session->status === NULL) {
 			$this->CI->load->helper('cookie');
 			$value = get_cookie($this->remember_token_name);
-			if ($value != NULL) {
+			if ($value !== NULL) {
 				$id__validator = explode('__', $value);
 				if (count($id__validator) > 1) {
 					$token = $this->CI->db->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
-					if ($token != NULL) {
+					if ($token !== NULL) {
 						if (hash_equals(hash('sha384', $id__validator[1]), $token['validator_hash'])) {
 							$user = $this->get_user_by_index(array('id' => $token['user']), NULL);
-							if ($user != NULL) {
+							if ($user !== NULL) {
 								if ((int) $user['status'] === 1) {
-									$this->CI->session->set_userdata(array('status' => TRUE, 'user' => $user));
+									$this->CI->session->set_userdata(array(
+										'status' => TRUE,
+										'user' => $user,
+										'remember_token_id' => $id__validator[0],
+										'remember_token_validator' => $id__validator[1],
+									));
+									$this->CI->db->update($this->remember_token_table, array('last_user' => time()), array('id' => $id__validator[0]));
 									$this->set_token_cookie($value);
 								}
 							}
@@ -169,19 +179,33 @@ class Authenticator {
 		} else if ($this->CI->session->status === TRUE) {
 			$this->CI->load->helper('cookie');
 			$value = get_cookie($this->remember_token_name);
-			if ($value != NULL) {
+			if ($value !== NULL) {
 				$id__validator = explode('__', $value);
 				if (count($id__validator) > 1) {
+					$token = $this->CI->db->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
+					if ($token !== NULL) {
+						$this->set_token_cookie($value);
+					} else {
+						$this->clear_credential();
+					}
+				}
+			} else if ($this->CI->session->remember_token_id !== NULL) {
+				$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $this->CI->session->remember_token_id), 1)->row_array();
+				if ($token === NULL) {
+					$this->clear_credential();
+				} else {
+					$value = $token['id'].'__'.$this->CI->session->remember_token_validator;
 					$this->set_token_cookie($value);
 				}
 			}
+			
 		}
 	}
 
 	public function clear_credential() {
 		$this->CI->load->helper('cookie');
 		$value = get_cookie($this->remember_token_name);
-		if ($value != NULL) {
+		if ($value !== NULL) {
 			$id__validator = explode('__', $value);
 			if (count($id__validator) > 1) {
 				$this->CI->db->delete($this->remember_token_table, array('id' => $id__validator[0]));
@@ -190,6 +214,7 @@ class Authenticator {
 		}
 		$this->CI->session->unset_userdata('status');
 		$this->CI->session->unset_userdata('user');
+		$this->CI->session->unset_userdata('remember_token_id');
 	}
 
 	public function issue_reset_token($index) {
@@ -222,10 +247,10 @@ class Authenticator {
 		$id__validator = explode('__', $token);
 		if (count($id__validator) > 1) {
 			$token = $this->CI->db->get_where($this->reset_token_table, array('id' => $id__validator[0]), 1)->row_array();
-			if ($token != NULL) {
+			if ($token !== NULL) {
 				if (hash_equals(hash('sha384', $id__validator[1]), $token['validator_hash'])) {
 					$user = $this->get_user_by_index(array('id' => $token['user']), 'id, email, status');
-					if ($user != NULL) {
+					if ($user !== NULL) {
 						if ((int) $user['status'] === 1) {
 							return $user;
 						}
