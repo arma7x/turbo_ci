@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['welcome'] = '404_override';
 $route['welcome/(:any)'] = '404_override';
 $route['authentication/(:any)'] = '404_override';
+$route['manage_user/(:any)'] = '404_override';
 
 $route['public/registration'] = 'welcome/registration';
 $route['public/confirm'] = 'welcome/confirm';
@@ -65,6 +66,7 @@ $route['guest/forgot-password']['get'] = 'authentication/ui_forgot_password';
 $route['guest/activate-account']['get'] = 'authentication/ui_activate_account';
 $route['guest/reset-password']['get'] = 'authentication/ui_reset_password';
 $route['auth/update-password']['get'] = 'authentication/ui_update_password';
+$route['auth/manage-user']['get'] = 'manage_user/ui_user_list';
 
 $route['internal-api/guest/login']['post'] = 'authentication/login';
 $route['internal-api/guest/register']['post'] = 'authentication/register';

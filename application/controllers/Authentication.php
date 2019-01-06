@@ -72,7 +72,7 @@ class Authentication extends MY_Controller {
 			'confirm_password' => $this->input->post_get('confirm_password'),
 		);
 		$this->form_validation->set_data($data);
-		$this->form_validation->set_rules('username', lang('L_USERNAME'), 'required|alpha_numeric|is_unique[users.username]');
+		$this->form_validation->set_rules('username', lang('L_USERNAME'), 'required|alpha_dash|is_unique[users.username]');
 		$this->form_validation->set_rules('email', lang('L_EMAIL'), 'required|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('password', lang('L_PASSWORD'), 'required|min_length[10]|matches[confirm_password]');
 		$this->form_validation->set_rules('confirm_password', lang('L_CONFIRM_PASSWORD'), 'required|min_length[10]|matches[password]');

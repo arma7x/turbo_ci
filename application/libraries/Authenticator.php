@@ -13,7 +13,7 @@ class Authenticator {
 	protected $remember_token_name = 'remember_me';
 	protected $activation_token_table = 'activation_tokens';
 	protected $reset_token_table = 'reset_tokens';
-	protected $default_role = 2; // 0:ADMIN, 1:STAFF, 2:MEMBER
+	protected $default_role = 2; // 0:ADMIN, 1:STAFF, 2:MEMBER <- lowest is more power
 	protected $default_access_level = 127; // 0:SUDO <- lowest is more power
 	protected $default_status = 0; // 1:ACTIVE, 0:INACTIVE, -1:BAN
 	protected $default_avatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAAAAAA7VNdtAAAACXBIWXMAAAA4AAAAOABi1B8JAAABTklEQVRIx+3Tv0vDUBDA8f6/p8FBLSQgaCtNoThEoXWoDgYEK4joIlRcRMTBH1DrIFXrL1rEKjGS5FwcFOzLu9w9R8Hv/D7Lvbvcx6/L/ZO/Q7CzVXNdb70VGxI8mYXv7GZsQt7rMFS5L5PABSX7TiK4AKmmXgTSBK0lZMnbhE6gw5I9QsAySzyKTMYMScYpAjcMCUgBpwwZ0OSYISFNzhiCeZI8chOrUcJOOHJIkVX2XyJHF9Y9v2NHOmlIm+ynRSmS7iVaVEXxWb5K3LSGNz8wOGS8Kv2I/DnK5Dp1lpU28iTesLSJ+SFHBnPUVxZ62eRpml5Lu5tFXmcgI6dHk2QeMiuEJNkGphUkyO0YR6ClE/RYAYVYI20Q2tdIVSJFTJH+iETgMkV2RAF+ilRk4iQKCUdlAg8KuTAQcKCQXRPSUMiaCakqpG5Cyl9vPwHZXW4PhaKQ+wAAAABJRU5ErkJggg==';
@@ -98,7 +98,7 @@ class Authenticator {
 		$data['id'] = bin2hex($this->CI->security->get_random_bytes(5));
 		$data['password'] = $password;
 		$data['role'] = ($data['email'] === APP_ADMIN_EMAIL) ? 0 : $this->default_role;
-		$data['access_level'] = $this->default_access_level;
+		$data['access_level'] = ($data['email'] === APP_ADMIN_EMAIL) ? 0 : $this->default_access_level;
 		$data['status'] = $this->default_status;
 		$data['avatar'] = $this->default_avatar;
 		$data['created_at'] = time();

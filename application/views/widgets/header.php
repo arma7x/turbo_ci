@@ -22,9 +22,9 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
       <div>
         <?php if ($this->uri->segment(1) != NULL): ?>
-        <a id="back_btn_sm" class="d-sm-none navbar-brand" href="#" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">&#xe5c4;</i></a>
+        <a id="back_btn_sm" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">&#xe5c4;</i></a>
         <?php endif; ?>
-        <a id="home_btn" class="navbar-brand"  href="#" data-turbolinks="false">TurboCI</a>
+        <a id="home_btn" class="navbar-brand" data-turbolinks="false">TurboCI</a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
         <i class="material-icons text-dark" style="font-size:1.7em;">&#xe5d2;</i>
@@ -34,7 +34,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
           <?php if ($this->uri->segment(1) != NULL): ?>
-            <a id="back_btn_md" class="nav-link d-none d-md-block" href="#" data-turbolinks="false"><i class="material-icons">&#xe5c4;</i> <?php echo lang('H_BACK');?></a>
+            <a id="back_btn_md" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">&#xe5c4;</i> <?php echo lang('H_BACK');?></a>
           </li>
           <?php endif; ?>
           <?php if($this->session->status == NULL): ?>
@@ -53,7 +53,7 @@
           <?php endif; ?>
           <?php if($this->session->status == TRUE): ?>
           <li class="nav-item">
-            <a id="avatar_pic" class="nav-link" href="#" data-turbolinks="false">
+            <a id="avatar_pic" class="nav-link" data-turbolinks="false">
               <img class="rounded-circle avatar" src="<?php echo $this->session->user['avatar']?>"/>
               <?php echo $this->session->user['username']?>
             </a>
@@ -61,20 +61,19 @@
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/auth/update-password' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/auth/update-password' ? ' text-primary' : ''?>" href="/auth/update-password"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
           </li>
-          <li class="nav-item">
-            <a id="logout_btn" class="nav-link" href="#" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
-          </li>
-          <?php endif; ?>
-          <!--
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
+            <a id="toggle_dropdown" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe871;</i> <?php echo lang('H_DASHBOARD');?></a>
+            <div id="menu_dropdown" class="dropdown-menu" aria-labelledby="toggle_collapsed">
+              <?php if((int) $this->session->user['role'] === 0): ?>
+              <a class="dropdown-item" href="/auth/manage-user"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
+              <?php endif; ?>
+              <a class="dropdown-item"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
             </div>
           </li>
-          -->
+          <li class="nav-item">
+            <a id="logout_btn" class="nav-link" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
+          </li>
+          <?php endif; ?>
         </ul>
       </div>
     </nav>

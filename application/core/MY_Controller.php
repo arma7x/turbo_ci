@@ -1,12 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once(APPPATH.'core/Container.php');
 
 class MY_Controller extends CI_Controller {
 
+	public $container;
 	protected $data = [];
 
 	public function __construct() {
 		parent::__construct();
+		$this->container = new Container();
 		$debug = isset($_GET['debug']) ? TRUE : FALSE;
 		$this->output->enable_profiler(ENVIRONMENT == 'development' ? $debug : FALSE);
 	}
