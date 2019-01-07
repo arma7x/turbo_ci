@@ -53,7 +53,7 @@ $(document).ready(function() {
         }
         data[window.csrf_token_name] = window.csrf_hash;
         var request = $.ajax({
-            url: "/internal-api/guest/login",
+            url: "/authentication/login",
             method: "POST",
             data: data,
             dataType: "json"
@@ -107,7 +107,7 @@ $(document).ready(function() {
         }
         data[window.csrf_token_name] = window.csrf_hash;
         var request = $.ajax({
-            url: "/internal-api/guest/register",
+            url: "/authentication/register",
             method: "POST",
             data: data,
             dataType: "json"
@@ -160,7 +160,7 @@ $(document).ready(function() {
         }
         data[window.csrf_token_name] = window.csrf_hash;
         var request = $.ajax({
-            url: "/internal-api/guest/forgot_password",
+            url: "/authentication/forgot_password",
             method: "POST",
             data: data,
             dataType: "json"
@@ -201,7 +201,7 @@ $(document).ready(function() {
         }
         data[window.csrf_token_name] = window.csrf_hash;
         var request = $.ajax({
-            url: "/internal-api/guest/activate-account",
+            url: "/authentication/activate_account",
             method: "POST",
             data: data,
             dataType: "json"
@@ -246,7 +246,7 @@ $(document).ready(function() {
         }
         data[window.csrf_token_name] = window.csrf_hash;
         var request = $.ajax({
-            url: "/internal-api/guest/reset-password",
+            url: "/authentication/reset_password",
             method: "POST",
             data: data,
             dataType: "json"
@@ -301,7 +301,7 @@ $(document).ready(function() {
         }
         data[window.csrf_token_name] = window.csrf_hash;
         var request = $.ajax({
-            url: "/internal-api/auth/update-password",
+            url: "/authentication/update_password",
             method: "POST",
             data: data,
             dataType: "json"
@@ -344,7 +344,7 @@ $(document).ready(function() {
             return;
         }
         var request = $.ajax({
-            url: "/public-api/auth/log-out",
+            url: "/authentication/log_out",
             method: "GET",
             dataType: "json"
         });

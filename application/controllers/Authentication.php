@@ -3,6 +3,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Authentication extends MY_Controller {
 
+	//public $GLOBAL_AUTH = FALSE; // OR NULL ALSO ACCEPTED
+	public $ui_login__AUTH = FALSE;
+	public $login__AUTH = FALSE;
+	public $ui_register__AUTH = FALSE;
+	public $register__AUTH = FALSE;
+	public $ui_activate_account__AUTH = FALSE;
+	public $activate_account__AUTH = FALSE;
+	public $ui_forgot_password__AUTH = FALSE;
+	public $forgot_password__AUTH = FALSE;
+	public $ui_reset_password__AUTH = FALSE;
+	public $reset_password__AUTH = FALSE;
+	public $ui_update_password__AUTH = TRUE;
+	public $update_password__AUTH = TRUE;
+	public $log_out__AUTH = NULL;
+
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('form_validation');
@@ -107,7 +122,7 @@ class Authentication extends MY_Controller {
 			$result = $this->authenticator->validate_activation_token($this->input->post_get('token', TRUE));
 			if ($result) {
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_ACTIVE_ACCOUNT')));
-				redirect($this->config->item('base_url').'guest/login');
+				redirect($this->config->item('base_url').'authentication/ui_login');
 			}
 			$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_ACTIVE_ACCOUNT')));
 			redirect($this->config->item('base_url'));
@@ -221,7 +236,7 @@ class Authentication extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
-					'redirect' => $this->config->item('base_url').'guest/login',
+					'redirect' => $this->config->item('base_url').'authentication/ui_login',
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
 				$this->_renderJSON($data, 200);

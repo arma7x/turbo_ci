@@ -235,7 +235,7 @@ class Authenticator {
 			$this->CI->db->insert($this->reset_token_table, $data);
 			$mail = array(
 				'user' => $user,
-				'url' => $this->CI->config->item('base_url').'guest/reset-password?token='.$id.'__'.$validator,
+				'url' => $this->CI->config->item('base_url').'authentication/ui_reset_password?token='.$id.'__'.$validator,
 			);
 			$this->send_email($mail, 'email_templates/reset.php', 'Password Reset');
 			return $id.'__'.$validator;
@@ -291,7 +291,7 @@ class Authenticator {
 			$this->CI->db->insert($this->activation_token_table, $data);
 			$mail = array(
 				'user' => $user,
-				'url' => $this->CI->config->item('base_url').'guest/activate-account?token='.$id,
+				'url' => $this->CI->config->item('base_url').'authentication/ui_activate_account?token='.$id,
 			);
 			$this->send_email($mail, 'email_templates/confirm.php', 'Account Activation');
 			return TRUE;
