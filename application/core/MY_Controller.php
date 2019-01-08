@@ -22,10 +22,31 @@ class MY_Controller extends CI_Controller {
 		$this->load->view('widgets/footer', $this->data);
 	}
 
-	protected function _renderJSON($data, $status = 200) {
+	protected function _renderJSON($status = 200, $data) {
+		if ($data !== NULL) {
+			$this->data = array_merge($this->data, $data);
+		}
 		$this->output->set_content_type('application/json');
 		$this->output->set_status_header($status);
-		$this->output->set_output(json_encode($data));
+		$this->output->set_output(json_encode($this->data));
+		$this->output->_display();
+		die;
+	}
+
+	protected function _renderJS($template) {
+		$this->output->set_content_type('application/javascript');
+		foreach ($template as $view) {
+			$this->load->view($view, $this->data);
+		}
+		$this->output->_display();
+		die;
+	}
+
+	protected function _renderCSS($template) {
+		$this->output->set_content_type('text/css');
+		foreach ($template as $view) {
+			$this->load->view($view, $this->data);
+		}
 		$this->output->_display();
 		die;
 	}

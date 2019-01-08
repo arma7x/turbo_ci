@@ -3,20 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Authentication extends MY_Controller {
 
-	//public $GLOBAL_AUTH = FALSE; // OR NULL ALSO ACCEPTED
-	public $ui_login__AUTH = FALSE;
-	public $login__AUTH = FALSE;
-	public $ui_register__AUTH = FALSE;
-	public $register__AUTH = FALSE;
-	public $ui_activate_account__AUTH = FALSE;
-	public $activate_account__AUTH = FALSE;
-	public $ui_forgot_password__AUTH = FALSE;
-	public $forgot_password__AUTH = FALSE;
-	public $ui_reset_password__AUTH = FALSE;
-	public $reset_password__AUTH = FALSE;
-	public $ui_update_password__AUTH = TRUE;
-	public $update_password__AUTH = TRUE;
-	public $log_out__AUTH = NULL;
+	//public $global_auth_rule = FALSE; // OR NULL ALSO ACCEPTED
+	public $ui_login__auth_rule = FALSE;
+	public $login__auth_rule = FALSE;
+	public $ui_register__auth_rule = FALSE;
+	public $register__auth_rule = FALSE;
+	public $ui_activate_account__auth_rule = FALSE;
+	public $activate_account__auth_rule = FALSE;
+	public $ui_forgot_password__auth_rule = FALSE;
+	public $forgot_password__auth_rule = FALSE;
+	public $ui_reset_password__auth_rule = FALSE;
+	public $reset_password__auth_rule = FALSE;
+	public $ui_update_password__auth_rule = TRUE;
+	public $update_password__auth_rule = TRUE;
+	public $log_out__auth_rule = NULL;
 
 	public function __construct() {
 		parent::__construct();
@@ -42,7 +42,7 @@ class Authentication extends MY_Controller {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		} else {
 			$remember_me = $this->input->post_get('remember_me') === 'true' ? TRUE : FALSE;
 			$validate_credential = $this->authenticator->validate_credential(array('email' => strtolower($this->input->post_get('email', TRUE))), $this->input->post_get('password'), $remember_me);
@@ -52,22 +52,22 @@ class Authentication extends MY_Controller {
 					'redirect' => $this->config->item('base_url')
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_LOGIN')));
-				$this->_renderJSON($data, 200);
+				$this->_renderJSON(200, $data);
 			} else if ($validate_credential === 0) {
 				$data = array(
 					'message' => lang('M_FAIL_LOGIN_INACTIVE')
 				);
-				$this->_renderJSON($data, 400);
+				$this->_renderJSON(400, $data);
 			} else if ($validate_credential === -1) {
 				$data = array(
 					'message' => lang('M_FAIL_LOGIN_BANNED')
 				);
-				$this->_renderJSON($data, 400);
+				$this->_renderJSON(400, $data);
 			} else {
 				$data = array(
 					'message' => lang('M_FAIL_LOGIN')
 				);
-				$this->_renderJSON($data, 400);
+				$this->_renderJSON(400, $data);
 			}
 		}
 	}
@@ -95,7 +95,7 @@ class Authentication extends MY_Controller {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		} else {
 			unset($data['confirm_password']);
 			$result = $this->authenticator->store_credential($data);
@@ -105,13 +105,13 @@ class Authentication extends MY_Controller {
 					'redirect' => $this->config->item('base_url')
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_REGISTER')));
-				$this->_renderJSON($data, 200);
+				$this->_renderJSON(200, $data);
 			} else {
 				$data = array(
 					'message' => lang('M_FAIL_REGISTER'),
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_REGISTER')));
-				$this->_renderJSON($data, 400);
+				$this->_renderJSON(400, $data);
 			}
 		}
 	}
@@ -143,7 +143,7 @@ class Authentication extends MY_Controller {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		} else {
 			$result = $this->authenticator->issue_activation_token($data);
 			if ($result) {
@@ -152,12 +152,12 @@ class Authentication extends MY_Controller {
 					'redirect' => $this->config->item('base_url')
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_ACTIVE_ACCOUNT_LINK')));
-				$this->_renderJSON($data, 200);
+				$this->_renderJSON(200, $data);
 			}
 			$data = array(
 				'message' => lang('M_ACTIVE_ACCOUNT_LINK_INVALID')
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		}
 	}
 
@@ -178,7 +178,7 @@ class Authentication extends MY_Controller {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		} else {
 			$result = $this->authenticator->issue_reset_token($data);
 			if ($result !== FALSE) {
@@ -188,12 +188,12 @@ class Authentication extends MY_Controller {
 					'redirect' => $this->config->item('base_url')
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_FORGOT_PASSWORD_LINK')));
-				$this->_renderJSON($data, 200);
+				$this->_renderJSON(200, $data);
 			}
 			$data = array(
 				'message' => lang('M_FORGOT_PASSWORD_LINK_INVALID')
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		}
 	}
 
@@ -230,7 +230,7 @@ class Authentication extends MY_Controller {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		} else {
 			$result = $this->authenticator->validate_reset_token($this->input->post_get('token', TRUE), $this->input->post_get('new_password'));
 			if ($result) {
@@ -239,12 +239,12 @@ class Authentication extends MY_Controller {
 					'redirect' => $this->config->item('base_url').'authentication/ui_login',
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
-				$this->_renderJSON($data, 200);
+				$this->_renderJSON(200, $data);
 			} else {
 				$data = array(
 					'message' => lang('M_FAIL_UPDATE_PASSWORD'),
 				);
-				$this->_renderJSON($data, 400);
+				$this->_renderJSON(400, $data);
 			}
 		}
 	}
@@ -270,7 +270,7 @@ class Authentication extends MY_Controller {
 			$data = array(
 				'errors' => $this->form_validation->error_array()
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		} else {
 			$index = array('id' => $this->session->user['id']);
 			$result = $this->authenticator->update_credential($index, $this->input->post_get('old_password'), $this->input->post_get('new_password'));
@@ -280,12 +280,12 @@ class Authentication extends MY_Controller {
 					'redirect' => $this->config->item('base_url')
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
-				$this->_renderJSON($data, 200);
+				$this->_renderJSON(200, $data);
 			}
 			$data = array(
 				'message' => lang('M_FAIL_UPDATE_PASSWORD')
 			);
-			$this->_renderJSON($data, 400);
+			$this->_renderJSON(400, $data);
 		}
 	}
 
@@ -296,6 +296,6 @@ class Authentication extends MY_Controller {
 			'redirect' => $this->config->item('base_url')
 		);
 		$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_SUCCESS_LOGOUT')));
-		$this->_renderJSON($data, 200);
+		$this->_renderJSON(200, $data);
 	}
 }

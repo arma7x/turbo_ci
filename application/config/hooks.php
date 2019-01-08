@@ -32,9 +32,9 @@ $hook['post_controller_constructor'][] = function() {
 	$method = $CI->router->method;
 
 	$require_auth = NULL;
-	$auth_method = $method.'__AUTH';
-	if((isset($CI->GLOBAL_AUTH) ? $CI->GLOBAL_AUTH : NULL) !== NULL) {
-		$require_auth = $CI->GLOBAL_AUTH;
+	$auth_method = $method.'__auth_rule';
+	if((isset($CI->global_auth_rule) ? $CI->global_auth_rule : NULL) !== NULL) {
+		$require_auth = $CI->global_auth_rule;
 	} else if ((isset($CI->$auth_method) ? $CI->$auth_method : NULL) !== NULL) {
 		$require_auth = $CI->$auth_method;
 	}
@@ -43,18 +43,6 @@ $hook['post_controller_constructor'][] = function() {
 	} else if ($require_auth === FALSE && $CI->session->status !== NULL) {
 		show_error('Forbidden Access', 403, '403 - Forbidden Access');
 	}
-	//if ($CI->uri->segment(1) === 'auth' && $CI->session->status === NULL) {
-		//show_error('Unauthorized', 401, '401 - Unauthorized');
-	//}
-	//if ($CI->uri->segment(1) === 'guest' && $CI->session->status != NULL) {
-		//show_error('Forbidden Access', 403, '403 - Forbidden Access');
-	//}
-	//if ($CI->uri->segment(1) === 'internal-api' && $CI->uri->segment(2) === 'auth' && $CI->session->status === NULL) {
-		//show_error('Unauthorized', 401, '401 - Unauthorized');
-	//}
-	//if ($CI->uri->segment(1) === 'internal-api' && $CI->uri->segment(2) === 'guest' && $CI->session->status != NULL) {
-		//show_error('Forbidden Access', 403, '403 - Forbidden Access');
-	//}
 };
 
 $hook['post_controller_constructor'][] = function() {
@@ -62,19 +50,19 @@ $hook['post_controller_constructor'][] = function() {
 	$method = $CI->router->method;
 
 	$require_role = NULL;
-	$GLOBAL_ROLE_method = $method.'__MIN_ROLE';
-	if((isset($CI->MIN_ROLE) ? $CI->MIN_ROLE : NULL) !== NULL) {
-		$require_role = $CI->MIN_ROLE;
-	} else if ((isset($CI->$GLOBAL_ROLE_method) ? $CI->$GLOBAL_ROLE_method : NULL) !== NULL) {
-		$require_role = $CI->$GLOBAL_ROLE_method;
+	$role_rule_method = $method.'__role_rule';
+	if((isset($CI->global_role_rule) ? $CI->global_role_rule : NULL) !== NULL) {
+		$require_role = $CI->global_role_rule;
+	} else if ((isset($CI->$role_rule_method) ? $CI->$role_rule_method : NULL) !== NULL) {
+		$require_role = $CI->$role_rule_method;
 	}
 
 	$require_access_level = NULL;
-	$GLOBAL_ACCESS_LEVEL_method = $method.'__MIN_ACCESS_LEVEL';
-	if ((isset($CI->MIN_ACCESS_LEVEL) ? $CI->MIN_ACCESS_LEVEL : NULL) !== NULL){
-		$require_access_level = $CI->MIN_ACCESS_LEVEL;
-	} else if ((isset($CI->$GLOBAL_ACCESS_LEVEL_method) ? $CI->$GLOBAL_ACCESS_LEVEL_method : NULL) !== NULL) {
-		$require_access_level = $CI->$GLOBAL_ACCESS_LEVEL_method;
+	$access_level_rule_method = $method.'__access_level_rule';
+	if ((isset($CI->global_access_level_rule) ? $CI->global_access_level_rule : NULL) !== NULL){
+		$require_access_level = $CI->global_access_level_rule;
+	} else if ((isset($CI->$access_level_rule_method) ? $CI->$access_level_rule_method : NULL) !== NULL) {
+		$require_access_level = $CI->$access_level_rule_method;
 	}
 
 	if ($require_role !== NULL || $require_access_level !== NULL) {

@@ -5,61 +5,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 <meta charset="utf-8">
 <title>Error</title>
-<style type="text/css">
-
-::selection { background-color: #E13300; color: white; }
-::-moz-selection { background-color: #E13300; color: white; }
-
-body {
-	background-color: #fff;
-	margin: 40px;
-	font: 13px/20px normal Helvetica, Arial, sans-serif;
-	color: #4F5155;
-}
-
-a {
-	color: #003399;
-	background-color: transparent;
-	font-weight: normal;
-}
-
-h1 {
-	color: #444;
-	background-color: transparent;
-	border-bottom: 1px solid #D0D0D0;
-	font-size: 19px;
-	font-weight: normal;
-	margin: 0 0 14px 0;
-	padding: 14px 15px 10px 15px;
-}
-
-code {
-	font-family: Consolas, Monaco, Courier New, Courier, monospace;
-	font-size: 12px;
-	background-color: #f9f9f9;
-	border: 1px solid #D0D0D0;
-	color: #002166;
-	display: block;
-	margin: 14px 0 14px 0;
-	padding: 12px 10px 12px 10px;
-}
-
-#container {
-	margin: 10px;
-	border: 1px solid #D0D0D0;
-	box-shadow: 0 0 8px #D0D0D0;
-}
-
-p {
-	margin: 12px 15px 12px 15px;
-}
-</style>
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="/assets/css/app.css" rel="stylesheet">
+<script src="/assets/js/turbolinks.js"></script>
 </head>
 <body>
-	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
-		<p><a class="" href="<?php echo config_item('base_url') ?>">Homepage</a></p>
+	<div class="container">
+		<div class="col col-12">
+			<div class="card shadow-sm">
+				<div class="card-body">
+					<h5 class="card-title"><?php echo $heading; ?></h5>
+					<p class="card-text"><?php echo $message; ?></p>
+					<a href="<?php echo config_item('base_url') ?>" class="card-link">Homepage</a>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

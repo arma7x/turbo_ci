@@ -9,7 +9,8 @@
     <link rel="icon" href="/favicon.ico">
     <title><?php echo $title ? $title : 'Codeigniter' ?></title>
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/app.css" rel="stylesheet">
+    <link href="/welcome/css" type="text/css" rel="stylesheet">
+    <!-- <link href="/assets/css/app.css" rel="stylesheet"> -->
     <script src="/assets/js/turbolinks.js"></script>
     <script>
       window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
@@ -39,7 +40,7 @@
           <?php endif; ?>
           <?php if($this->session->status == NULL): ?>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' active' : ''?>">
-            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' text-primary' : ''?>" href="/authentication/ui_login"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_login')"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' text-primary' : ''?>" href="/authentication/ui_register"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
@@ -65,6 +66,7 @@
             <a id="toggle_dropdown" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe871;</i> <?php echo lang('H_DASHBOARD');?></a>
             <div id="menu_dropdown" class="dropdown-menu" aria-labelledby="toggle_collapsed">
               <?php if((int) $this->session->user['role'] === 0): ?>
+              <a class="dropdown-item" href="/opcache" data-turbolinks="false"><i class="material-icons">&#xe322;</i> Opcache</a>
               <a class="dropdown-item" href="/manage_user/ui_user_list"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
               <?php endif; ?>
               <a class="dropdown-item"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>

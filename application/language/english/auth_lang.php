@@ -25,6 +25,7 @@ $lang['L_NEW_PASSWORD'] = 'New Password';
 $lang['L_CONFIRM_PASSWORD'] = 'Confirm Password';
 $lang['L_REMEMBER_ME'] = 'Remember Me';
 $lang['L_TOKEN'] = 'Token';
+$lang['L_CONFIRM_LOGOUT'] = 'Are you sure to logout ?';
 $lang['M_FAIL_LOGIN'] = 'Unable to login into your account.';
 $lang['M_FAIL_LOGIN_INACTIVE'] = 'This account was inactive.';
 $lang['M_FAIL_LOGIN_BANNED'] = 'This account was banned.';
