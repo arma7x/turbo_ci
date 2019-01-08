@@ -17,6 +17,25 @@ class Manage_user extends MY_Controller {
 		$this->data['page_name'] = lang('H_MANAGE_USERS');
 		$this->load->library('pagination');
 		$this->load->helper('url');
+		$config['full_tag_open'] = '<div class="row justify-content-sm-center align-items-center"><ul class="pagination">';
+		$config['full_tag_close'] = '</ul></div>';
+		$config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
+		$config['num_tag_close'] = '</span></li>';
+		$config['cur_tag_open'] = '<li class="page-item active"><span class="page-link">';
+		$config['cur_tag_close'] = '</span></li>';
+		$config['first_link'] = '<i class="material-icons">&#xe5dc;</i>';
+		$config['first_tag_open'] = '<li class="page-item"><span class="page-link">';
+		$config['first_tag_close'] = '</span></li>';
+		$config['next_link'] = '<i class="material-icons">&#xe5cc;</i>';
+		$config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
+		$config['next_tag_close'] = '</span></li>';
+		$config['prev_link'] = '<i class="material-icons">&#xe5cb;</i>';
+		$config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
+		$config['prev_tag_close'] = '</span></li>';
+		$config['last_link'] = '<i class="material-icons">&#xe5dd;</i>';
+		$config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
+		$config['last_tag_close'] = '</span></li>';
+
 		$config['base_url'] = current_url();
 		$config['num_links'] = 100/10;
 		$config['total_rows'] = 100/10;

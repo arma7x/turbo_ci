@@ -16,7 +16,7 @@ $hook['post_controller_constructor'][] = function() {
 	// Check if user status in session is not active
 	$CI = &get_instance();
 	if ($CI->session->status !== NULL) {
-		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->session->user['id']), 'role, access_level, status');
+		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->session->user['id']), 'id, role, access_level, status');
 		if ($user !== NULL) {
 			$CI->container['user'] = $user;
 			if ((int) $user['status'] < 1) {

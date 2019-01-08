@@ -1,3 +1,12 @@
+if (window['parseDateProto'] == undefined) {
+    var parseDateProto = Object.create(HTMLElement.prototype);
+    parseDateProto.createdCallback = function() {
+      var t = new Date(parseInt(this.innerHTML+'000'))
+      this.innerHTML = t.toLocaleString()
+    };
+    document.registerElement('parse-date', {prototype: parseDateProto})
+}
+
 function getQueryStringValue(key) {  
     return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"))
 }
@@ -13,6 +22,38 @@ function goBack() {
         Turbolinks.visit("/", { action: "replace" })
     } else {
         window.history.go(-1)
+    }
+}
+
+function deleteToken(id) {
+    var text = '<?php echo lang('L_CONFIRM_REMOVE')?>'
+    if (confirm(text.replace('%s', id))) {
+        $('button.enabled').attr("disabled", "disabled")
+        $('#formMessage').addClass('sr-only')
+        $('#formMessage').text('')
+        var data = {
+            'id': id,
+        }
+        data[window.csrf_token_name] = window.csrf_hash
+        var request = $.ajax({
+            url: "/authentication/delete_token",
+            method: "POST",
+            data: data,
+            dataType: "json"
+        })
+        request.done(function(data) {
+            console.log(data.message)
+            if (data.redirect != undefined) {
+                Turbolinks.visit(data.redirect, { action: "replace" })
+            }
+        })
+        request.fail(function(jqXHR) {
+            $('button.enabled').removeAttr("disabled")
+            if (jqXHR.responseJSON.message != undefined) {
+                $('#formMessage').text(jqXHR.responseJSON.message)
+                $('#formMessage').removeClass('sr-only')
+            }
+        })
     }
 }
 

@@ -59,6 +59,7 @@ $route['authentication/ui_forgot_password']['get'] = 'authentication/ui_forgot_p
 $route['authentication/ui_activate_account']['get'] = 'authentication/ui_activate_account';
 $route['authentication/ui_reset_password']['get'] = 'authentication/ui_reset_password';
 $route['authentication/ui_update_password']['get'] = 'authentication/ui_update_password';
+$route['authentication/manage_token']['get'] = 'authentication/manage_token';
 $route['manage_user/ui_user_list']['get'] = 'manage_user/ui_user_list';
 
 $route['authentication/login']['post'] = 'authentication/login';
@@ -67,4 +68,5 @@ $route['authentication/forgot_password']['post'] = 'authentication/forgot_passwo
 $route['authentication/activate_account']['post'] = 'authentication/activate_account';
 $route['authentication/reset_password']['post'] = 'authentication/reset_password';
 $route['authentication/update_password']['post'] = 'authentication/update_password';
+$route['authentication/delete_token']['post'] = 'authentication/delete_token';
 $route['authentication/log_out'] = 'authentication/log_out';

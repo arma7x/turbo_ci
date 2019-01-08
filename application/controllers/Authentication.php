@@ -16,6 +16,8 @@ class Authentication extends MY_Controller {
 	public $reset_password__auth_rule = FALSE;
 	public $ui_update_password__auth_rule = TRUE;
 	public $update_password__auth_rule = TRUE;
+	public $manage_token__auth_rule = TRUE;
+	public $remove_remember_token__auth_rule = TRUE;
 	public $log_out__auth_rule = NULL;
 
 	public function __construct() {
@@ -284,6 +286,44 @@ class Authentication extends MY_Controller {
 			}
 			$data = array(
 				'message' => lang('M_FAIL_UPDATE_PASSWORD')
+			);
+			$this->_renderJSON(400, $data);
+		}
+	}
+
+	public function manage_token() {
+		$this->data['title'] = 'Codeigniter | '.lang('H_LOG_IN_DEVICES');
+		$this->data['page_name'] = lang('H_LOG_IN_DEVICES');
+		$this->data['token_list'] = $this->authenticator->get_remember_token(array('user' => $this->container->user['id']));
+		$this->data['current_token'] = $this->authenticator->get_current_remember_token();
+		$templates[] = 'auth/manage_token';
+		$this->_render($templates);
+	}
+
+	public function delete_token() {
+		$data = array(
+			'id' => $this->input->post_get('id', TRUE),
+		);
+		$this->form_validation->set_data($data);
+		$this->form_validation->set_rules('id', lang('L_ID'), 'required');
+		if ($this->form_validation->run() === FALSE) {
+			$data = array(
+				'message' => $this->form_validation->error_array()['id']
+			);
+			$this->_renderJSON(400, $data);
+		} else {
+			$data['user'] = $this->container->user['id'];
+			$result = $this->authenticator->remove_remember_token($data);
+			if ($result) {
+				$data = array(
+					'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
+					'redirect' => $this->config->item('base_url').'authentication/manage_token'
+				);
+				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE'))));
+				$this->_renderJSON(200, $data);
+			}
+			$data = array(
+				'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_FAIL_REMOVE'))
 			);
 			$this->_renderJSON(400, $data);
 		}

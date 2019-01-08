@@ -3,10 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends MY_Controller {
 
-	// TRUE[must logged-in]
-	// FALSE[must not logged-in]
-	// NULL[allow all]
 	// public $global_auth_rule = FALSE; // override *__auth_rule rule
+	//  -> TRUE[must logged-in]
+	//  -> FALSE[must not logged-in]
+	//  -> NULL[allow all]
 	// public $index__auth_rule = FALSE; // specific to [method_name]__auth_rule
 	public $index__auth_rule = NULL; // if not defined OR value is NULL will allow all access
 

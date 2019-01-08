@@ -69,7 +69,7 @@
               <a class="dropdown-item" href="/opcache" data-turbolinks="false"><i class="material-icons">&#xe322;</i> Opcache</a>
               <a class="dropdown-item" onclick="navigate('/manage_user/ui_user_list')"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
               <?php endif; ?>
-              <a class="dropdown-item"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
+              <a class="dropdown-item" onclick="navigate('/authentication/manage_token')"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
             </div>
           </li>
           <li class="nav-item">

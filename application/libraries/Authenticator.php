@@ -23,6 +23,28 @@ class Authenticator {
 		$this->validate_remember_token();
 	}
 
+	public function get_remember_token($index) {
+		return $this->CI->db->select('id, user_agent, last_used')
+			->get_where($this->remember_token_table, $index)
+			->result_array();
+	}
+
+	public function remove_remember_token($index) {
+		if ($index['id'] === $this->get_current_remember_token()) {
+			return FALSE;
+		}
+		$this->CI->db->delete($this->remember_token_table, $index);
+		return $this->CI->db->select('id')->get_where($this->remember_token_table, $index, 1)->row_array() === NULL;
+	}
+
+	public function get_current_remember_token() {
+		$value = get_cookie($this->remember_token_name);
+		if ($value !== NULL) {
+			return explode('__', $value)[0];
+		}
+		return '';
+	}
+
 	public function get_user_by_index($index, $select) {
 		if ($select === NULL) {
 			return $this->CI->db->get_where($this->user_table, $index, 1)->row_array();
