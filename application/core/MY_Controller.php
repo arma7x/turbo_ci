@@ -5,6 +5,8 @@ require_once(APPPATH.'core/Container.php');
 class MY_Controller extends CI_Controller {
 
 	public $container;
+	protected $header_template = 'widgets/header';
+	protected $footer_template = 'widgets/footer';
 	protected $data = [];
 
 	public function __construct() {
@@ -15,11 +17,11 @@ class MY_Controller extends CI_Controller {
 	}
 
 	protected function _render($template = []) {
-		$this->load->view('widgets/header', $this->data);
+		$this->load->view($this->header_template, $this->data);
 		foreach ($template as $view) {
 			$this->load->view($view, $this->data);
 		}
-		$this->load->view('widgets/footer', $this->data);
+		$this->load->view($this->footer_template, $this->data);
 	}
 
 	protected function _renderJSON($status = 200, $data) {

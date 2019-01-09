@@ -105,7 +105,7 @@ class Authenticator {
 			$this->CI->db->delete($this->activation_token_table, array('user' => $user['id']));
 			$this->CI->db->delete($this->reset_token_table, array('user' => $user['id']));
 			$this->update_user_by_index($index, array('last_logged_in' => time()));
-			$this->CI->session->set_userdata(array('status' => TRUE, 'user' => $user));
+			$this->CI->session->set_userdata(array('status' => TRUE, 'user' => array('id' => $user['id'])));
 			if ($remember_me) {
 				$this->generate_remember_token($this->CI->session->user['id']);
 			}
@@ -204,7 +204,7 @@ class Authenticator {
 			if ($value !== NULL) {
 				$id__validator = explode('__', $value);
 				if (count($id__validator) > 1) {
-					$token = $this->CI->db->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
+					$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
 					if ($token !== NULL) {
 						$this->set_token_cookie($value);
 					} else {

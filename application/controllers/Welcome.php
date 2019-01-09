@@ -8,7 +8,7 @@ class Welcome extends MY_Controller {
 	//  -> FALSE[must not logged-in]
 	//  -> NULL[allow all]
 	// public $index__auth_rule = FALSE; // specific to [method_name]__auth_rule
-	public $index__auth_rule = NULL; // if not defined OR value is NULL will allow all access
+	// public $index__auth_rule = NULL; // if not defined OR value is NULL will allow all access
 
 	public function __construct() {
 		parent::__construct();
@@ -23,11 +23,11 @@ class Welcome extends MY_Controller {
 	}
 
 	public function css() {
-		$this->_renderCSS(['assets/css/app']);
+		$this->_renderCSS(array('assets/css/app'));
 	}
 
 	public function js() {
-		$this->_renderJS(['assets/js/app']);
+		$this->_renderJS(array('assets/js/app'));
 	}
 
 }

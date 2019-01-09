@@ -77,10 +77,7 @@ a {
 }
 
 .form-center {
-	width: 100%;
-	max-width: 330px;
 	padding: 15px;
-	margin: auto;
 }
 
 .form-center .checkbox {
@@ -100,4 +97,13 @@ a {
 
 .form-center input {
 	margin-bottom: 10px;
+}
+
+.icon-h3 {
+	font-size: 1.2em;
+}
+
+.top-alert-noround {
+	margin-top: -23px;
+	border-radius: 0;
 }

@@ -53,10 +53,10 @@
           </li>
           <?php endif; ?>
           <?php if($this->session->status == TRUE): ?>
-          <li class="nav-item">
+          <li class="nav-item" onclick="select_pic()">
             <a id="avatar_pic" class="nav-link" data-turbolinks="false">
-              <img class="rounded-circle avatar" src="<?php echo $this->session->user['avatar']?>"/>
-              <?php echo $this->session->user['username']?>
+              <img class="rounded-circle avatar" src="<?php echo $this->container->user['avatar'] ?>"/>
+              <?php echo $this->container->user['username']?>
             </a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_update_password' ? ' active' : ''?>">
@@ -65,7 +65,7 @@
           <li class="nav-item dropdown">
             <a id="toggle_dropdown" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe871;</i> <?php echo lang('H_DASHBOARD');?></a>
             <div id="menu_dropdown" class="dropdown-menu" aria-labelledby="toggle_collapsed">
-              <?php if((int) $this->session->user['role'] === 0): ?>
+              <?php if((int) $this->container->user['role'] === 0): ?>
               <a class="dropdown-item" href="/opcache" data-turbolinks="false"><i class="material-icons">&#xe322;</i> Opcache</a>
               <a class="dropdown-item" onclick="navigate('/manage_user/ui_user_list')"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
               <?php endif; ?>
@@ -80,11 +80,14 @@
       </div>
     </nav>
     <?php if($this->session->__notification): ?>
-    <div class="text-sm-center alert alert-<?php echo $this->session->__notification['type'] ?> alert-dismissible fade show" role="alert" style="margin-top:-23px;border-radius:0;">
+    <div class="text-sm-center alert alert-<?php echo $this->session->__notification['type'] ?> alert-dismissible top-alert-noround fade show" role="alert" style="margin-top:-23px;border-radius:0;">
       <?php echo $this->session->__notification['message'] ?>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <?php endif; ?>
+    <div id="dangerMessage" class="text-sm-center alert alert-danger top-alert-noround sr-only" role="alert">
+    </div>
     <main role="main" class="container">
+    <input id="upload-avatar" class="sr-only" type="file" accept="image/*" onChange="process_pic('upload-avatar')"/>

@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 <div class="starter-template">
-	<h1>Welcome to <?php echo $page_name ? $page_name : 'Codeigniter' ;?>!</h1>
+	<h1>Welcome to <?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?>!</h1>
 	<div id="body">
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 	

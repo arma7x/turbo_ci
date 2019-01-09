@@ -1,8 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-<div class="container">
-	<h3 class="text-center"><?php echo $page_name ? $page_name : 'Codeigniter' ;?></h3>
-	<div id="formMessage" class="alert alert-danger fade show mt-1 sr-only" role="alert"></div>
+<div class="container starter-template">
+	<h3 class="text-center"><?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?></h3>
 	<div class="table-responsive">
 		<table id="token_list" class="table table-sm table-bordered">
 			<thead>
@@ -15,7 +14,7 @@
 			</thead>
 			<tbody>
 			<?php foreach($token_list as $index => $token): ?>
-			<tr<?php echo $current_token === $token['id'] ? ' class="table-active"' : ''; ?>>
+			<tr<?php echo $current_token === $token['id'] ? ' class="table-primary"' : ''; ?>>
 				<th scope="row"><?php echo $token['id'] ?></th>
 				<td><?php echo $token['user_agent'] ?></td>
 				<td id="<?php echo $token['id'] ?>"><parse-date><?php echo $token['last_used'] ?></parse-date></td>

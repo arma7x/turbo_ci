@@ -69,4 +69,5 @@ $route['authentication/activate_account']['post'] = 'authentication/activate_acc
 $route['authentication/reset_password']['post'] = 'authentication/reset_password';
 $route['authentication/update_password']['post'] = 'authentication/update_password';
 $route['authentication/delete_token']['post'] = 'authentication/delete_token';
+$route['authentication/upload_avatar']['post'] = 'authentication/upload_avatar';
 $route['authentication/log_out'] = 'authentication/log_out';

@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <meta charset="utf-8">
 <title>404 Page Not Found</title>
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="/assets/css/app.css" rel="stylesheet">
+<link href="/welcome/css" type="text/css" rel="stylesheet">
 <script src="/assets/js/turbolinks.js"></script>
 </head>
 <body>

@@ -16,6 +16,7 @@ class Authentication extends MY_Controller {
 	public $reset_password__auth_rule = FALSE;
 	public $ui_update_password__auth_rule = TRUE;
 	public $update_password__auth_rule = TRUE;
+	public $upload_avatar__auth_rule = TRUE;
 	public $manage_token__auth_rule = TRUE;
 	public $remove_remember_token__auth_rule = TRUE;
 	public $log_out__auth_rule = NULL;
@@ -286,6 +287,34 @@ class Authentication extends MY_Controller {
 			}
 			$data = array(
 				'message' => lang('M_FAIL_UPDATE_PASSWORD')
+			);
+			$this->_renderJSON(400, $data);
+		}
+	}
+
+	public function upload_avatar() {
+		$data = array(
+			'avatar' => $this->input->post_get('avatar'),
+		);
+		$this->form_validation->set_data($data);
+		$this->form_validation->set_rules('avatar', lang('L_AVATAR'), 'required|max_length[10000]');
+		if ($this->form_validation->run() === FALSE) {
+			$data = array(
+				'message' => $this->form_validation->error_array()['avatar']
+			);
+			$this->_renderJSON(400, $data);
+		} else {
+			$result = $this->authenticator->update_user_by_index(array('id' => $this->container->user['id']), $data);
+			if ($result) {
+				$data = array(
+					'message' => lang('M_SUCCESS_UPLOAD_AVATAR'),
+					'redirect' => $this->config->item('base_url')
+				);
+				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPLOAD_AVATAR')));
+				$this->_renderJSON(200, $data);
+			}
+			$data = array(
+				'message' => lang('M_FAIL_UPLOAD_AVATAR')
 			);
 			$this->_renderJSON(400, $data);
 		}
