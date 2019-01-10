@@ -186,7 +186,7 @@ class Authenticator {
 								if ((int) $user['status'] === 1) {
 									$this->CI->session->set_userdata(array(
 										'status' => TRUE,
-										'user' => $user,
+										'user' => array('id' => $user['id']),
 										'remember_token_id' => $id__validator[0],
 										'remember_token_validator' => $id__validator[1],
 									));

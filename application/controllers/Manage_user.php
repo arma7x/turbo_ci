@@ -15,35 +15,9 @@ class Manage_user extends MY_Controller {
 	public function ui_user_list() {
 		$this->data['title'] = APP_NAME.' | '.lang('H_MANAGE_USERS');
 		$this->data['page_name'] = lang('H_MANAGE_USERS');
-		$this->load->library('pagination');
 		$this->load->helper('url');
-		$config['full_tag_open'] = '<div class="row justify-content-sm-center align-items-center"><ul class="pagination">';
-		$config['full_tag_close'] = '</ul></div>';
-		$config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$config['num_tag_close'] = '</span></li>';
-		$config['cur_tag_open'] = '<li class="page-item active"><span class="page-link">';
-		$config['cur_tag_close'] = '</span></li>';
-		$config['first_link'] = '<i class="material-icons">&#xe5dc;</i>';
-		$config['first_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$config['first_tag_close'] = '</span></li>';
-		$config['next_link'] = '<i class="material-icons">&#xe5cc;</i>';
-		$config['next_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$config['next_tag_close'] = '</span></li>';
-		$config['prev_link'] = '<i class="material-icons">&#xe5cb;</i>';
-		$config['prev_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$config['prev_tag_close'] = '</span></li>';
-		$config['last_link'] = '<i class="material-icons">&#xe5dd;</i>';
-		$config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
-		$config['last_tag_close'] = '</span></li>';
-
-		$config['base_url'] = current_url();
-		$config['num_links'] = 100/10;
-		$config['total_rows'] = 100/10;
-		$config['per_page'] = 1;
-		$config['page_query_string'] = TRUE;
-		$config['reuse_query_string'] = TRUE;
-		$config['query_string_segment'] = 'page';
-		$this->pagination->initialize($config);
+		$this->load->model('User_Model', 'user_model');
+		$this->data['user_list'] = $this->user_model->get_user_list(current_url(), 1, TRUE, (int) $this->input->get('page'));
 		$templates[] = 'admin/manage_user';
 		$this->_render($templates);
 	}

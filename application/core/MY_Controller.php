@@ -16,7 +16,7 @@ class MY_Controller extends CI_Controller {
 		$this->output->enable_profiler(ENVIRONMENT == 'development' ? $debug : FALSE);
 	}
 
-	protected function _render($template = []) {
+	final protected function _render($template = []) {
 		$this->load->view($this->header_template, $this->data);
 		foreach ($template as $view) {
 			$this->load->view($view, $this->data);
@@ -24,7 +24,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->view($this->footer_template, $this->data);
 	}
 
-	protected function _renderJSON($status = 200, $data) {
+	final protected function _renderJSON($status = 200, $data) {
 		if ($data !== NULL) {
 			$this->data = array_merge($this->data, $data);
 		}
@@ -35,7 +35,7 @@ class MY_Controller extends CI_Controller {
 		die;
 	}
 
-	protected function _renderJS($template) {
+	final protected function _renderJS($template) {
 		$this->output->set_content_type('application/javascript');
 		foreach ($template as $view) {
 			$this->load->view($view, $this->data);
@@ -44,7 +44,7 @@ class MY_Controller extends CI_Controller {
 		die;
 	}
 
-	protected function _renderCSS($template) {
+	final protected function _renderCSS($template) {
 		$this->output->set_content_type('text/css');
 		foreach ($template as $view) {
 			$this->load->view($view, $this->data);
