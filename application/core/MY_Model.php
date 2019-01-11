@@ -9,11 +9,7 @@ class MY_Model extends CI_Model {
 		parent::__construct();
 	}
 
-	final protected function skip($page_num, $per_page) {
-		return ($page_num <= 1 ? 0 : ($page_num - 1)) * $per_page;
-	}
-
-	final protected function paginate($base_url, $total_rows, $per_page, $num_links) {
+	final protected function paginate($base_url, $per_page, $page_num, $num_links, $total_rows) {
 		$this->load->library('pagination');
 		$config['full_tag_open'] = '<div class="row justify-content-sm-center align-items-center"><ul class="pagination">';
 		$config['full_tag_close'] = '</ul></div>';
@@ -41,5 +37,6 @@ class MY_Model extends CI_Model {
 		$config['reuse_query_string'] = TRUE;
 		$config['query_string_segment'] = 'page';
 		$this->pagination->initialize($config);
+		return ($page_num <= 1 ? 0 : ($page_num - 1)) * $per_page;
 	}
 }
