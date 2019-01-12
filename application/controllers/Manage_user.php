@@ -3,24 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Manage_user extends MY_Controller {
 
-	// public $global_auth_rule = TRUE; 
-	// -> Not required IF $global_role_rule is NOT NULL OR $global_access_level_rule is NOT NULL
-	// -> Not required IF $*__role_rule is NOT NULL OR $*__access_level_rule is NOT NULL
-	// more lowest more power
-	// public $global_role_rule = 0; // override *__role_rule
-	// public $global_access_level_rule = 0; // override *__access_level_rule
-	public $ui_user_list__role_rule = 1; // specific to [method_name]__role_rule
-	public $ui_user_list__access_level_rule = 1; // specific to [method_name]__access_level_rule
-	public $update_user_role__role_rule = 0;
-	public $update_user_role__access_level_rule = 0;
-	public $update_user_access_level__role_rule = 0;
-	public $update_user_access_level__access_level_rule = 0;
-	public $update_user_status__role_rule = 0;
-	public $update_user_status__access_level_rule = 0;
-	public $delete_user__role_rule = 0;
-	public $delete_user__access_level_rule = 0;
+	public $user_list = array('role' => 1, 'access_level' => 1);
+	public $update_user_role = array('role' => 0, 'access_level' => 0);
+	public $update_user_access_level = array('role' => 0, 'access_level' => 0);
+	public $update_user_status = array('role' => 0, 'access_level' => 0);
+	public $delete_user = array('role' => 0, 'access_level' => 0);
 
-	public function ui_user_list() {
+	public function user_list() {
 		$this->data['title'] = APP_NAME.' | '.lang('H_MANAGE_USERS');
 		$this->data['page_name'] = lang('H_MANAGE_USERS');
 		$this->load->helper('url');

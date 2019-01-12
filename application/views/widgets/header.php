@@ -9,7 +9,7 @@
     <link rel="icon" href="/favicon.ico">
     <title><?php echo $title ? $title : 'Codeigniter' ?></title>
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/welcome/css" type="text/css" rel="stylesheet">
+    <link href="/src/css" type="text/css" rel="stylesheet">
     <!-- <link href="/assets/css/app.css" rel="stylesheet"> -->
     <script src="/assets/js/turbolinks.js"></script>
     <script>
@@ -67,7 +67,7 @@
             <div id="menu_dropdown" class="dropdown-menu" aria-labelledby="toggle_collapsed">
               <?php if((int) $this->container->user['role'] === 0): ?>
               <a class="dropdown-item" href="/opcache" data-turbolinks="false"><i class="material-icons">&#xe322;</i> Opcache</a>
-              <a class="dropdown-item" onclick="navigate('/manage_user/ui_user_list')"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
+              <a class="dropdown-item" onclick="navigate('/manage_user/user_list')"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
               <?php endif; ?>
               <a class="dropdown-item" onclick="navigate('/authentication/manage_token')"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
             </div>

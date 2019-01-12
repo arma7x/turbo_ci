@@ -3,23 +3,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Authentication extends MY_Controller {
 
-	//public $global_auth_rule = FALSE; // OR NULL ALSO ACCEPTED
-	public $ui_login__auth_rule = FALSE;
-	public $login__auth_rule = FALSE;
-	public $ui_register__auth_rule = FALSE;
-	public $register__auth_rule = FALSE;
-	public $ui_activate_account__auth_rule = FALSE;
-	public $activate_account__auth_rule = FALSE;
-	public $ui_forgot_password__auth_rule = FALSE;
-	public $forgot_password__auth_rule = FALSE;
-	public $ui_reset_password__auth_rule = FALSE;
-	public $reset_password__auth_rule = FALSE;
-	public $ui_update_password__auth_rule = TRUE;
-	public $update_password__auth_rule = TRUE;
-	public $upload_avatar__auth_rule = TRUE;
-	public $manage_token__auth_rule = TRUE;
-	public $remove_remember_token__auth_rule = TRUE;
-	public $log_out__auth_rule = NULL;
+	public $ui_login = array('auth' => FALSE);
+	public $login = array('auth' => FALSE);
+	public $ui_register = array('auth' => FALSE);
+	public $register = array('auth' => FALSE);
+	public $ui_activate_account = array('auth' => FALSE);
+	public $activate_account = array('auth' => FALSE);
+	public $ui_forgot_password = array('auth' => FALSE);
+	public $forgot_password = array('auth' => FALSE);
+	public $ui_reset_password = array('auth' => FALSE);
+	public $reset_password = array('auth' => FALSE);
+	public $ui_update_password = array('auth' => TRUE);
+	public $update_password = array('auth' => TRUE);
+	public $upload_avatar = array('auth' => TRUE);
+	public $manage_token = array('auth' => TRUE);
+	public $remove_remember_token = array('auth' => TRUE);
+	public $log_out = array('auth' => NULL);
 
 	public function __construct() {
 		parent::__construct();

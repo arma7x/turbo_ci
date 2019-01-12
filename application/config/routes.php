@@ -60,7 +60,7 @@ $route['authentication/ui_activate_account']['get'] = 'authentication/ui_activat
 $route['authentication/ui_reset_password']['get'] = 'authentication/ui_reset_password';
 $route['authentication/ui_update_password']['get'] = 'authentication/ui_update_password';
 $route['authentication/manage_token']['get'] = 'authentication/manage_token';
-$route['manage_user/ui_user_list']['get'] = 'manage_user/ui_user_list';
+$route['manage_user/user_list']['get'] = 'manage_user/user_list';
 
 $route['authentication/login']['post'] = 'authentication/login';
 $route['authentication/register']['post'] = 'authentication/register';
