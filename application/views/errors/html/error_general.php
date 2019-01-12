@@ -5,9 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 <meta charset="utf-8">
 <title>Error</title>
-<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+<link href="/asset/css/bootstrap.min.css" rel="stylesheet">
 <link href="/src/css" type="text/css" rel="stylesheet">
-<script src="/assets/js/turbolinks.js"></script>
+<script src="/asset/js/turbolinks.js"></script>
 </head>
 <body>
 	<div class="container">

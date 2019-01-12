@@ -8,10 +8,10 @@
     <meta name="turbolinks-cache-control" content="no-cache">
     <link rel="icon" href="/favicon.ico">
     <title><?php echo $title ? $title : 'Codeigniter' ?></title>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/asset/css/bootstrap.min.css" rel="stylesheet">
     <link href="/src/css" type="text/css" rel="stylesheet">
-    <!-- <link href="/assets/css/app.css" rel="stylesheet"> -->
-    <script src="/assets/js/turbolinks.js"></script>
+    <!-- <link href="/asset/css/app.css" rel="stylesheet"> -->
+    <script src="/asset/js/turbolinks.js"></script>
     <script>
       window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
       window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
