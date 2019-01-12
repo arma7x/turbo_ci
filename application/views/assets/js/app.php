@@ -146,6 +146,20 @@ function deleteToken(id) {
     }
 }
 
+function search_user() {
+    var data = {
+        'keyword': $("#keyword").val(),
+        'role': $("#role").val(),
+        'access_level': $("#access_level").val(),
+        'status': $("#status").val(),
+    }
+    var query = [];
+    for (key in data) {
+        query.push(key+'='+data[key])
+    }
+    Turbolinks.visit(document.location.pathname+'?'+query.join('&'), { action: "replace" })
+}
+
 $(document).ready(function() {
 
     $("form").submit(function(event) {

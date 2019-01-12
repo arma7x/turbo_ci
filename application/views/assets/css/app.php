@@ -72,7 +72,7 @@ a {
 }
 
 .starter-template {
-	padding: 3rem 1.5rem;
+	padding: 1.5rem;
 }
 
 .form-center {

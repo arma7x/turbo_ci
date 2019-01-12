@@ -13,7 +13,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $hook['post_controller_constructor'][] = function() {
-	// Check if user status in session is not active
 	$CI = &get_instance();
 	if ($CI->session->status !== NULL) {
 		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->session->user['id']), 'id, username, email, role, access_level, status, avatar');

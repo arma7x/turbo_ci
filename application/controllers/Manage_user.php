@@ -15,12 +15,13 @@ class Manage_user extends MY_Controller {
 		$this->load->helper('url');
 		$this->load->model('User_Model', 'user_model');
 		$filter = array(
-			'keyword' => $this->input->get('keyword') !== null ? $this->input->get('keyword', TRUE) : NULL,
-			'role' => $this->input->get('role') !== null ? (int) $this->input->get('role', TRUE) : NULL,
-			'access_level' => $this->input->get('access_level') !== null ? (int) $this->input->get('access_level', TRUE) : NULL,
-			'status' => $this->input->get('status') !== null ? (int) $this->input->get('status', TRUE) : NULL,
+			'keyword' => $this->input->get('keyword') !== '' && $this->input->get('keyword') !== null ? $this->input->get('keyword', TRUE) : NULL,
+			'role' => $this->input->get('role') !== '' && $this->input->get('role') !== null ? (int) $this->input->get('role', TRUE) : NULL,
+			'access_level' => $this->input->get('access_level') !== '' && $this->input->get('access_level') !== null ? (int) $this->input->get('access_level', TRUE) : NULL,
+			'status' => $this->input->get('status') !== '' && $this->input->get('status') !== null ? (int) $this->input->get('status', TRUE) : NULL,
 		);
-		$this->data['user_list'] = $this->user_model->get_user_list($filter, current_url(), 1, (int) $this->input->get('page'), TRUE);
+		$this->data['filter'] = $filter;
+		$this->data['user_list'] = $this->user_model->get_user_list($filter, current_url(), 10, (int) $this->input->get('page'), TRUE);
 		$templates[] = 'admin/manage_user';
 		$this->_render($templates);
 	}
