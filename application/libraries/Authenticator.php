@@ -57,16 +57,14 @@ class Authenticator {
 		if ($this->get_user_by_index(array('id' => $data['id']), 'id') !== NULL) {
 			return FALSE;
 		}
-		$this->CI->db->insert($this->user_table, $data);
-		return TRUE;
+		return $this->CI->db->insert($this->user_table, $data);
 	}
 
 	public function update_user_by_index($index, $data) {
 		if ($this->get_user_by_index($index, 'id') === NULL) {
 			return FALSE;
 		}
-		$this->CI->db->update($this->user_table, $data, $index);
-		return TRUE;
+		return $this->CI->db->update($this->user_table, $data, $index);
 	}
 
 	public function set_token_cookie($value) {
@@ -190,6 +188,7 @@ class Authenticator {
 										'remember_token_id' => $id__validator[0],
 										'remember_token_validator' => $id__validator[1],
 									));
+									$this->update_user_by_index(array('id' => $user['id']), array('last_logged_in' => time()));
 									$this->CI->db->update($this->remember_token_table, array('last_used' => time()), array('id' => $id__validator[0]));
 									$this->set_token_cookie($value);
 								}
@@ -332,6 +331,13 @@ class Authenticator {
 			RETURN TRUE;
 		}
 		return FALSE;
+	}
+
+	public function destroy_user_data($id) {
+		$this->CI->db->delete($this->remember_token_table, array('user' => $id));
+		$this->CI->db->delete($this->activation_token_table, array('user' => $id));
+		$this->CI->db->delete($this->reset_token_table, array('user' => $id));
+		return $this->CI->db->delete($this->user_table, array('id' => $id));
 	}
 
 	public function send_email($data, $template, $subject) {

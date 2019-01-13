@@ -52,12 +52,4 @@ class User_Model extends MY_Model {
 		$this->db->from($this->table);
 		return $this->db->count_all_results();
 	}
-
-	public function update_user_role($id, $value) {}
-
-	public function update_user_access_level($id, $value) {}
-
-	public function update_user_status($id, $value) {}
-
-	public function delete_user($id) {}
 }

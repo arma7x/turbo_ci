@@ -61,6 +61,8 @@ $route['authentication/ui_reset_password']['get'] = 'authentication/ui_reset_pas
 $route['authentication/ui_update_password']['get'] = 'authentication/ui_update_password';
 $route['authentication/manage_token']['get'] = 'authentication/manage_token';
 $route['manage_user/user_list']['get'] = 'manage_user/user_list';
+$route['src/app.css']['get'] = 'src/css';
+$route['src/app.js']['get'] = 'src/js';
 
 $route['authentication/login']['post'] = 'authentication/login';
 $route['authentication/register']['post'] = 'authentication/register';
@@ -70,4 +72,8 @@ $route['authentication/reset_password']['post'] = 'authentication/reset_password
 $route['authentication/update_password']['post'] = 'authentication/update_password';
 $route['authentication/delete_token']['post'] = 'authentication/delete_token';
 $route['authentication/upload_avatar']['post'] = 'authentication/upload_avatar';
+$route['manage_user/update_user_role']['post'] = 'manage_user/update_user_role';
+$route['manage_user/update_user_access_level']['post'] = 'manage_user/update_user_access_level';
+$route['manage_user/update_user_status']['post'] = 'manage_user/update_user_status';
+$route['manage_user/delete_user']['post'] = 'manage_user/delete_user';
 $route['authentication/log_out'] = 'authentication/log_out';

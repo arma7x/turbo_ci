@@ -344,7 +344,7 @@ class Authentication extends MY_Controller {
 			$result = $this->authenticator->remove_remember_token($data);
 			if ($result) {
 				$data = array(
-					'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
+					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE')),
 					'redirect' => $this->config->item('base_url').'authentication/manage_token'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE'))));

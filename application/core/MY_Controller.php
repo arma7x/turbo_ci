@@ -30,7 +30,7 @@ class MY_Controller extends CI_Controller {
 		}
 		$this->output->set_content_type('application/json');
 		$this->output->set_status_header($status);
-		$this->output->set_output(json_encode($this->data));
+		$this->output->set_output(json_encode($this->data, JSON_PRETTY_PRINT));
 		$this->output->_display();
 		die;
 	}

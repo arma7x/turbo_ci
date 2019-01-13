@@ -17,11 +17,11 @@ function navigate(pathname) {
     }
 }
 
-function select_pic() {
+function selectPic() {
     $('#upload-avatar').click()
 }
 
-function process_pic(holder) {
+function processPic(holder) {
     var pic = document.getElementById(holder);
     if (pic.files.length > 0) {
         var fileName = pic.files[0].name;
@@ -67,15 +67,15 @@ function process_pic(holder) {
     }
 }
 
-function show_danger_message(text) {
+function showDangerMessage(text) {
     $('#dangerMessage').text(text)
     $('#dangerMessage').removeClass('sr-only')
     $('#dangerMessage').removeClass('fade')
     $('#dangerMessage').addClass('show')
-    $('#dangerMessage').append('<button type="button" class="close" aria-label="Close" onclick="hide_danger_message()"><span aria-hidden="true">&times;</span></button>')
+    $('#dangerMessage').append('<button type="button" class="close" aria-label="Close" onclick="hideDangerMessage()"><span aria-hidden="true">&times;</span></button>')
 }
 
-function hide_danger_message() {
+function hideDangerMessage() {
     $('#dangerMessage').removeClass('show')
     //$('#dangerMessage').addClass('sr-only')
     $('#dangerMessage').addClass('fade')
@@ -91,7 +91,7 @@ function goBack() {
 }
 
 function uploadAvatar(data) {
-    hide_danger_message()
+    hideDangerMessage()
     var data = {
         'avatar': data,
     }
@@ -111,7 +111,7 @@ function uploadAvatar(data) {
     request.fail(function(jqXHR) {
         $('button.enabled').removeAttr("disabled")
         if (jqXHR.responseJSON.message != undefined) {
-            show_danger_message(jqXHR.responseJSON.message)
+            showDangerMessage(jqXHR.responseJSON.message)
         }
     })
 }
@@ -120,7 +120,7 @@ function deleteToken(id) {
     var text = '<?php echo lang('L_CONFIRM_REMOVE')?>'
     if (confirm(text.replace('%s', id))) {
         $('button.enabled').attr("disabled", "disabled")
-        hide_danger_message()
+        hideDangerMessage()
         var data = {
             'id': id,
         }
@@ -140,13 +140,13 @@ function deleteToken(id) {
         request.fail(function(jqXHR) {
             $('button.enabled').removeAttr("disabled")
             if (jqXHR.responseJSON.message != undefined) {
-                show_danger_message(jqXHR.responseJSON.message)
+                showDangerMessage(jqXHR.responseJSON.message)
             }
         })
     }
 }
 
-function search_user() {
+function searchUser() {
     var data = {
         'keyword': $("#keyword").val(),
         'role': $("#role").val(),
@@ -155,9 +155,138 @@ function search_user() {
     }
     var query = [];
     for (key in data) {
-        query.push(key+'='+data[key])
+        if (data[key] != '') {
+            query.push(key+'='+data[key])
+        }
     }
-    Turbolinks.visit(document.location.pathname+'?'+query.join('&'), { action: "replace" })
+    if (query.length > 0) {
+        Turbolinks.visit(document.location.pathname+'?'+query.join('&'), { action: "replace" })
+    } else {
+        Turbolinks.visit(document.location.pathname, { action: "replace" })
+    }
+}
+
+function updateRole(id) {
+    var text = '<?php echo lang('L_CONFIRM_UPDATE_ROLE')?>'
+    if (confirm(text.replace('%s', id))) {
+        $('button.enabled').attr("disabled", "disabled")
+        hideDangerMessage()
+        var data = {
+            'id': id,
+            'role': $('#role_'+id).val(),
+        }
+        data[window.csrf_token_name] = window.csrf_hash
+        var request = $.ajax({
+            url: "/manage_user/update_user_role",
+            method: "POST",
+            data: data,
+            dataType: "json"
+        })
+        request.done(function(data) {
+            console.log(data.message)
+            if (data.redirect != undefined) {
+                Turbolinks.visit(data.redirect, { action: "replace" })
+            }
+        })
+        request.fail(function(jqXHR) {
+            $('button.enabled').removeAttr("disabled")
+            if (jqXHR.responseJSON.message != undefined) {
+                showDangerMessage(jqXHR.responseJSON.message)
+            }
+        })
+    }
+}
+
+function updateAccessLevel(id) {
+    var text = '<?php echo lang('L_CONFIRM_UPDATE_ACCESS_LEVEL')?>'
+    if (confirm(text.replace('%s', id))) {
+        $('button.enabled').attr("disabled", "disabled")
+        hideDangerMessage()
+        var data = {
+            'id': id,
+            'access_level': $('#access_level_'+id).val(),
+        }
+        data[window.csrf_token_name] = window.csrf_hash
+        var request = $.ajax({
+            url: "/manage_user/update_user_access_level",
+            method: "POST",
+            data: data,
+            dataType: "json"
+        })
+        request.done(function(data) {
+            console.log(data.message)
+            if (data.redirect != undefined) {
+                Turbolinks.visit(data.redirect, { action: "replace" })
+            }
+        })
+        request.fail(function(jqXHR) {
+            $('button.enabled').removeAttr("disabled")
+            if (jqXHR.responseJSON.message != undefined) {
+                showDangerMessage(jqXHR.responseJSON.message)
+            }
+        })
+    }
+}
+
+function updateStatus(id) {
+    var text = '<?php echo lang('L_CONFIRM_UPDATE_STATUS')?>'
+    if (confirm(text.replace('%s', id))) {
+        $('button.enabled').attr("disabled", "disabled")
+        hideDangerMessage()
+        var data = {
+            'id': id,
+            'status': $('#status_'+id).val(),
+        }
+        data[window.csrf_token_name] = window.csrf_hash
+        var request = $.ajax({
+            url: "/manage_user/update_user_status",
+            method: "POST",
+            data: data,
+            dataType: "json"
+        })
+        request.done(function(data) {
+            console.log(data.message)
+            if (data.redirect != undefined) {
+                Turbolinks.visit(data.redirect, { action: "replace" })
+            }
+        })
+        request.fail(function(jqXHR) {
+            $('button.enabled').removeAttr("disabled")
+            if (jqXHR.responseJSON.message != undefined) {
+                showDangerMessage(jqXHR.responseJSON.message)
+            }
+        })
+    }
+}
+
+function deleteUser(id) {
+    var text = '<?php echo lang('L_CONFIRM_REMOVE')?>'
+    if (confirm(text.replace('%s', id))) {
+        $('button.enabled').attr("disabled", "disabled")
+        hideDangerMessage()
+        var data = {
+            'id': id,
+        }
+        data[window.csrf_token_name] = window.csrf_hash
+        var request = $.ajax({
+            url: "/manage_user/delete_user",
+            method: "POST",
+            data: data,
+            dataType: "json"
+        })
+        request.done(function(data) {
+            console.log(data.message)
+            if (data.redirect != undefined) {
+                Turbolinks.visit(data.redirect, { action: "replace" })
+            }
+        })
+        request.fail(function(jqXHR) {
+            $('button.enabled').removeAttr("disabled")
+            if (jqXHR.responseJSON.message != undefined) {
+                showDangerMessage(jqXHR.responseJSON.message)
+            }
+        })
+    }
 }
 
 $(document).ready(function() {
@@ -190,7 +319,7 @@ $(document).ready(function() {
 
     $('#lgn_btn').click(function(event) {
         $('#lgn_btn').attr("disabled", "disabled")
-        hide_danger_message()
+        hideDangerMessage()
         $('#inputEmailError').removeClass('border-danger')
         $('#inputEmailErrorText').text('')
         $('#inputPasswordError').removeClass('border-danger')
@@ -217,7 +346,7 @@ $(document).ready(function() {
             $('#lgn_btn').removeAttr("disabled")
             if (jqXHR.responseJSON != undefined) {
                 if (jqXHR.responseJSON.message != undefined) {
-                    show_danger_message(jqXHR.responseJSON.message)
+                    showDangerMessage(jqXHR.responseJSON.message)
                 }
                 if (jqXHR.responseJSON.errors != undefined) {
                     if (jqXHR.responseJSON.errors.password != undefined) {
@@ -235,7 +364,7 @@ $(document).ready(function() {
 
     $('#rgstr_btn').click(function(event) {
         $('#rgstr_btn').attr("disabled", "disabled")
-        hide_danger_message()
+        hideDangerMessage()
         $('#inputUsernameError').removeClass('border-danger')
         $('#inputUsernameErrorText').text('')
         $('#inputEmailError').removeClass('border-danger')
@@ -267,7 +396,7 @@ $(document).ready(function() {
             $('#rgstr_btn').removeAttr("disabled")
             if (jqXHR.responseJSON != undefined) {
                 if (jqXHR.responseJSON.message != undefined) {
-                    show_danger_message(jqXHR.responseJSON.message)
+                    showDangerMessage(jqXHR.responseJSON.message)
                 }
                 if (jqXHR.responseJSON.errors != undefined) {
                     if (jqXHR.responseJSON.errors.confirm_password != undefined) {
@@ -293,7 +422,7 @@ $(document).ready(function() {
 
     $('#frgt_pswd_btn').click(function(event) {
         $('#frgt_pswd_btn').attr("disabled", "disabled")
-        hide_danger_message()
+        hideDangerMessage()
         $('#inputEmailError').removeClass('border-danger')
         $('#inputEmailErrorText').text('')
         var data = {
@@ -316,7 +445,7 @@ $(document).ready(function() {
             $('#frgt_pswd_btn').removeAttr("disabled")
             if (jqXHR.responseJSON != undefined) {
                 if (jqXHR.responseJSON.message != undefined) {
-                    show_danger_message(jqXHR.responseJSON.message)
+                    showDangerMessage(jqXHR.responseJSON.message)
                 }
                 if (jqXHR.responseJSON.errors != undefined) {
                     if (jqXHR.responseJSON.errors.email != undefined) {
@@ -330,7 +459,7 @@ $(document).ready(function() {
 
     $('#actvt_acct_btn').click(function(event) {
         $('#actvt_acct_btn').attr("disabled", "disabled")
-        hide_danger_message()
+        hideDangerMessage()
         $('#inputEmailError').removeClass('border-danger')
         $('#inputEmailErrorText').text('')
         var data = {
@@ -353,7 +482,7 @@ $(document).ready(function() {
             $('#actvt_acct_btn').removeAttr("disabled")
             if (jqXHR.responseJSON != undefined) {
                 if (jqXHR.responseJSON.message != undefined) {
-                    show_danger_message(jqXHR.responseJSON.message)
+                    showDangerMessage(jqXHR.responseJSON.message)
                 }
                 if (jqXHR.responseJSON.errors != undefined) {
                     if (jqXHR.responseJSON.errors.email != undefined) {
@@ -367,7 +496,7 @@ $(document).ready(function() {
 
     $('#rst_btn').click(function(event) {
         $('#rst_btn').attr("disabled", "disabled")
-        hide_danger_message()
+        hideDangerMessage()
         $('#inputNewPasswordError').removeClass('border-danger')
         $('#inputNewPasswordErrorText').text('')
         $('#inputConfirmPasswordError').removeClass('border-danger')
@@ -394,7 +523,7 @@ $(document).ready(function() {
             $('#rst_btn').removeAttr("disabled")
             if (jqXHR.responseJSON != undefined) {
                 if (jqXHR.responseJSON.message != undefined) {
-                    show_danger_message(jqXHR.responseJSON.message)
+                    showDangerMessage(jqXHR.responseJSON.message)
                 }
                 if (jqXHR.responseJSON.errors != undefined) {
                     if (jqXHR.responseJSON.errors.confirm_password != undefined) {
@@ -406,7 +535,7 @@ $(document).ready(function() {
                         $('#inputNewPasswordErrorText').text(jqXHR.responseJSON.errors.new_password)
                     }
                     if (jqXHR.responseJSON.errors.token != undefined) {
-                        show_danger_message(jqXHR.responseJSON.errors.token)
+                        showDangerMessage(jqXHR.responseJSON.errors.token)
                     }
                 }
             }
@@ -415,7 +544,7 @@ $(document).ready(function() {
 
     $('#uptd_btn').click(function(event) {
         $('#uptd_btn').attr("disabled", "disabled")
-        hide_danger_message()
+        hideDangerMessage()
         $('#inputOldPasswordError').removeClass('border-danger')
         $('#inputOldPasswordErrorText').text('')
         $('#inputNewPasswordError').removeClass('border-danger')

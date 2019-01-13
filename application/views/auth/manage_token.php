@@ -12,7 +12,7 @@
 				<th scope="col"><?php echo lang('L_ACTION');?></th>
 			</tr>
 			</thead>
-			<tbody>
+			<tbody class="small">
 			<?php foreach($token_list as $index => $token): ?>
 			<tr<?php echo $current_token === $token['id'] ? ' class="table-primary"' : ''; ?>>
 				<th scope="row"><?php echo $token['id'] ?></th>

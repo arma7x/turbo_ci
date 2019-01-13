@@ -11,8 +11,8 @@ class MY_Model extends CI_Model {
 
 	final protected function paginate($base_url, $per_page, $page_num, $num_links, $total_rows) {
 		$this->load->library('pagination');
-		$config['full_tag_open'] = '<div class="row justify-content-sm-center align-items-center"><ul class="pagination">';
-		$config['full_tag_close'] = '</ul></div>';
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
 		$config['num_tag_open'] = '<li class="page-item"><span class="page-link">';
 		$config['num_tag_close'] = '</span></li>';
 		$config['cur_tag_open'] = '<li class="page-item active"><span class="page-link">';

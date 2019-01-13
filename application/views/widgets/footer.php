@@ -9,7 +9,6 @@
     <script src="/asset/js/jquery-3.3.1.min.js"></script>
     <script src="/asset/js/popper.min.js"></script>
     <script src="/asset/js/bootstrap.min.js"></script>
-    <script src="/src/js" type="text/javascript"></script>
-    <!-- <script src="/asset/js/app.js"></script> -->
+    <script src="/src/app.js" type="text/javascript"></script>
   </body>
 </html>
