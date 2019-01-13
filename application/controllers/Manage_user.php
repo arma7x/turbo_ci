@@ -88,7 +88,7 @@ class Manage_user extends MY_Controller {
 			);
 			$this->_renderJSON(400, $data);
 		} else {
-			$result = $this->authenticator->update_user_by_index(array('id' => $this->input->post_get('id')), array('role' => (int) $this->input->post_get('access_level'), 'updated_at' => time()));
+			$result = $this->authenticator->update_user_by_index(array('id' => $this->input->post_get('id')), array('access_level' => (int) $this->input->post_get('access_level'), 'updated_at' => time()));
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ACCESS_LEVEL')),
@@ -127,7 +127,7 @@ class Manage_user extends MY_Controller {
 			);
 			$this->_renderJSON(400, $data);
 		} else {
-			$result = $this->authenticator->update_user_by_index(array('id' => $this->input->post_get('id')), array('role' => (int) $this->input->post_get('status'), 'updated_at' => time()));
+			$result = $this->authenticator->update_user_by_index(array('id' => $this->input->post_get('id')), array('status' => (int) $this->input->post_get('status'), 'updated_at' => time()));
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_STATUS')),
