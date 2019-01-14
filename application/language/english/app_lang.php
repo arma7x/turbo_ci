@@ -2,6 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['H_HOMEPAGE'] = 'Homepage';
+$lang['H_BACK'] = 'Back';
+$lang['H_DASHBOARD'] = 'Dashboard';
 $lang['H_LOGIN'] = 'Login';
 $lang['H_REGISTER'] = 'Register';
 $lang['H_RESET_PASSWORD'] = 'Reset Password';
@@ -22,6 +24,9 @@ $lang['BTN_SEARCH'] = 'Search';
 $lang['BTN_UPDATE_ROLE'] = 'Save';
 $lang['BTN_UPDATE_ACCESS_LEVEL'] = 'Save';
 $lang['BTN_UPDATE_STATUS'] = 'Save';
+$lang['L_F_RENDER_ELAPSED'] = 'Rendered in %s seconds';
+$lang['L_F_MEMORY_USAGE'] = 'Memory Usage %s';
+$lang['L_F_CI_VER'] = 'CodeIgniter Version';
 $lang['L_USERNAME'] = 'Username';
 $lang['L_EMAIL'] = 'Email Address';
 $lang['L_PASSWORD'] = 'Password';

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="turbolinks-cache-control" content="no-cache">
 <meta charset="utf-8">
 <title>Error</title>
 <link href="/asset/css/bootstrap.min.css" rel="stylesheet">
