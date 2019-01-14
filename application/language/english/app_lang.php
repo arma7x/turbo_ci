@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+$lang['H_Offline'] = 'Offline';
 $lang['H_HOMEPAGE'] = 'Homepage';
 $lang['H_BACK'] = 'Back';
 $lang['H_DASHBOARD'] = 'Dashboard';
@@ -84,3 +85,4 @@ $lang['M_SUCCESS_UPDATE_ACCESS_LEVEL'] = 'Successsfully update %s access level.'
 $lang['M_FAIL_UPDATE_ACCESS_LEVEL'] = 'Unable to update %s access level.';
 $lang['M_SUCCESS_UPDATE_STATUS'] = 'Successsfully update %s status.';
 $lang['M_FAIL_UPDATE_STATUS'] = 'Unable to update %s status.';
+$lang['M_OFFLINE'] = 'Oppsss, You are offline!';

@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['offline']['get'] = 'welcome/offline';
 $route['authentication/ui_login']['get'] = 'authentication/ui_login';
 $route['authentication/ui_register']['get'] = 'authentication/ui_register';
 $route['authentication/ui_forgot_password']['get'] = 'authentication/ui_forgot_password';

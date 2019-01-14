@@ -13,7 +13,6 @@
     <script>
         (function() {
           'use strict';
-
           var INSTALL_FINISHED = new Event('INSTALL_FINISHED');
           var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
               // [::1] is the IPv6 localhost address.
@@ -23,7 +22,6 @@
                 /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
               )
             );
-
           window.addEventListener('load', function() {
               if ('serviceWorker' in navigator &&
                   (window.location.protocol === 'https:' || isLocalhost)) {
@@ -35,7 +33,7 @@
                       installingWorker.onstatechange = function() {
                         switch (installingWorker.state) {
                           case 'installed':
-                            console.log('New version has been installed');
+                            alert('Refresh page to apply new pacth');
                             window.dispatchEvent(INSTALL_FINISHED);
                             break;
                           case 'redundant':

@@ -38,4 +38,11 @@ class Welcome extends MY_Controller {
 		$this->_render($templates);
 	}
 
+	public function offline() {
+		$this->data['title'] = APP_NAME.' | '.lang('H_Offline');
+		$this->data['page_name'] = lang('H_Offline');
+		$this->data['message'] = lang('M_OFFLINE');
+		$this->load->view('offline', $this->data);
+	}
+
 }
