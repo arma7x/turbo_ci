@@ -11,4 +11,8 @@ class Src extends MY_Controller {
 		$this->_renderJS(array('src/js/app.js'));
 	}
 
+	public function sw() {
+		$this->_renderJS(array('src/js/sw.js'));
+	}
+
 }
