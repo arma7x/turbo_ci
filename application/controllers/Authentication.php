@@ -26,7 +26,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_login() {
-		$this->data['title'] = 'Codeigniter | '.lang('H_LOGIN');
+		$this->data['title'] = APP_NAME.' | '.lang('H_LOGIN');
 		$this->data['page_name'] = lang('H_LOGIN');
 		$templates[] = 'auth/login';
 		$this->_render($templates);
@@ -75,7 +75,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_register() {
-		$this->data['title'] = 'Codeigniter | '.lang('H_REGISTER');
+		$this->data['title'] = APP_NAME.' | '.lang('H_REGISTER');
 		$this->data['page_name'] = lang('H_REGISTER');
 		$templates[] = 'auth/register';
 		$this->_render($templates);
@@ -129,7 +129,7 @@ class Authentication extends MY_Controller {
 			$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_ACTIVE_ACCOUNT')));
 			redirect($this->config->item('base_url'));
 		}
-		$this->data['title'] = 'Codeigniter | '.lang('H_ACTIVATE_ACCOUNT');
+		$this->data['title'] = APP_NAME.' | '.lang('H_ACTIVATE_ACCOUNT');
 		$this->data['page_name'] = lang('H_ACTIVATE_ACCOUNT');
 		$templates[] = 'auth/activate_account';
 		$this->_render($templates);
@@ -164,7 +164,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_forgot_password() {
-		$this->data['title'] = 'Codeigniter | '.lang('H_FORGOT_PASSWORD');
+		$this->data['title'] = APP_NAME.' | '.lang('H_FORGOT_PASSWORD');
 		$this->data['page_name'] = lang('H_FORGOT_PASSWORD');
 		$templates[] = 'auth/forgot_password';
 		$this->_render($templates);
@@ -207,7 +207,7 @@ class Authentication extends MY_Controller {
 				$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FORGOT_PASSWORD_LINK_INVALID_TOKEN')));
 				redirect($this->config->item('base_url'));
 			}
-			$this->data['title'] = 'Codeigniter | '.lang('H_RESET_PASSWORD');
+			$this->data['title'] = APP_NAME.' | '.lang('H_RESET_PASSWORD');
 			$this->data['page_name'] = lang('H_RESET_PASSWORD');
 			$this->data['user'] = $result;
 			$templates[] = 'auth/reset_password';
@@ -252,7 +252,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_update_password() {
-		$this->data['title'] = 'Codeigniter | '.lang('H_UPDATE_PASSWORD');
+		$this->data['title'] = APP_NAME.' | '.lang('H_UPDATE_PASSWORD');
 		$this->data['page_name'] = lang('H_UPDATE_PASSWORD');
 		$templates[] = 'auth/update_password';
 		$this->_render($templates);
@@ -320,7 +320,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function manage_token() {
-		$this->data['title'] = 'Codeigniter | '.lang('H_LOG_IN_DEVICES');
+		$this->data['title'] = APP_NAME.' | '.lang('H_LOG_IN_DEVICES');
 		$this->data['page_name'] = lang('H_LOG_IN_DEVICES');
 		$this->data['token_list'] = $this->authenticator->get_remember_token(array('user' => $this->container->user['id']));
 		$this->data['current_token'] = $this->authenticator->get_current_remember_token();
