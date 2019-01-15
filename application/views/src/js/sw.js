@@ -18,7 +18,14 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
       keys.map(oldStaticCacheName => {
-        // cache offlinePage first
+        // cache homePage
+        const homePageReq = new Request("/");
+        fetch(homePageReq).then(function(response) {
+          return caches.open(staticCacheName).then(function(cache) {
+            return cache.put(homePageReq, response);
+          });
+        })
+        // cache offlinePage
         const offlinePageReq = new Request(offlinePage);
         fetch(offlinePageReq).then(function(response) {
           return caches.open(staticCacheName).then(function(cache) {
