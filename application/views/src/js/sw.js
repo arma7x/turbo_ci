@@ -20,14 +20,14 @@ self.addEventListener('activate', event => {
       keys.map(oldStaticCacheName => {
         // cache homePage
         const homePageReq = new Request("/");
-        fetch(homePageReq).then(function(response) {
+        fetch(homePageReq, {credentials: 'omit', headers: myHeaders}).then(function(response) {
           return caches.open(staticCacheName).then(function(cache) {
             return cache.put(homePageReq, response);
           });
         })
         // cache offlinePage
         const offlinePageReq = new Request(offlinePage);
-        fetch(offlinePageReq).then(function(response) {
+        fetch(offlinePageReq, {credentials: 'omit'}).then(function(response) {
           return caches.open(staticCacheName).then(function(cache) {
             return cache.put(offlinePageReq, response);
           });
