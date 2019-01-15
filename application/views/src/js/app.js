@@ -598,9 +598,12 @@ $(document).ready(function() {
         if (confirm('<?php echo lang('L_CONFIRM_LOGOUT')?>') == false) {
             return
         }
+        var data = {}
+        data[window.csrf_token_name] = window.csrf_hash
         var request = $.ajax({
             url: "/authentication/log_out",
-            method: "GET",
+            method: "POST",
+            data: data,
             dataType: "json"
         })
         request.done(function(data) {

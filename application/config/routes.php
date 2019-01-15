@@ -78,4 +78,4 @@ $route['manage_user/update_user_role']['post'] = 'manage_user/update_user_role';
 $route['manage_user/update_user_access_level']['post'] = 'manage_user/update_user_access_level';
 $route['manage_user/update_user_status']['post'] = 'manage_user/update_user_status';
 $route['manage_user/delete_user']['post'] = 'manage_user/delete_user';
-$route['authentication/log_out'] = 'authentication/log_out';
+$route['authentication/log_out']['post'] = 'authentication/log_out';
