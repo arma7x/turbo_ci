@@ -21,7 +21,7 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
       keys.map(oldStaticCacheName => {
-        // cache homepage for offline
+        // cache homepage
         let homepageReq = new Request(homepage);
         homepageReq.credentials = 'omit';
         fetch(homepageReq, {credentials: 'omit', headers: cacheHeader}).then((response) => {
