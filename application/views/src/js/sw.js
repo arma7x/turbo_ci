@@ -22,14 +22,16 @@ self.addEventListener('activate', event => {
     caches.keys().then(keys => Promise.all(
       keys.map(oldStaticCacheName => {
         // cache homepage for offline
-        const homepageReq = new Request(homepage);
+        let homepageReq = new Request(homepage);
+        homepageReq.credentials = 'omit';
         fetch(homepageReq, {credentials: 'omit', headers: cacheHeader}).then((response) => {
           return caches.open(staticCacheName).then((cache) => {
             return cache.put(homepageReq, response);
           });
         })
         // cache offlinePage
-        const offlinePageReq = new Request(offlinePage);
+        let offlinePageReq = new Request(offlinePage);
+        offlinePageReq.credentials = 'omit';
         fetch(offlinePageReq, {credentials: 'omit'}).then((response) => {
           return caches.open(staticCacheName).then((cache) => {
             return cache.put(offlinePageReq, response);
