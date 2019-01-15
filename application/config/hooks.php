@@ -15,6 +15,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $hook['post_controller_constructor'][] = function() {
 	$CI = &get_instance();
 	$CI->container['sw_offline_cache'] = $CI->input->get_request_header('sw-offline-cache', TRUE);
+	//if ($CI->container['sw_offline_cache'] !== NULL) {
+	//	log_message('error', 'Cache::'.$CI->container['sw_offline_cache']);
+	//}
 	if ($CI->session->status !== NULL) {
 		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->session->user['id']), 'id, username, email, role, access_level, status, avatar');
 		if ($user !== NULL) {

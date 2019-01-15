@@ -22,15 +22,6 @@
               )
             );
             window.addEventListener('load', function() {
-                navigator.serviceWorker.addEventListener('controllerchange', function(event) {
-                  navigator.serviceWorker.controller.addEventListener('statechange',
-                    function() {
-                      console.log('[controllerchange][statechange] ' +
-                        'A "statechange" has occured: ', this.state
-                      );
-                    }
-                  );
-                });
                 if ('serviceWorker' in navigator &&
                   (window.location.protocol === 'https:' || isLocalhost)) {
                     navigator.serviceWorker.register('/sw.js')
