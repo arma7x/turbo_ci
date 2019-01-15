@@ -4,6 +4,7 @@ const staticCacheFiles = ["/src/app.css", "/asset/css/bootstrap.min.css", "/asse
 ];
 const staticCacheName = 'static-<?php echo filemtime(APPPATH.'views/src/js/sw.js').'-'.filemtime(APPPATH.'views/src/js/app.js').'-'.filemtime(APPPATH.'views/src/css/app.css') ?>';
 const expectedCaches = [staticCacheName];
+const myHeaders = new Headers({ 'sw-offline-cache': staticCacheName });
 
 self.addEventListener('install', event => {
   self.skipWaiting();
@@ -35,7 +36,7 @@ self.addEventListener('activate', event => {
                    let requestWithoutCache = oldCache[i].clone();
                    requestWithoutCache.credentials = 'omit';
                    // heavy task ??
-                   fetch(requestWithoutCache, {credentials: 'omit'}).then(function (responseWithoutCookies) {
+                   fetch(requestWithoutCache, {credentials: 'omit', headers: myHeaders}).then(function (responseWithoutCookies) {
                      if (responseWithoutCookies.status === 200) {
                        const responseToCache = responseWithoutCookies.clone();
                        caches.open(staticCacheName).then(cache => cache.put(requestWithoutCache, responseToCache));
@@ -70,7 +71,7 @@ function fromNetwork(request, timeout) {
         if (request.method === 'GET') { // POST, PUT, PATCH, DELETE IS IGNORE
           let requestWithoutCache = request.clone();
           requestWithoutCache.credentials = 'omit'; // cache page without auth for offline
-          fetch(requestWithoutCache, {credentials: 'omit'}).then(function (responseWithoutCookies) {
+          fetch(requestWithoutCache, {credentials: 'omit', headers: myHeaders}).then(function (responseWithoutCookies) {
             if (responseWithoutCookies.status === 200) {
               const responseToCache = responseWithoutCookies.clone();
               // cache page with response code 200 only

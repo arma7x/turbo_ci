@@ -86,3 +86,4 @@ $lang['M_FAIL_UPDATE_ACCESS_LEVEL'] = 'Unable to update %s access level.';
 $lang['M_SUCCESS_UPDATE_STATUS'] = 'Successsfully update %s status.';
 $lang['M_FAIL_UPDATE_STATUS'] = 'Unable to update %s status.';
 $lang['M_OFFLINE'] = 'Oppsss, Content Unavailable!';
+$lang['M_CACHE_CONTENT'] = 'This is cached view.';
