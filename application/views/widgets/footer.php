@@ -13,7 +13,6 @@
     <script>
         (function() {
           'use strict';
-          var INSTALL_FINISHED = new Event('INSTALL_FINISHED');
           var isLocalhost = Boolean(window.location.hostname === 'localhost' ||
               // [::1] is the IPv6 localhost address.
               window.location.hostname === '[::1]' ||
@@ -22,33 +21,41 @@
                 /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
               )
             );
-          window.addEventListener('load', function() {
-              if ('serviceWorker' in navigator &&
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.addEventListener('controllerchange', function(event) {
+                  navigator.serviceWorker.controller.addEventListener('statechange',
+                    function() {
+                      console.log('[controllerchange][statechange] ' +
+                        'A "statechange" has occured: ', this.state
+                      );
+                    }
+                  );
+                });
+                if ('serviceWorker' in navigator &&
                   (window.location.protocol === 'https:' || isLocalhost)) {
-                navigator.serviceWorker.register('/sw.js')
-                .then(function(registration) {
-                  registration.onupdatefound = function() {
-                    if (navigator.serviceWorker.controller) {
-                      var installingWorker = registration.installing;
-                      installingWorker.onstatechange = function() {
-                        switch (installingWorker.state) {
-                          case 'installed':
-                            alert('Refresh page to apply new pacth');
-                            window.dispatchEvent(INSTALL_FINISHED);
-                            break;
-                          case 'redundant':
-                            throw new Error('The installing service worker became redundant.');
-                          default:
-                            // Ignore
+                    navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                      registration.onupdatefound = function() {
+                        if (navigator.serviceWorker.controller) {
+                          var installingWorker = registration.installing;
+                          installingWorker.onstatechange = function() {
+                            switch (installingWorker.state) {
+                              case 'installed':
+                                alert('Refresh page to apply new pacth');
+                                break;
+                              case 'redundant':
+                                throw new Error('The installing service worker became redundant.');
+                              default:
+                                // Ignore
+                            }
+                          };
                         }
                       };
-                    }
-                  };
-                }).catch(function(e) {
-                  console.error('Error during service worker registration:', e);
-                });
-              }
-          });
+                    }).catch(function(e) {
+                      console.error('Error during service worker registration:', e);
+                    });
+                }
+            });
         })();
     </script>
   </body>

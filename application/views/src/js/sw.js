@@ -25,7 +25,7 @@ self.addEventListener('activate', event => {
           });
         })
         if (!expectedCaches.includes(oldStaticCacheName)) {
-           // bring forward non-staticCacheFiles from previous to current cache
+           // bring forward non-staticCacheFiles from previous cache to current cache
            caches.open(oldStaticCacheName).then(function(cache) {
              cache.keys().then(oldCache => {
                for (i in oldCache) {
@@ -67,7 +67,7 @@ function fromNetwork(request, timeout) {
     fetch(request).then(function (response) {
       const targetRequest = request.url;
       if (staticCacheFiles.indexOf(targetRequest.replace(origin, '')) === -1) { // dont re-cache/request staticCacheFiles
-        if (request.method === 'GET') {
+        if (request.method === 'GET') { // POST, PUT, PATCH, DELETE IS IGNORE
           let requestWithoutCache = request.clone();
           requestWithoutCache.credentials = 'omit'; // cache page without auth for offline
           fetch(requestWithoutCache, {credentials: 'omit'}).then(function (responseWithoutCookies) {
