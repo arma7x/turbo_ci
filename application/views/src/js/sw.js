@@ -21,16 +21,16 @@ self.addEventListener('activate', event => {
       keys.map(oldStaticCacheName => {
         // cache homepage
         let homepageReq = new Request(homepage);
-        homepageReq.credentials = 'omit';
-        fetch(homepageReq, {credentials: 'omit', headers: cacheHeader}).then((response) => {
+        homepageReq.credentials = 'same-origin';
+        fetch(homepageReq, {credentials: 'same-origin', headers: cacheHeader}).then((response) => {
           return caches.open(staticCacheName).then((cache) => {
             return cache.put(homepageReq, response);
           });
         })
         // cache offlinePage
         let offlinePageReq = new Request(offlinePage);
-        offlinePageReq.credentials = 'omit';
-        fetch(offlinePageReq, {credentials: 'omit'}).then((response) => {
+        offlinePageReq.credentials = 'same-origin';
+        fetch(offlinePageReq, {credentials: 'same-origin'}).then((response) => {
           return caches.open(staticCacheName).then((cache) => {
             return cache.put(offlinePageReq, response);
           });
@@ -44,9 +44,9 @@ self.addEventListener('activate', event => {
                         //const trimURL = oldCacheRequestURL.replace(origin, '');
                         //if (staticCacheFiles.indexOf(trimURL) === -1 && trimURL !== offlinePage) {
                             //let request = new Request(trimURL);
-                            //request.credentials = 'omit';
+                            //request.credentials = 'same-origin';
                             //// heavy network request if to many old cached pages emm
-                            //fetch(request, {credentials: 'omit', headers: cacheHeader}).then((response) => {
+                            //fetch(request, {credentials: 'same-origin', headers: cacheHeader}).then((response) => {
                                 //if (response.status === 200) {
                                     //const freshCopy = response.clone();
                                     //caches.open(staticCacheName).then(cache => cache.put(request, freshCopy));
@@ -80,8 +80,8 @@ function fromNetwork(request, timeout) {
       if (staticCacheFiles.indexOf(targetRequest.replace(origin, '')) === -1) { // dont re-cache staticCacheFiles
         if (request.method === 'GET') {
           let requestWithoutCache = request.clone();
-          requestWithoutCache.credentials = 'omit'; // cache page without auth for offline
-          fetch(requestWithoutCache, {credentials: 'omit', headers: cacheHeader}).then((responseWithoutCookies) => {
+          requestWithoutCache.credentials = 'same-origin'; // cache page without auth for offline
+          fetch(requestWithoutCache, {credentials: 'same-origin', headers: cacheHeader}).then((responseWithoutCookies) => {
             if (responseWithoutCookies.status === 200) {
               const responseToCache = responseWithoutCookies.clone();
               // cache page with response code 200 only

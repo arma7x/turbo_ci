@@ -1,9 +1,9 @@
 if (window['parseDateProto'] == undefined) {
-    var parseDateProto = Object.create(HTMLElement.prototype);
+    var parseDateProto = Object.create(HTMLElement.prototype)
     parseDateProto.createdCallback = function() {
       var t = new Date(parseInt(this.innerHTML+'000'))
       this.innerHTML = t.toLocaleString()
-    };
+    }
     document.registerElement('parse-date', {prototype: parseDateProto})
 }
 
