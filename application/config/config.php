@@ -2,6 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $DATABASE_URL = 'SERVER'; // mysqli://root:root@localhost/ci_starter
+$ENCRYPTION_KEY = 'SERVER'; // 09FA7BE0A09C30D0050B05C6EE9974938094
+$EMAIL_URL = 'SERVER'; // smtp://username@yahoo.com:password@smtp.mail.yahoo.com:587/tls
+$APP_NAME = 'TurboCI';
+$APP_URL = 'https://turboci.herokuapp.com/';
+$APP_ADMIN_EMAIL = 'zeon_msi@yahoo.com';
+
 $DB_AUTH = parse_url($DATABASE_URL == 'SERVER' ? getenv('DATABASE_URL') : $DATABASE_URL);
 $APP_DATABASE_AUTH = array(
     'hostname' => isset($DB_AUTH['host']) ? $DB_AUTH['host'].(isset($DB_AUTH['port']) ? ':'.($DB_AUTH['port']) : '') : '',
@@ -10,10 +16,7 @@ $APP_DATABASE_AUTH = array(
     'database' => isset($DB_AUTH['path']) ? ltrim($DB_AUTH['path'],'/') : '',
     'dbdriver' => isset($DB_AUTH['scheme']) ? $DB_AUTH['scheme'] : '',
 );
-$ENCRYPTION_KEY = 'SERVER'; // 09FA7BE0A09C30D0050B05C6EE9974938094E5FF1C0FC59A3A6776242D0787D4
 $APP_ENCRYPTION_KEY = ($ENCRYPTION_KEY == 'SERVER') ? getenv('ENCRYPTION_KEY') : $ENCRYPTION_KEY;
-
-$EMAIL_URL = 'SERVER'; // smtp://username@yahoo.com:password@smtp.mail.yahoo.com:587/tls
 $EMAIL_AUTH = parse_url($EMAIL_URL == 'SERVER' ? getenv('EMAIL_URL') : $EMAIL_URL);
 $APP_EMAIL_AUTH = array(
     'protocol' => isset($EMAIL_AUTH['scheme']) ? $EMAIL_AUTH['scheme'] : '',
@@ -23,9 +26,10 @@ $APP_EMAIL_AUTH = array(
     'smtp_port' => isset($EMAIL_AUTH['port']) ? $EMAIL_AUTH['port'] : '',
     'smtp_crypto' => isset($EMAIL_AUTH['path']) ? ltrim($EMAIL_AUTH['path'],'/') : '',
 );
-define('APP_NAME', 'TurboCI');
-define('APP_URL', 'https://turboci.herokuapp.com/');
-define('APP_ADMIN_EMAIL', 'zeon_msi@yahoo.com');
+
+define('APP_NAME', $APP_NAME);
+define('APP_URL', $APP_URL);
+define('APP_ADMIN_EMAIL', $APP_ADMIN_EMAIL);
 define('APP_DATABASE_AUTH', $APP_DATABASE_AUTH);
 define('APP_ENCRYPTION_KEY', $APP_ENCRYPTION_KEY);
 define('APP_EMAIL_AUTH', $APP_EMAIL_AUTH);
@@ -252,7 +256,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 1;
+$config['log_threshold'] = 0;
 
 /*
 |--------------------------------------------------------------------------

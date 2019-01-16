@@ -29,7 +29,7 @@
                           installingWorker.onstatechange = function() {
                             switch (installingWorker.state) {
                               case 'installed':
-                                alert('Refresh page to apply new pacth');
+                                console.log('Refresh page to apply new pacth');
                                 break;
                               case 'redundant':
                                 throw new Error('The installing service worker became redundant.');

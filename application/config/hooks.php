@@ -14,6 +14,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $hook['post_controller_constructor'][] = function() {
 	$CI = &get_instance();
+	$CI->load->helper('cookie');
+	$expire = time() + (60 * 60 * 24 * 365);
+	$lang = $CI->input->get('lang', TRUE);
+	if ($lang === NULL) {
+		$lang = get_cookie('lang');
+		if ($lang === NULL) {
+			$lang = 'english';
+		}
+	}
+	setcookie('lang', $lang, $expire, $CI->config->item('cookie_path'), $CI->config->item('cookie_domain'), $CI->config->item('cookie_secure'), $CI->config->item('cookie_httponly'));
+	if ($lang === 'malay') {
+		$CI->lang->load('app', 'malay');
+	} else {
+		$CI->lang->load('app', 'english');
+	}
+};
+
+$hook['post_controller_constructor'][] = function() {
+	$CI = &get_instance();
 	$CI->container['sw_offline_cache'] = $CI->input->get_request_header('sw-offline-cache', TRUE);
 	//if ($CI->container['sw_offline_cache'] !== NULL) {
 	//	log_message('error', 'Cache::'.$CI->container['sw_offline_cache']);

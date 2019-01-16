@@ -360,7 +360,6 @@ class Authenticator {
 		$this->CI->email->message($this->CI->load->view($template, $data, TRUE));
 		if (!$this->CI->email->send(FALSE)) {
 			//echo $this->CI->email->print_debugger();
-			//var_dump($config);
 			log_message('error', $subject.'::'.$data['user']['email']);
 		}
 	}

@@ -35,11 +35,18 @@
 
       <div class="collapse navbar-collapse" id="navCollapsed">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
           <?php if ($this->uri->segment(1) != NULL): ?>
+          <li class="nav-item">
             <a onclick="goBack()" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">&#xe5c4;</i> <?php echo lang('H_BACK');?></a>
           </li>
           <?php endif; ?>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe894;</i> <?php echo lang('L_LANGUAGE') ?></a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" onclick="insertParam('lang', 'english')" data-turbolinks="false"><?php echo lang('L_ENGLISH_LANG') ?></a>
+              <a class="dropdown-item" onclick="insertParam('lang', 'malay')" data-turbolinks="false"><?php echo lang('L_MALAY_LANG') ?></a>
+            </div>
+          </li>
           <?php if($this->session->status == NULL): ?>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_login')"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
@@ -65,8 +72,8 @@
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_update_password' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_update_password')"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
           </li>
           <li class="nav-item dropdown">
-            <a id="toggle_dropdown" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe871;</i> <?php echo lang('H_DASHBOARD');?></a>
-            <div id="menu_dropdown" class="dropdown-menu" aria-labelledby="toggle_collapsed">
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe871;</i> <?php echo lang('H_DASHBOARD');?></a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
               <?php if((int) $this->container->user['role'] <= 1): ?>
               <a class="dropdown-item" onclick="navigate('/manage_user/user_list')"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
               <?php endif; ?>
