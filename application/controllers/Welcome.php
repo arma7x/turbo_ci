@@ -33,7 +33,7 @@ class Welcome extends MY_Controller {
 
 	public function index() {
 		$this->data['title'] = APP_NAME.' | '.lang('H_HOMEPAGE');
-		$this->data['page_name'] = lang('H_HOMEPAGE');
+		$this->data['page_name'] = str_replace('%s', APP_NAME, lang('H_WELCOME'));;
 		$templates[] = 'welcome_message';
 		$this->_render($templates);
 	}

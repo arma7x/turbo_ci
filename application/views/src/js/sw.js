@@ -1,7 +1,7 @@
 const origin = self.location.protocol+'//'+self.location.host;
 const homepage = "/";
 const offlinePage = "/offline";
-const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css", "/static/font/MaterialIcons-Regular.woff2", "/static/js/turbolinks.js", "/src/app.js", "/static/js/bootstrap.min.js", "/static/js/popper.min.js", "/static/js/jquery-3.3.1.min.js"];
+const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css", "/static/font/MaterialIcons-Regular.woff2", "/static/js/turbolinks.js", "/src/app.js", "/static/js/bootstrap.min.js", "/static/js/popper.min.js", "/static/js/jquery-3.3.1.min.js", "/static/js/particles.min.js", "/static/img/android-chrome-192x192.png", "/static/img/android-chrome-512x512.png", "/static/img/apple-touch-icon.png", "/static/img/favicon-16x16.png", "/static/img/favicon-32x32.png", "/static/img/mstile-150x150.png", "/static/img/safari-pinned-tab.svg"];
 const staticCacheName = 'static-<?php echo filemtime(APPPATH.'views/src/js/sw.js').'-'.filemtime(APPPATH.'views/src/js/app.js').'-'.filemtime(APPPATH.'views/src/css/app.css') ?>';
 const expectedCaches = [staticCacheName];
 
@@ -80,7 +80,7 @@ function fromNetwork(request, timeout) {
       if (staticCacheFiles.indexOf(targetRequest.replace(origin, '')) === -1) { // dont re-cache staticCacheFiles
         if (request.method === 'GET') {
           let requestWithoutCache = request.clone();
-          requestWithoutCache.credentials = 'same-origin'; // cache page without auth for offline
+          requestWithoutCache.credentials = 'same-origin';
           fetch(requestWithoutCache, {credentials: 'same-origin', headers: cacheHeader}).then((responseWithoutCookies) => {
             if (responseWithoutCookies.status === 200) {
               const responseToCache = responseWithoutCookies.clone();

@@ -6,8 +6,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="turbolinks-cache-control" content="no-cache">
-    <link rel="icon" href="/favicon.ico">
     <title><?php echo $title ? $title : 'Codeigniter' ?></title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/img/apple-touch-icon.png">
+    <link rel="icon" href="/static/img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="apple-mobile-web-app-title" content="TurboCI">
+    <meta name="application-name" content="TurboCI">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#ffffff">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/src/app.css" type="text/css" rel="stylesheet">
     <script src="/static/js/turbolinks.js"></script>
@@ -47,7 +56,7 @@
               <a class="dropdown-item" onclick="insertParam('lang', 'malay')" data-turbolinks="false"><?php echo lang('L_MALAY_LANG') ?></a>
             </div>
           </li>
-          <?php if($this->session->status == NULL): ?>
+          <?php if($this->container->user === NULL): ?>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_login')"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
           </li>
@@ -61,7 +70,7 @@
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_activate_account' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_activate_account')"><i class="material-icons">&#xe8e8;</i> <?php echo lang('H_ACTIVATE_ACCOUNT');?></a>
           </li>
           <?php endif; ?>
-          <?php if($this->session->status == TRUE): ?>
+          <?php if($this->container->user !== NULL): ?>
           <li class="nav-item" onclick="selectPic()">
             <a id="avatar_pic" class="nav-link" data-turbolinks="false">
               <img class="rounded-circle avatar" src="<?php echo $this->container->user['avatar'] ?>"/>
@@ -106,4 +115,6 @@
     <div id="dangerMessage" class="fixed-top text-sm-center alert alert-danger top-alert-noround sr-only" role="alert">
     </div>
     <main role="main" class="container">
+    <?php if($this->container->user !== NULL): ?>
     <input id="upload-avatar" class="sr-only" type="file" accept="image/*" onChange="processPic('upload-avatar')"/>
+    <?php endif; ?>

@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['H_Offline'] = 'Offline';
+$lang['H_WELCOME'] = 'Welcome to %s';
 $lang['H_HOMEPAGE'] = 'Homepage';
 $lang['H_BACK'] = 'Back';
 $lang['H_DASHBOARD'] = 'Dashboard';
