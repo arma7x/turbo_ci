@@ -28,6 +28,7 @@
         window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
         window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
         document.addEventListener("turbolinks:load", function(event) {
+            $('#particles-js').empty();
             particlesJS.load('particles-js', '/static/particlesjs-config.json');
         })
     </script>
