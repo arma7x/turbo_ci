@@ -30,6 +30,14 @@
         document.addEventListener("turbolinks:load", function(event) {
             $('#particles-js').empty();
             particlesJS.load('particles-js', '/static/particlesjs-config.json');
+            var particle = $('#particles-js').height();
+            $('#main').attr('style', 'margin-top:-'+particle.toString()+'px')
+        })
+        document.addEventListener("turbolinks:before-visit", function(event) {
+            for (var i in pJSDom) {
+                pJSDom[i].pJS.fn.particlesEmpty();
+                pJSDom[i].pJS.fn.canvasClear();
+            }
         })
     </script>
   </head>
