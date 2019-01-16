@@ -6,9 +6,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <meta name="turbolinks-cache-control" content="no-cache">
 <meta charset="utf-8">
 <title>Error</title>
-<link href="/asset/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
 <link href="/src/app.css" type="text/css" rel="stylesheet">
-<script src="/asset/js/turbolinks.js"></script>
+<script src="/static/js/turbolinks.js"></script>
 </head>
 <body>
 	<div class="container">

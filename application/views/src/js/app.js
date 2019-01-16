@@ -11,12 +11,6 @@ function getQueryStringValue(key) {
     return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"))
 }
 
-function navigate(pathname) {
-    if (pathname != window.location.pathname) {
-        Turbolinks.visit(pathname, { action: "advance" })
-    }
-}
-
 function selectPic() {
     $('#upload-avatar').click()
 }
@@ -64,29 +58,6 @@ function processPic(holder) {
         reader.onerror = function(error) {
             console.log(error);
         }
-    }
-}
-
-function showDangerMessage(text) {
-    $('#dangerMessage').text(text)
-    $('#dangerMessage').removeClass('sr-only')
-    $('#dangerMessage').removeClass('fade')
-    $('#dangerMessage').addClass('show')
-    $('#dangerMessage').append('<button type="button" class="close" aria-label="Close" onclick="hideDangerMessage()"><span aria-hidden="true">&times;</span></button>')
-}
-
-function hideDangerMessage() {
-    $('#dangerMessage').removeClass('show')
-    //$('#dangerMessage').addClass('sr-only')
-    $('#dangerMessage').addClass('fade')
-    $('#dangerMessage').text('')
-}
-
-function goBack() {
-    if (window.history.length <= 2) {
-        Turbolinks.visit("/", { action: "replace" })
-    } else {
-        window.history.go(-1)
     }
 }
 
@@ -289,6 +260,41 @@ function deleteUser(id) {
     }
 }
 
+function showDangerMessage(text) {
+    $('#dangerMessage').text(text)
+    $('#dangerMessage').removeClass('sr-only')
+    $('#dangerMessage').removeClass('fade')
+    $('#dangerMessage').addClass('show')
+    $('#dangerMessage').append('<button type="button" class="close" aria-label="Close" onclick="hideDangerMessage()"><span aria-hidden="true">&times;</span></button>')
+}
+
+function hideDangerMessage() {
+    $('#dangerMessage').removeClass('show')
+    //$('#dangerMessage').addClass('sr-only')
+    $('#dangerMessage').addClass('fade')
+    $('#dangerMessage').text('')
+}
+
+function goHome() {
+    if ((window.location.toString() != window.location.protocol+'//'+window.location.host+'/') && (window.location.toString() != window.location.protocol+'//'+window.location.host+'/#')) {
+        Turbolinks.visit("/", { action: "replace" })
+    }
+}
+    
+function goBack() {
+    if (window.history.length <= 2) {
+        Turbolinks.visit("/", { action: "replace" })
+    } else {
+        window.history.go(-1)
+    }
+}
+
+function navigate(pathname) {
+    if (pathname != window.location.pathname) {
+        Turbolinks.visit(pathname, { action: "advance" })
+    }
+}
+
 $(document).ready(function() {
 
     $("form").submit(function(event) {
@@ -301,20 +307,6 @@ $(document).ready(function() {
         } else {
             $('#menu_dropdown').addClass('show')
         }
-    })
-
-    $('#home_btn').mousedown(function() {
-        if ((window.location.toString() != window.location.protocol+'//'+window.location.host+'/') && (window.location.toString() != window.location.protocol+'//'+window.location.host+'/#')) {
-            Turbolinks.visit("/", { action: "replace" })
-        }
-    })
-    
-    $('#back_btn_sm').mousedown(function() {
-        goBack()
-    })
-
-    $('#back_btn_md').mousedown(function() {
-        goBack()
     })
 
     $('#lgn_btn').click(function(event) {

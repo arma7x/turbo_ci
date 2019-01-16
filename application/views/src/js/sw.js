@@ -1,8 +1,7 @@
 const origin = self.location.protocol+'//'+self.location.host;
 const homepage = "/";
 const offlinePage = "/offline";
-const staticCacheFiles = ["/src/app.css", "/asset/css/bootstrap.min.css", "/asset/font/MaterialIcons-Regular.woff2", "/asset/js/turbolinks.js", "/src/app.js", "/asset/js/bootstrap.min.js", "/asset/js/popper.min.js", "/asset/js/jquery-3.3.1.min.js"
-];
+const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css", "/static/font/MaterialIcons-Regular.woff2", "/static/js/turbolinks.js", "/src/app.js", "/static/js/bootstrap.min.js", "/static/js/popper.min.js", "/static/js/jquery-3.3.1.min.js"];
 const staticCacheName = 'static-<?php echo filemtime(APPPATH.'views/src/js/sw.js').'-'.filemtime(APPPATH.'views/src/js/app.js').'-'.filemtime(APPPATH.'views/src/css/app.css') ?>';
 const expectedCaches = [staticCacheName];
 
@@ -10,11 +9,10 @@ const cacheHeader = { 'sw-offline-cache': staticCacheName };
 //const cacheHeader = new Headers({ 'sw-offline-cache': staticCacheName });
 
 self.addEventListener('install', event => {
-  self.skipWaiting();
-  event.waitUntil(
-    caches.open(staticCacheName)
-      .then(cache => cache.addAll(staticCacheFiles))
-  );
+    self.skipWaiting();
+    event.waitUntil(
+        caches.open(staticCacheName).then(cache => cache.addAll(staticCacheFiles))
+    );
 });
 
 self.addEventListener('activate', event => {
@@ -38,27 +36,27 @@ self.addEventListener('activate', event => {
           });
         })
         if (!expectedCaches.includes(oldStaticCacheName)) {
-           // bring forward non-staticCacheFiles from previous cache to current cache
-           caches.open(oldStaticCacheName).then((cache) => {
-             cache.keys().then(oldCache => {
-               oldCache.forEach(v => {
-                 const oldCacheRequestURL = v.url;
-                 const trimURL = oldCacheRequestURL.replace(origin, '');
-                 if (staticCacheFiles.indexOf(trimURL) === -1 && trimURL !== offlinePage) {
-                   let request = new Request(trimURL);
-                   request.credentials = 'omit';
-                   // heavy network request if to many old cached pages emm
-                   fetch(request, {credentials: 'omit', headers: cacheHeader}).then((response) => {
-                     if (response.status === 200) {
-                       const freshCopy = response.clone();
-                       caches.open(staticCacheName).then(cache => cache.put(request, freshCopy));
-                     }
-                   });
-                 }
-               });
-             });
-           });
-          return caches.delete(oldStaticCacheName);
+            // uncomment below will bring forward non-staticCacheFiles from previous cache to current cache
+            //caches.open(oldStaticCacheName).then((cache) => {
+                //cache.keys().then(oldCache => {
+                    //oldCache.forEach(v => {
+                        //const oldCacheRequestURL = v.url;
+                        //const trimURL = oldCacheRequestURL.replace(origin, '');
+                        //if (staticCacheFiles.indexOf(trimURL) === -1 && trimURL !== offlinePage) {
+                            //let request = new Request(trimURL);
+                            //request.credentials = 'omit';
+                            //// heavy network request if to many old cached pages emm
+                            //fetch(request, {credentials: 'omit', headers: cacheHeader}).then((response) => {
+                                //if (response.status === 200) {
+                                    //const freshCopy = response.clone();
+                                    //caches.open(staticCacheName).then(cache => cache.put(request, freshCopy));
+                                //}
+                            //});
+                        //}
+                    //});
+                //});
+            //});
+            return caches.delete(oldStaticCacheName);
         }
       })
     ))
@@ -66,12 +64,12 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(fromNetwork(event.request, 15000).then((result) => {
-    return result;
-  })
-  .catch(() => {
-    return fromCache(event.request);
-  }));
+    event.respondWith(fromNetwork(event.request, 15000).then((result) => {
+        return result;
+    })
+    .catch(() => {
+        return fromCache(event.request);
+    }));
 });
 
 function fromNetwork(request, timeout) {
@@ -89,7 +87,7 @@ function fromNetwork(request, timeout) {
               // cache page with response code 200 only
               caches.open(staticCacheName).then(cache => cache.put(requestWithoutCache, responseToCache));
             } else {
-              // offline mode should display 200 content or return offline page
+              // remove non-200 page status
               caches.open(staticCacheName).then((cache) => cache.delete(requestWithoutCache));
             }
           });
@@ -102,10 +100,10 @@ function fromNetwork(request, timeout) {
 }
  
 function fromCache(request) {
-  const offline = new Request(offlinePage);
-  return caches.open(staticCacheName).then((cache) => {
-    return cache.match(request).then((matching) => {
-      return matching || caches.match(offline);
+    const offline = new Request(offlinePage);
+    return caches.open(staticCacheName).then((cache) => {
+        return cache.match(request).then((matching) => {
+            return matching || caches.match(offline);
+        });
     });
-  });
 }

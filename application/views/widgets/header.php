@@ -8,9 +8,12 @@
     <meta name="turbolinks-cache-control" content="no-cache">
     <link rel="icon" href="/favicon.ico">
     <title><?php echo $title ? $title : 'Codeigniter' ?></title>
-    <link href="/asset/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/src/app.css" type="text/css" rel="stylesheet">
-    <script src="/asset/js/turbolinks.js"></script>
+    <script src="/static/js/turbolinks.js"></script>
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
     <script>
       window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
       window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
@@ -22,9 +25,9 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
       <div>
         <?php if ($this->uri->segment(1) != NULL): ?>
-        <a id="back_btn_sm" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">&#xe5c4;</i></a>
+        <a onclick="goBack()" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">&#xe5c4;</i></a>
         <?php endif; ?>
-        <a id="home_btn" class="navbar-brand" data-turbolinks="false">TurboCI</a>
+        <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">TurboCI</a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
         <i class="material-icons text-dark" style="font-size:1.7em;">&#xe5d2;</i>
@@ -34,7 +37,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
           <?php if ($this->uri->segment(1) != NULL): ?>
-            <a id="back_btn_md" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">&#xe5c4;</i> <?php echo lang('H_BACK');?></a>
+            <a onclick="goBack()" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">&#xe5c4;</i> <?php echo lang('H_BACK');?></a>
           </li>
           <?php endif; ?>
           <?php if($this->session->status == NULL): ?>
