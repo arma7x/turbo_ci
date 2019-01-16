@@ -318,6 +318,9 @@ function navigate(pathname) {
 
 $(document).ready(function() {
 
+    var particle = $('#particles-js').height();
+    $('#main').attr('style', 'margin-top:-'+particle.toString()+'px')
+
     $("form").submit(function(event) {
         event.preventDefault()
     })

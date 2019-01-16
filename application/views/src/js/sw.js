@@ -1,7 +1,7 @@
 const origin = self.location.protocol+'//'+self.location.host;
 const homepage = "/";
 const offlinePage = "/offline";
-const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css", "/static/font/MaterialIcons-Regular.woff2", "/static/js/turbolinks.js", "/src/app.js", "/static/js/bootstrap.min.js", "/static/js/popper.min.js", "/static/js/jquery-3.3.1.min.js", "/static/js/particles.min.js", "/static/img/android-chrome-192x192.png", "/static/img/android-chrome-512x512.png", "/static/img/apple-touch-icon.png", "/static/img/favicon-16x16.png", "/static/img/favicon-32x32.png", "/static/img/mstile-150x150.png", "/static/img/safari-pinned-tab.svg"];
+const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css", "/static/font/MaterialIcons-Regular.woff2", "/static/js/turbolinks.js", "/src/app.js", "/static/js/bootstrap.min.js", "/static/js/popper.min.js", "/static/js/jquery-3.3.1.min.js", "/static/js/particles.min.js", "/static/img/android-chrome-192x192.png", "/static/img/android-chrome-512x512.png", "/static/img/apple-touch-icon.png", "/static/img/favicon-16x16.png", "/static/img/favicon-32x32.png", "/static/img/mstile-150x150.png", "/static/img/safari-pinned-tab.svg", "/static/particlesjs-config.json"];
 const staticCacheName = 'static-<?php echo filemtime(APPPATH.'views/src/js/sw.js').'-'.filemtime(APPPATH.'views/src/js/app.js').'-'.filemtime(APPPATH.'views/src/css/app.css') ?>';
 const expectedCaches = [staticCacheName];
 

@@ -23,14 +23,17 @@
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/popper.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/particles.min.js"></script>
     <script>
-      window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
-      window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
+        window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
+        window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
+        document.addEventListener("turbolinks:load", function(event) {
+            particlesJS.load('particles-js', '/static/particlesjs-config.json');
+        })
     </script>
   </head>
 
   <body>
-
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
       <div>
         <?php if ($this->uri->segment(1) != NULL): ?>
@@ -114,7 +117,8 @@
     <?php endif; ?>
     <div id="dangerMessage" class="fixed-top text-sm-center alert alert-danger top-alert-noround sr-only" role="alert">
     </div>
-    <main role="main" class="container">
+    <div id="particles-js" style="height:87vh;"></div>
+    <main id="main" role="main" class="container">
     <?php if($this->container->user !== NULL): ?>
     <input id="upload-avatar" class="sr-only" type="file" accept="image/*" onChange="processPic('upload-avatar')"/>
     <?php endif; ?>
