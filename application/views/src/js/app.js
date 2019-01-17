@@ -306,10 +306,12 @@ function goBack() {
     if (window.history.length <= 2) {
         Turbolinks.visit("/", { action: "replace" })
     } else {
-        for (var i in pJSDom) {
-            pJSDom[i].pJS.fn.vendors.destroypJS()
-            window.pJSDom = [];
-        }
+        //for (var i in pJSDom) {
+            //if (pJSDom[i] != undefined) {
+                //pJSDom[i].pJS.fn.vendors.destroypJS()
+                //window.pJSDom = [];
+            //}
+        //}
         window.history.go(-1)
     }
 }
@@ -325,6 +327,15 @@ $(document).ready(function() {
     $("form").submit(function(event) {
         event.preventDefault()
     })
+
+    //$(window).on('popstate', function() {
+        //for (var i in pJSDom) {
+            //if (pJSDom[i] != undefined) {
+                //pJSDom[i].pJS.fn.vendors.destroypJS()
+                //window.pJSDom = [];
+            //}
+        //}
+    //});
 
     $('#toggle_dropdown').click(function() {
         if($('#menu_dropdown').hasClass('show')) {

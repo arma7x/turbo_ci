@@ -33,16 +33,18 @@ class Welcome extends MY_Controller {
 
 	public function index() {
 		$this->data['title'] = APP_NAME.' | '.lang('H_HOMEPAGE');
-		$this->data['page_name'] = str_replace('%s', APP_NAME, lang('H_WELCOME'));;
+		$this->data['page_name'] = str_replace('%s', APP_NAME, lang('H_WELCOME'));
 		$templates[] = 'welcome_message';
 		$this->_render($templates);
 	}
 
 	public function offline() {
+		$this->container->user = NULL;
 		$this->data['title'] = APP_NAME.' | '.lang('H_Offline');
 		$this->data['page_name'] = lang('H_Offline');
 		$this->data['message'] = lang('M_OFFLINE');
-		$this->load->view('offline', $this->data);
+		$templates[] = 'offline';
+		$this->_render($templates);
 	}
 
 }
