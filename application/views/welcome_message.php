@@ -22,7 +22,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Demo Staff</h5>
 					<code>Email: ahmadmuhamad101@gmail.com</code></br>
-					<code>Password: 1111111111</code>
+					<code>Password: 1111111111 (1x10)</code>
 				</div>
 			</div>
 		</div>
@@ -31,7 +31,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Demo Guest</h5>
 					<code>Email: arma7x@live.com</code></br>
-					<code>Password: 1111111111</code>
+					<code>Password: 1111111111 (1x10)</code>
 				</div>
 			</div>
 		</div>
