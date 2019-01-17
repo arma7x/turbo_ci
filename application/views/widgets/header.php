@@ -28,15 +28,16 @@
         window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
         window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
         document.addEventListener("turbolinks:load", function(event) {
-            $('#particles-js').empty();
-            particlesJS.load('particles-js', '/static/particlesjs-config.json');
-            var particle = $('#particles-js').height();
-            $('#main').attr('style', 'margin-top:-'+particle.toString()+'px')
+            if (pJSDom[0] == null) {
+                particlesJS.load('particles-js', '/static/particlesjs-config.json');
+                var particle = $('#particles-js').height();
+                $('#main').attr('style', 'margin-top:-'+particle.toString()+'px')
+            }
         })
         document.addEventListener("turbolinks:before-visit", function(event) {
             for (var i in pJSDom) {
-                pJSDom[i].pJS.fn.particlesEmpty();
-                pJSDom[i].pJS.fn.canvasClear();
+                pJSDom[i].pJS.fn.vendors.destroypJS()
+                window.pJSDom = [];
             }
         })
     </script>

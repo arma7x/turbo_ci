@@ -46,7 +46,7 @@ $hook['post_controller_constructor'][] = function() {
 	$CI->container['sw_offline_cache'] = $CI->input->get_request_header('sw-offline-cache', TRUE);
 	if ($CI->container['sw_offline_cache'] !== NULL) {
 		$CI->container->user = NULL;
-		// log_message('error', 'Cache::'.$CI->container['sw_offline_cache']);
+		log_message('error', 'Cache::'.$CI->container['sw_offline_cache']);
 	}
 };
 
@@ -66,9 +66,9 @@ $hook['post_controller_constructor'][] = function() {
 		}
 	}
 
-	if ($require_auth === TRUE && $CI->session->status === NULL) {
+	if ($require_auth === TRUE && $CI->container->user === NULL) {
 		show_error('Unauthorized', 401, '401 - Unauthorized');
-	} else if ($require_auth === FALSE && $CI->session->status !== NULL) {
+	} else if ($require_auth === FALSE && $CI->container->user !== NULL) {
 		show_error('Forbidden Access', 403, '403 - Forbidden Access');
 	}
 };
@@ -101,7 +101,7 @@ $hook['post_controller_constructor'][] = function() {
 	}
 
 	if ($require_role !== NULL || $require_access_level !== NULL) {
-		if ($CI->container->user === NULL || $CI->session->status === NULL) {
+		if ($CI->container->user === NULL) {
 			show_error('Unauthorized', 401, '401 - Unauthorized');
 		} elseif ($CI->container->user !== NULL) {
 			if (((int) $CI->container->user['role'] <= $require_role) === FALSE) {

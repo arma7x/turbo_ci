@@ -306,6 +306,10 @@ function goBack() {
     if (window.history.length <= 2) {
         Turbolinks.visit("/", { action: "replace" })
     } else {
+        for (var i in pJSDom) {
+            pJSDom[i].pJS.fn.vendors.destroypJS()
+            window.pJSDom = [];
+        }
         window.history.go(-1)
     }
 }
