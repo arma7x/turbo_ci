@@ -7,7 +7,7 @@ const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css",
 "/static/img/android-chrome-192x192.png", "/static/img/android-chrome-512x512.png",
 "/static/img/apple-touch-icon.png", "/static/img/favicon-16x16.png", "/static/img/favicon-32x32.png",
 "/static/img/mstile-150x150.png", "/static/img/safari-pinned-tab.svg"];
-// disable "/static/particlesjs-config.json", "/static/js/particles.min.js"
+// disable as bug "/static/particlesjs-config.json", "/static/js/particles.min.js"
 const staticCacheName = 'static-<?php echo filemtime(APPPATH.'views/src/js/sw.js').'-'.filemtime(APPPATH.'views/src/js/app.js').'-'.filemtime(APPPATH.'views/src/css/app.css') ?>';
 const expectedCaches = [staticCacheName];
 
