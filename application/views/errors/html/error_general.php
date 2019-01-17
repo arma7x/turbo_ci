@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="/static/js/turbolinks.js"></script>
 </head>
 <body>
+	<main id="main" role="main" class="container">
 	<div class="container">
 	  <div class="row align-items-center">
 		<div class="col col-sm-8 offset-sm-2">
@@ -25,5 +26,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	  </div>
 	</div>
+	</main>
 </body>
 </html>

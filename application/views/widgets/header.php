@@ -23,27 +23,9 @@
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/popper.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    <!-- <script src="/static/js/particles.min.js"></script> -->
     <script>
         window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
         window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
-        //document.addEventListener("turbolinks:load", function(event) {
-            //if (pJSDom != undefined) {
-                //if (pJSDom[0] == null) {
-                    //particlesJS.load('particles-js', '/static/particlesjs-config.json');
-                    //var particle = $('#particles-js').height();
-                    //$('#main').attr('style', 'margin-top:-'+particle.toString()+'px')
-                //}
-            //}
-        //})
-        //document.addEventListener("turbolinks:before-visit", function(event) {
-            //for (var i in pJSDom) {
-                //if (pJSDom[i] != undefined) {
-                    //pJSDom[i].pJS.fn.vendors.destroypJS()
-                    //window.pJSDom = [];
-                //}
-            //}
-        //})
     </script>
   </head>
 
@@ -131,7 +113,6 @@
     <?php endif; ?>
     <div id="dangerMessage" class="fixed-top text-sm-center alert alert-danger top-alert-noround sr-only" role="alert">
     </div>
-    <!-- <div id="particles-js" style="height:87vh;"></div> -->
     <main id="main" role="main" class="container">
     <?php if($this->container->user !== NULL): ?>
     <input id="upload-avatar" class="sr-only" type="file" accept="image/*" onChange="processPic('upload-avatar')"/>
