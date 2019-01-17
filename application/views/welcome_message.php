@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 <div class="container starter-template">
-	<div class="row justify-content-sm-center align-items-center">
+	<div class="row justify-content-sm-center align-items-center mb-2">
 		<div class="col">
 			<div class="card shadow-sm">
 				<div class="card-body text-center">
@@ -16,7 +16,6 @@
 			</div>
 		</div>
 	</div>
-	</br>
 	<div class="row justify-content-sm-center align-items-center">
 		<div class="col col-12 col-sm-6 mb-2">
 			<div class="card shadow-sm">
