@@ -28,7 +28,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->view($this->footer_template, $this->data);
 	}
 
-	final protected function _renderJSON($status = 200, $data) {
+	final protected function _renderJSON($status = 200, $data = array()) {
 		if ($data !== NULL) {
 			$this->data = array_merge($this->data, $data);
 		}

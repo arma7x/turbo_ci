@@ -11,10 +11,10 @@
     <link rel="icon" href="/static/img/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
-    <link rel="manifest" href="/static/manifest.json">
+    <link rel="manifest" href="/manifest.json">
     <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="apple-mobile-web-app-title" content="TurboCI">
-    <meta name="application-name" content="TurboCI">
+    <meta name="apple-mobile-web-app-title" content="<?php echo APP_NAME ?>">
+    <meta name="application-name" content="<?php echo APP_NAME ?>">
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
         <?php if ($this->uri->segment(1) != NULL): ?>
         <a onclick="goBack()" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">&#xe5c4;</i></a>
         <?php endif; ?>
-        <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">TurboCI</a>
+        <a onclick="goHome()" class="navbar-brand" data-turbolinks="false"><?php echo APP_NAME ?></a>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
         <i class="material-icons text-dark" style="font-size:1.7em;">&#xe5d2;</i>

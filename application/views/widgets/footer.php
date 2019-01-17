@@ -20,6 +20,7 @@
                                     console.log('Finish install new patch');
                                     break;
                                 case 'activated':
+                                    alert("<?php echo lang('M_SUCCESS_INSTALL_CACHE') ?>");
                                     console.log('Service worker was activated');
                                     break;
                                 case 'redundant':

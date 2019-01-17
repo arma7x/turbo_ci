@@ -15,4 +15,29 @@ class Src extends MY_Controller {
 		$this->_renderJS(array('src/js/sw.js'));
 	}
 
+	public function manifest() {
+		$this->data = array(
+			"name" => APP_NAME,
+			"short_name" => APP_NAME,
+			"icons" => array(
+				array(
+					"src" => "/static/img/android-chrome-192x192.png",
+					"sizes" => "192x192",
+					"type" => "image/png"
+				),
+				array(
+					"src" => "/static/img/android-chrome-512x512.png",
+					"sizes" => "512x512",
+					"type" => "image/png"
+				),
+			),
+			"theme_color" => "#ffffff",
+			"background_color" => "#ffffff",
+			"start_url" => "/",
+			"display" => "standalone",
+			"orientation" => "portrait"
+		);
+		$this->_renderJSON();
+	}
+
 }

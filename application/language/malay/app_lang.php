@@ -91,3 +91,4 @@ $lang['M_SUCCESS_UPDATE_STATUS'] = 'Berjaya mengemaskini status %s.';
 $lang['M_FAIL_UPDATE_STATUS'] = 'Gagal mengemaskini status %s.';
 $lang['M_OFFLINE'] = 'Kandungan Tidak Tersedia!';
 $lang['M_CACHE_CONTENT'] = 'Ini adalah salian luar talian.';
+$lang['M_SUCCESS_INSTALL_CACHE'] = 'Berjaya menyimpan cache baru.';

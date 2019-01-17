@@ -65,6 +65,7 @@ $route['manage_user/user_list']['get'] = 'manage_user/user_list';
 $route['src/app.css']['get'] = 'src/css';
 $route['src/app.js']['get'] = 'src/js';
 $route['sw.js']['get'] = 'src/sw';
+$route['manifest.json']['get'] = 'src/manifest';
 
 $route['authentication/login']['post'] = 'authentication/login';
 $route['authentication/register']['post'] = 'authentication/register';
