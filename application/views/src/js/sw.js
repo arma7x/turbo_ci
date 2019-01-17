@@ -21,6 +21,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
       keys.map(oldcacheName => {

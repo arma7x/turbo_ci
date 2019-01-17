@@ -14,7 +14,9 @@ minimizing the amount of code needed for a given task.
 Extra Flavours
 *******************
 
-Simple authentication system
+- Simple authentication system
+- PWA
+- Service Worker
 
 *******************
 Server Requirements
