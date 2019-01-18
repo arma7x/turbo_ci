@@ -15,7 +15,6 @@ Extra Flavours
 *******************
 
 - Simple authentication system
-- PWA
 - Service Worker
 
 *******************
