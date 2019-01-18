@@ -344,12 +344,12 @@ class Authenticator {
 		$this->CI->load->library('email');
 		$config = array();
 		$config['mailtype'] = "html";
-		$config['protocol'] = APP_EMAIL_AUTH['protocol'];
-		$config['smtp_host'] = APP_EMAIL_AUTH['smtp_host'];
-		$config['smtp_user'] = APP_EMAIL_AUTH['smtp_user'];
-		$config['smtp_pass'] = APP_EMAIL_AUTH['smtp_pass'];
-		$config['smtp_port'] = APP_EMAIL_AUTH['smtp_port'];
-		$config['smtp_crypto'] = APP_EMAIL_AUTH['smtp_crypto'];
+		$config['protocol'] = APP_EMAIL_CREDENTIAL['protocol'];
+		$config['smtp_host'] = APP_EMAIL_CREDENTIAL['smtp_host'];
+		$config['smtp_user'] = APP_EMAIL_CREDENTIAL['smtp_user'];
+		$config['smtp_pass'] = APP_EMAIL_CREDENTIAL['smtp_pass'];
+		$config['smtp_port'] = APP_EMAIL_CREDENTIAL['smtp_port'];
+		$config['smtp_crypto'] = APP_EMAIL_CREDENTIAL['smtp_crypto'];
 		$config['smtp_timeout'] = 600;
 		$config['priority'] = 1;
 		$config['newline'] = "\r\n";

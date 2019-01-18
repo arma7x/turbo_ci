@@ -1,15 +1,18 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// $DATABASE_URL set to SERVER will get from getenv('DATABASE_URL')
 $DATABASE_URL = 'SERVER'; // mysqli://root:root@localhost/ci_starter
+// $ENCRYPTION_KEY set to SERVER will get from getenv('ENCRYPTION_KEY')
 $ENCRYPTION_KEY = 'SERVER'; // 09FA7BE0A09C30D0050B05C6EE9974938094
+// $EMAIL_URL set to SERVER will get from getenv('EMAIL_URL')
 $EMAIL_URL = 'SERVER'; // smtp://username@yahoo.com:password@smtp.mail.yahoo.com:587/tls
 $APP_NAME = 'TurboCI';
 $APP_URL = 'https://turboci.herokuapp.com/';
 $APP_ADMIN_EMAIL = 'zeon_msi@yahoo.com';
 
 $DB_AUTH = parse_url($DATABASE_URL == 'SERVER' ? getenv('DATABASE_URL') : $DATABASE_URL);
-$APP_DATABASE_AUTH = array(
+$APP_DATABASE_CREDENTIAL = array(
     'hostname' => isset($DB_AUTH['host']) ? $DB_AUTH['host'].(isset($DB_AUTH['port']) ? ':'.($DB_AUTH['port']) : '') : '',
     'username' => isset($DB_AUTH['user']) ? $DB_AUTH['user'] : '',
     'password' => isset($DB_AUTH['pass']) ? $DB_AUTH['pass'] : '',
@@ -18,7 +21,7 @@ $APP_DATABASE_AUTH = array(
 );
 $APP_ENCRYPTION_KEY = ($ENCRYPTION_KEY == 'SERVER') ? getenv('ENCRYPTION_KEY') : $ENCRYPTION_KEY;
 $EMAIL_AUTH = parse_url($EMAIL_URL == 'SERVER' ? getenv('EMAIL_URL') : $EMAIL_URL);
-$APP_EMAIL_AUTH = array(
+$APP_EMAIL_CREDENTIAL = array(
     'protocol' => isset($EMAIL_AUTH['scheme']) ? $EMAIL_AUTH['scheme'] : '',
     'smtp_host' => isset($EMAIL_AUTH['host']) ? $EMAIL_AUTH['host'] : '',
     'smtp_user' => isset($EMAIL_AUTH['user']) ? $EMAIL_AUTH['user'] : '',
@@ -30,9 +33,9 @@ $APP_EMAIL_AUTH = array(
 define('APP_NAME', $APP_NAME);
 define('APP_URL', $APP_URL);
 define('APP_ADMIN_EMAIL', $APP_ADMIN_EMAIL);
-define('APP_DATABASE_AUTH', $APP_DATABASE_AUTH);
+define('APP_DATABASE_CREDENTIAL', $APP_DATABASE_CREDENTIAL);
 define('APP_ENCRYPTION_KEY', $APP_ENCRYPTION_KEY);
-define('APP_EMAIL_AUTH', $APP_EMAIL_AUTH);
+define('APP_EMAIL_CREDENTIAL', $APP_EMAIL_CREDENTIAL);
 
 /*
 |--------------------------------------------------------------------------
