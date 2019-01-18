@@ -37,8 +37,8 @@
         <?php endif; ?>
         <a onclick="goHome()" class="navbar-brand" data-turbolinks="false"><?php echo APP_NAME ?></a>
       </div>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
-        <i class="material-icons text-dark" style="font-size:1.7em;">&#xe5d2;</i>
+      <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
+        <i id="navmenu_icon" class="material-icons text-dark" style="font-size:1.7em;">menu</i>
       </button>
 
       <div class="collapse navbar-collapse" id="navCollapsed">
@@ -49,7 +49,7 @@
           </li>
           <?php endif; ?>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe894;</i> <?php echo lang('L_LANGUAGE') ?></a>
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe8e2;</i> <?php echo lang('L_LANGUAGE') ?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
               <a class="dropdown-item" onclick="insertParam('lang', 'english')" data-turbolinks="false"><?php echo lang('L_ENGLISH_LANG') ?></a>
               <a class="dropdown-item" onclick="insertParam('lang', 'malay')" data-turbolinks="false"><?php echo lang('L_MALAY_LANG') ?></a>

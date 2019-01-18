@@ -20,18 +20,18 @@
 		<div class="col col-12 col-sm-6 mb-2">
 			<div class="card shadow-sm">
 				<div class="card-body">
-					<h5 class="card-title">Demo Staff</h5>
-					<code>Email: ahmadmuhamad101@gmail.com</code></br>
-					<code>Password: 1111111111 (1x10)</code>
+					<h5 class="card-title">Demo <?php echo lang('L_MODERATOR') ?></h5>
+					<code><?php echo lang('L_EMAIL') ?>: ahmadmuhamad101@gmail.com</code></br>
+					<code><?php echo lang('L_PASSWORD') ?>: 1111111111 (1x10)</code>
 				</div>
 			</div>
 		</div>
 		<div class="col col-12 col-sm-6 mb-2">
 			<div class="card shadow-sm">
 				<div class="card-body">
-					<h5 class="card-title">Demo Guest</h5>
-					<code>Email: arma7x@live.com</code></br>
-					<code>Password: 1111111111 (1x10)</code>
+					<h5 class="card-title">Demo <?php echo lang('L_MEMBER') ?></h5>
+					<code><?php echo lang('L_EMAIL') ?>: arma7x@live.com</code></br>
+					<code><?php echo lang('L_PASSWORD') ?>: 1111111111 (1x10)</code>
 				</div>
 			</div>
 		</div>

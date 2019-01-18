@@ -23,8 +23,6 @@
 	vertical-align: middle !important;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
 html {
 	position: relative;
 	min-height: 100%;
@@ -72,7 +70,7 @@ a {
 }
 
 .starter-template {
-	padding: 1.5rem;
+	padding: 2.1rem;
 }
 
 .form-center {

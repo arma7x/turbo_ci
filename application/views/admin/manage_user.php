@@ -14,13 +14,23 @@
 				<div class="input-group-prepend">
 					<div class="input-group-text"><i class="material-icons">&#xe8d3;</i></div>
 				</div>
-				<input type="number" id="role" placeholder="<?php echo lang('L_ROLE');?>" class="form-control" value="<?php echo $filter['role'] !== NULL ? $filter['role'] : '' ?>">
+				<select id="role" class="form-control">
+					<option value=""<?php echo $filter['role'] === NULL ? ' selected' : '' ?>><?php echo lang('L_ROLE');?></option>
+					<option value="0"<?php echo $filter['role'] === 0 ? ' selected' : '' ?>><?php echo lang('L_ADMIN');?></option>
+					<option value="1"<?php echo $filter['role'] === 1 ? ' selected' : '' ?>><?php echo lang('L_MODERATOR');?></option>
+					<option value="127"<?php echo $filter['role'] === 127 ? ' selected' : '' ?>><?php echo lang('L_MEMBER');?></option>
+				</select>
 			</div>
 			<div class="input-group input-group-sm mr-sm-1 mb-1">
 				<div class="input-group-prepend">
 					<div class="input-group-text"><i class="material-icons">&#xe565;</i></div>
 				</div>
-				<input type="number" id="access_level" placeholder="<?php echo lang('L_ACCESS_LEVEL');?>" class="form-control" value="<?php echo $filter['access_level'] !== NULL ? $filter['access_level'] : '' ?>">
+				<select id="access_level" class="form-control">
+					<option value=""<?php echo $filter['access_level'] === NULL ? ' selected' : '' ?>><?php echo lang('L_ACCESS_LEVEL');?></option>
+					<option value="0"<?php echo $filter['access_level'] === 0 ? ' selected' : '' ?>><?php echo lang('L_READ').'|'.lang('L_WRITE').'|'.lang('L_MODIFY');?></option>
+					<option value="1"<?php echo $filter['access_level'] === 1 ? ' selected' : '' ?>><?php echo lang('L_READ').'|'.lang('L_WRITE');?></option>
+					<option value="127"<?php echo $filter['access_level'] === 127 ? ' selected' : '' ?>><?php echo lang('L_LIMITED');?></option>
+				</select>
 			</div>
 			<div class="input-group input-group-sm mr-sm-1 mb-1">
 				<div class="input-group-prepend">
@@ -72,7 +82,11 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text"><i class="material-icons">&#xe8d3;</i></div>
 									</div>
-									<input type="number" id="role_<?php echo $user['id'] ?>" placeholder="<?php echo lang('L_ROLE');?>" class="form-control" value="<?php echo $user['role'] ?>"<?php echo $this->container->user['id'] === $user['id'] || (int) $this->container->user['role'] !== 0 ? ' disabled' : ''; ?>>
+									<select id="role_<?php echo $user['id'] ?>" class="form-control"<?php echo $this->container->user['id'] === $user['id'] || (int) $this->container->user['role'] !== 0 ? ' disabled' : ''; ?>>
+										<option value="0"<?php echo (int) $user['role'] === 0 ? ' selected' : '' ?>><?php echo lang('L_ADMIN');?></option>
+										<option value="1"<?php echo (int) $user['role'] === 1 ? ' selected' : '' ?>><?php echo lang('L_MODERATOR');?></option>
+										<option value="127"<?php echo (int) $user['role'] === 127 ? ' selected' : '' ?>><?php echo lang('L_MEMBER');?></option>
+									</select>
 								</div>
 								<?php if ((int) $this->container->user['role'] === 0): ?>
 								<div class="input-group mb-1">
@@ -87,7 +101,11 @@
 									<div class="input-group-prepend">
 										<div class="input-group-text"><i class="material-icons">&#xe565;</i></div>
 									</div>
-									<input type="number" id="access_level_<?php echo $user['id'] ?>" placeholder="<?php echo lang('L_ACCESS_LEVEL');?>" class="form-control" value="<?php echo $user['access_level'] ?>"<?php echo $this->container->user['id'] === $user['id'] || (int) $this->container->user['role'] !== 0 ? ' disabled' : ''; ?>>
+									<select id="access_level_<?php echo $user['id'] ?>" class="form-control"<?php echo $this->container->user['id'] === $user['id'] || (int) $this->container->user['role'] !== 0 ? ' disabled' : ''; ?>>
+										<option value="0"<?php echo (int) $user['access_level'] === 0 ? ' selected' : '' ?>><?php echo lang('L_READ').'|'.lang('L_WRITE').'|'.lang('L_MODIFY');?></option>
+										<option value="1"<?php echo (int) $user['access_level'] === 1 ? ' selected' : '' ?>><?php echo lang('L_READ').'|'.lang('L_WRITE');?></option>
+										<option value="127"<?php echo (int) $user['access_level'] === 127 ? ' selected' : '' ?>><?php echo lang('L_LIMITED');?></option>
+									</select>
 								</div>
 								<?php if ((int) $this->container->user['role'] === 0): ?>
 								<div class="input-group mb-1">

@@ -7,7 +7,6 @@
 				<h1><i class="material-icons text-danger" style="font-size:5em;">&#xe0ce;</i></h1>
 				<h4 class="card-title"><?php echo $page_name; ?></h4>
 				<p class="card-text"><?php echo $message; ?></p>
-				<a href="<?php echo config_item('base_url') ?>" class="card-link"><?php echo lang('H_HOMEPAGE') ?></a>
 			</div>
 		</div>
 	</div>
