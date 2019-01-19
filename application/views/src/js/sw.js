@@ -1,7 +1,7 @@
 const origin = self.location.protocol+'//'+self.location.host;
 const offlinePage = "/offline";
 const wilcardCacheFiles = [];
-const mainCacheFiles = ["/", offlinePage];
+const mainCacheFiles = ["/", "/manifest.json", offlinePage];
 const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css",
 "/static/font/MaterialIcons-Regular.woff2", "/static/js/turbolinks.js", "/src/app.js",
 "/static/js/bootstrap.min.js", "/static/js/popper.min.js", "/static/js/jquery-3.3.1.min.js",
@@ -49,12 +49,18 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-    event.respondWith(fromNetwork(event.request, 15000).then((result) => {
-        return result;
-    })
-    .catch(() => {
-        return fromCache(event.request);
-    }));
+    const targetRequest = event.request.url.replace(origin, '');
+    if (staticCacheFiles.indexOf(targetRequest) !== -1) {
+        // console.log("FROM_CACHE_FIRST::"+targetRequest);
+        event.respondWith(fromCache(event.request));
+    } else {
+        event.respondWith(fromNetwork(event.request, 15000).then((result) => {
+            return result;
+        })
+        .catch(() => {
+            return fromCache(event.request);
+        }));
+    }
 });
 
 function fromNetwork(request, timeout) {
@@ -64,6 +70,7 @@ function fromNetwork(request, timeout) {
       const targetRequest = request.url.replace(origin, '');
       if (mainCacheFiles.indexOf(targetRequest) !== -1) {
         if (request.method === 'GET') {
+            // console.log("FROM_NETWORK_THEN_CACHE::"+targetRequest);
             let requestWithoutCache = request.clone();
             let opts = {};
             if (offlinePage == targetRequest) {
