@@ -84,7 +84,7 @@ function fromNetwork(request, timeout) {
                     const responseToCache = responseWithoutCookies.clone();
                     caches.open(cacheName).then(cache => cache.put(requestWithoutCache, responseToCache));
                 } else {
-                caches.open(cacheName).then((cache) => cache.delete(requestWithoutCache));
+                    caches.open(cacheName).then((cache) => cache.delete(requestWithoutCache));
                 }
             });
         }
