@@ -25,7 +25,8 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <script>
         window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
-        window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";function parseDate(id, unix) {
+        window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
+        function parseDate(id, unix) {
             var converted = new Date(parseInt(unix+'000')).toLocaleString();
             $('#'+id).text(converted);
         }
