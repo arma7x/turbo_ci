@@ -1,8 +1,3 @@
-function parseDate(id, unix) {
-    var converted = new Date(parseInt(unix+'000')).toLocaleString()
-    $('#'+id).text(converted)
-}
-
 function getCookie(name) {
   var d = []
   var e = document.cookie.split(';')

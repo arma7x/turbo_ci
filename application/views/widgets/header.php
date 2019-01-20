@@ -23,10 +23,12 @@
     <script src="/static/js/jquery-3.3.1.min.js"></script>
     <script src="/static/js/popper.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/src/app.js" type="text/javascript"></script>
     <script>
         window.csrf_token_name = "<?php echo $this->security->get_csrf_token_name(); ?>";
-        window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
+        window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";function parseDate(id, unix) {
+            var converted = new Date(parseInt(unix+'000')).toLocaleString();
+            $('#'+id).text(converted);
+        }
     </script>
   </head>
   <body>
