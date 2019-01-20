@@ -1,4 +1,10 @@
     </main>
+    <div id="loading_spinner" class="spinner spinner-gritcode spinner-md spinner-fixed">
+        <div class="spinner-wrapper">
+          <div class="spinner-circle"></div>
+          <div class="spinner-text"></div>
+        </div>
+    </div>
     <footer class="footer bg-light border-top border-primary">
       <div class="container">
         <span class="text-dark small"><?php echo str_replace('%s', $this->benchmark->elapsed_time(), lang('L_F_RENDER_ELAPSED')).'|'.$this->benchmark->memory_usage().'|'.strtoupper(ENVIRONMENT) ?></span>
