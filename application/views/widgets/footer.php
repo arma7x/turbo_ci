@@ -22,6 +22,7 @@
                                 case 'activated':
                                     alert("<?php echo lang('M_SUCCESS_INSTALL_CACHE') ?>");
                                     console.log('Service worker was activated');
+                                    document.location.reload();
                                     break;
                                 case 'redundant':
                                     throw new Error('The installing service worker became redundant.');

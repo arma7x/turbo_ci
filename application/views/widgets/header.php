@@ -51,8 +51,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe8e2;</i> <?php echo lang('L_LANGUAGE') ?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" onclick="insertParam('lang', 'english')" data-turbolinks="false"><?php echo lang('L_ENGLISH_LANG') ?></a>
-              <a class="dropdown-item" onclick="insertParam('lang', 'malay')" data-turbolinks="false"><?php echo lang('L_MALAY_LANG') ?></a>
+              <a class="dropdown-item" onclick="change_language('english')" data-turbolinks="false"><?php echo lang('L_ENGLISH_LANG') ?></a>
+              <a class="dropdown-item" onclick="change_language('malay')" data-turbolinks="false"><?php echo lang('L_MALAY_LANG') ?></a>
             </div>
           </li>
           <?php if($this->container->user === NULL): ?>

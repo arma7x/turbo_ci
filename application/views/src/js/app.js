@@ -4,6 +4,7 @@ if (window['parseDateProto'] == undefined) {
       var t = new Date(parseInt(this.innerHTML+'000'))
       this.innerHTML = t.toLocaleString()
     }
+    // window.customElements.define
     document.registerElement('parse-date', {prototype: parseDateProto})
 }
 
@@ -281,6 +282,29 @@ function deleteUser(id) {
     }
 }
 
+function change_language(lang) {
+    var data = {
+        'lang': lang,
+    }
+    data[window.csrf_token_name] = window.csrf_hash
+    var request = $.ajax({
+        url: "/language",
+        method: "POST",
+        data: data,
+        dataType: "json"
+    })
+    request.done(function(data) {
+        console.log(data.message)
+        document.location.reload()
+    })
+    request.fail(function(jqXHR) {
+        $('button.enabled').removeAttr("disabled")
+        if (jqXHR.responseJSON.message != undefined) {
+            console.dir(jqXHR.responseJSON.message)
+        }
+    })
+}
+
 function showDangerMessage(text) {
     $('#dangerMessage').text(text)
     $('#dangerMessage').removeClass('sr-only')
@@ -291,7 +315,7 @@ function showDangerMessage(text) {
 
 function hideDangerMessage() {
     $('#dangerMessage').removeClass('show')
-    //$('#dangerMessage').addClass('sr-only')
+    // $('#dangerMessage').addClass('sr-only')
     $('#dangerMessage').addClass('fade')
     $('#dangerMessage').text('')
 }

@@ -67,6 +67,7 @@ $route['src/app.js']['get'] = 'src/js';
 $route['sw.js']['get'] = 'src/sw';
 $route['manifest.json']['get'] = 'src/manifest';
 
+$route['language']['post'] = 'welcome/language';
 $route['authentication/login']['post'] = 'authentication/login';
 $route['authentication/register']['post'] = 'authentication/register';
 $route['authentication/forgot_password']['post'] = 'authentication/forgot_password';

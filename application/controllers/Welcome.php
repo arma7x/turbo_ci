@@ -47,4 +47,17 @@ class Welcome extends MY_Controller {
 		$this->_render($templates);
 	}
 
+	public function language() {
+		$this->load->helper('cookie');
+		$expire = time() + (60 * 60 * 24 * 365);
+		$lang = 'english';
+		$new_lang = $this->input->post_get('lang', TRUE);
+		if ($new_lang === 'malay') {
+			$lang = $new_lang;
+		}
+		setcookie('lang', $lang, $expire, $this->config->item('cookie_path'), $this->config->item('cookie_domain'), $this->config->item('cookie_secure'), $this->config->item('cookie_httponly'));
+		$data = array('message' => $lang);
+		$this->_renderJSON(200, $data);
+	}
+
 }

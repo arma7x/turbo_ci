@@ -11,7 +11,7 @@ const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css",
 const cacheName = 'static-<?php echo filemtime(APPPATH.'views/src/js/sw.js').'-'.filemtime(APPPATH.'views/src/js/app.js').'-'.filemtime(APPPATH.'views/src/css/app.css') ?>';
 const expectedCaches = [cacheName];
 
-const cacheHeader = { 'sw-offline-cache': cacheName };
+const cacheHeader = { 'Sw-Offline-Cache': cacheName };
 
 self.addEventListener('install', event => {
     self.skipWaiting();
