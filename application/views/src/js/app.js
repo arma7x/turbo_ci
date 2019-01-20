@@ -9,23 +9,26 @@ if (window['parseDateProto'] == undefined) {
 }
 
 function insertParam(key, value) {
-    key = escape(key); value = escape(value)
+    var key = escape(key)
+    var value = escape(value)
     var kvp = document.location.search.substr(1).split('&')
     if (kvp == '') {
         document.location.search = '?' + key + '=' + value
     }
     else {
-        var i = kvp.length; var x; while (i--) {
-            x = kvp[i].split('=');
+        var i = kvp.length
+        var x
+        while (i--) {
+            x = kvp[i].split('=')
             if (x[0] == key) {
-                x[1] = value;
-                kvp[i] = x.join('=');
-                break;
+                x[1] = value
+                kvp[i] = x.join('=')
+                break
             }
         }
-        if (i < 0) { kvp[kvp.length] = [key, value].join('='); }
+        if (i < 0) { kvp[kvp.length] = [key, value].join('=') }
         //this will reload the page, it's likely better to store this until finished
-        document.location.search = kvp.join('&');
+        document.location.search = kvp.join('&')
     }
 }
 
@@ -38,25 +41,25 @@ function selectPic() {
 }
 
 function processPic(holder) {
-    var pic = document.getElementById(holder);
+    var pic = document.getElementById(holder)
     if (pic.files.length > 0) {
-        var fileName = pic.files[0].name;
-        var fileType = pic.files[0].type;
-        var reader = new FileReader();
-        reader.readAsDataURL(pic.files[0]);
+        var fileName = pic.files[0].name
+        var fileType = pic.files[0].type
+        var reader = new FileReader()
+        reader.readAsDataURL(pic.files[0])
         reader.onload = function(event) {
-            var img = new Image();
-            img.src = event.target.result;
+            var img = new Image()
+            img.src = event.target.result
             img.onload = function() {
-                var elem = document.createElement('canvas');
-                var scale = img.naturalWidth / 120;
-                elem.width = (img.naturalWidth/scale);
-                elem.height = (img.naturalHeight/scale);
-                var ctx = elem.getContext('2d');
-                ctx.drawImage(img, 0, 0, (img.naturalWidth/scale), (img.naturalHeight/scale));
+                var elem = document.createElement('canvas')
+                var scale = img.naturalWidth / 120
+                elem.width = (img.naturalWidth/scale)
+                elem.height = (img.naturalHeight/scale)
+                var ctx = elem.getContext('2d')
+                ctx.drawImage(img, 0, 0, (img.naturalWidth/scale), (img.naturalHeight/scale))
                 // console.log(ctx.canvas.toDataURL('image/jpeg', .50))
                 uploadAvatar(ctx.canvas.toDataURL('image/jpeg', .50))
-                document.getElementById(holder).value = "";
+                document.getElementById(holder).value = ""
                 if (!/safari/i.test(navigator.userAgent)) {
                     document.getElementById(holder).type = ''
                     document.getElementById(holder).type = 'file'
@@ -65,20 +68,20 @@ function processPic(holder) {
                 //    var file = new File([blob], fileName, {
                 //        type: fileType,
                 //        lastModified: Date.now()
-                //    });
-                //    var freader = new FileReader();
-                //    freader.readAsDataURL(file);
+                //    })
+                //    var freader = new FileReader()
+                //    freader.readAsDataURL(file)
                 //    freader.onload = function(e) {
                 //        console.log(e.target.result)
-                //    };
-                //    freader.onerror = function(error) {
-                //        console.log(error);
                 //    }
-                //}, 'image/jpeg', 1);
+                //    freader.onerror = function(error) {
+                //        console.log(error)
+                //    }
+                //}, 'image/jpeg', 1)
             }
-        };
+        }
         reader.onerror = function(error) {
-            console.log(error);
+            console.log(error)
         }
     }
 }
@@ -146,7 +149,7 @@ function searchUser() {
         'access_level': $("#access_level").val(),
         'status': $("#status").val(),
     }
-    var query = [];
+    var query = []
     for (key in data) {
         if (data[key] != '') {
             query.push(key+'='+data[key])
@@ -348,11 +351,11 @@ $(document).ready(function() {
 
     $("#navbar-toggler").click(function() {
         if ($("#navCollapsed").hasClass('show')) {
-            $("#navmenu_icon").text("menu");
+            $("#navmenu_icon").text("menu")
         } else {
-            $("#navmenu_icon").text("close");
+            $("#navmenu_icon").text("close")
         }
-    });
+    })
 
     $('#toggle_dropdown').click(function() {
         if($('#menu_dropdown').hasClass('show')) {
