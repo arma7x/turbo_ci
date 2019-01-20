@@ -28,7 +28,7 @@ function insertParam(key, value) {
     }
     else {
         var i = kvp.length
-        var x = ''
+        var x
         while (i--) {
             x = kvp[i].split('=')
             if (x[0] == key) {
