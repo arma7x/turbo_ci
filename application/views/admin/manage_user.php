@@ -135,11 +135,17 @@
 						</td>
 						<td>
 							<b><?php echo lang('L_CREATED_AT');?></b></br>
-							<parse-date><?php echo $user['created_at'] ?></parse-date></br>
+					<span id="<?php echo 'c_a_'.$user['id'] ?>">
+						<script>parseDate('<?php echo "c_a_".$user['id'] ?>', '<?php echo $user['created_at'] ?>')</script>
+					</span></br>
 							<b><?php echo lang('L_UPDATED_AT');?></b></br>
-							<parse-date><?php echo $user['updated_at'] ?></parse-date></br>
+					<span id="<?php echo 'l_u_'.$user['id'] ?>">
+						<script>parseDate('<?php echo "l_u_".$user['id'] ?>', '<?php echo $user['updated_at'] ?>')</script>
+					</span></br>
 							<b><?php echo lang('L_LAST_LOGGED_IN');?></b></br>
-							<parse-date><?php echo $user['last_logged_in'] ?></parse-date>
+					<span id="<?php echo 'l_l_'.$user['id'] ?>">
+						<script>parseDate('<?php echo "l_l_".$user['id'] ?>', '<?php echo $user['last_logged_in'] ?>')</script>
+					</span>
 						</td>
 						<?php if ((int) $this->container->user['role'] === 0): ?>
 						<td>

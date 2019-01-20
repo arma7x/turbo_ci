@@ -17,7 +17,10 @@
 			<tr<?php echo $current_token === $token['id'] ? ' class="table-primary"' : ''; ?>>
 				<th scope="row"><?php echo $token['id'] ?></th>
 				<td><?php echo $token['user_agent'] ?></td>
-				<td><parse-date><?php echo $token['last_used'] ?></parse-date></td>
+				<td>
+					<span id="<?php echo $token['id'] ?>">
+						<script>parseDate('<?php echo $token['id'] ?>', '<?php echo $token['last_used'] ?>')</script>
+					</span>
 				<td>
 					<button class="btn btn-sm btn-danger<?php echo $current_token !== $token['id'] ? ' enabled' : ''; ?>"<?php echo $current_token === $token['id'] ? ' disabled' : ''; ?> onclick="deleteToken(<?php echo $current_token === $token['id'] ? 'null' : "'".$token['id']."'" ; ?>)">
 						<?php echo lang('BTN_REMOVE');?>

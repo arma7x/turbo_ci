@@ -1,11 +1,6 @@
-if (window['parseDateProto'] == undefined) {
-    var parseDateProto = Object.create(HTMLElement.prototype)
-    parseDateProto.createdCallback = function() {
-      var t = new Date(parseInt(this.innerHTML+'000'))
-      this.innerHTML = t.toLocaleString()
-    }
-    // window.customElements.define
-    document.registerElement('parse-date', {prototype: parseDateProto})
+function parseDate(id, unix) {
+    var converted = new Date(parseInt(unix+'000')).toLocaleString()
+    $('#'+id).text(converted)
 }
 
 function getCookie(name) {
