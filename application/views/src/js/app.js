@@ -307,9 +307,6 @@ function change_language(lang) {
     })
     request.fail(function(jqXHR) {
         $('button.enabled').removeAttr("disabled")
-        if (jqXHR.responseJSON.message != undefined) {
-            console.dir(jqXHR.responseJSON.message)
-        }
     })
     request.always(function() {
         loadingSpinner(false)
