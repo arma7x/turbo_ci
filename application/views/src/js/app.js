@@ -11,7 +11,7 @@ if (window['parseDateProto'] == undefined) {
 function getCookie(name) {
   var d = []
   var e = document.cookie.split(';')
-  var a = RegExp('^\\s*${name}=\\s*(.*?)\\s*$')
+  var a = RegExp(`^\\s*${name}=\\s*(.*?)\\s*$`)
   for (var b = 0; b < e.length; b++) {
     var f = e[b].match(a)
     f && d.push(f[1])
