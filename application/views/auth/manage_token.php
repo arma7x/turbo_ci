@@ -19,7 +19,7 @@
 				<td><?php echo $token['user_agent'] ?></td>
 				<td>
 					<span id="<?php echo $token['id'] ?>">
-						<script>parseDate('<?php echo $token['id'] ?>', '<?php echo $token['last_used'] ?>')</script>
+						<script>parse_date('<?php echo $token['id'] ?>', '<?php echo $token['last_used'] ?>')</script>
 					</span>
 				<td>
 					<button class="btn btn-sm btn-danger<?php echo $current_token !== $token['id'] ? ' enabled' : ''; ?>"<?php echo $current_token === $token['id'] ? ' disabled' : ''; ?> onclick="deleteToken(<?php echo $current_token === $token['id'] ? 'null' : "'".$token['id']."'" ; ?>)">
