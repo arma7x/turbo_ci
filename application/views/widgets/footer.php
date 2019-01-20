@@ -1,11 +1,9 @@
     </main>
-
     <footer class="footer bg-light border-top border-primary">
       <div class="container">
         <span class="text-dark small"><?php echo str_replace('%s', $this->benchmark->elapsed_time(), lang('L_F_RENDER_ELAPSED')).'|'.$this->benchmark->memory_usage().'|'.strtoupper(ENVIRONMENT) ?></span>
       </div>
     </footer>
-
     <script src="/src/app.js" type="text/javascript"></script>
     <script>
         if ('serviceWorker' in navigator) {

@@ -28,7 +28,6 @@
         window.csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
     </script>
   </head>
-
   <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
       <div>
@@ -40,7 +39,6 @@
       <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
         <i id="navmenu_icon" class="material-icons text-dark" style="font-size:1.7em;">menu</i>
       </button>
-
       <div class="collapse navbar-collapse" id="navCollapsed">
         <ul class="navbar-nav ml-auto">
           <?php if ($this->uri->segment(1) != NULL): ?>

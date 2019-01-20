@@ -8,6 +8,17 @@ if (window['parseDateProto'] == undefined) {
     document.registerElement('parse-date', {prototype: parseDateProto})
 }
 
+function getCookie(name) {
+  var d = []
+  var e = document.cookie.split(';')
+  var a = RegExp('^\\s*${name}=\\s*(.*?)\\s*$')
+  for (var b = 0; b < e.length; b++) {
+    var f = e[b].match(a)
+    f && d.push(f[1])
+  }
+  return d
+}
+
 function insertParam(key, value) {
     var key = escape(key)
     var value = escape(value)
@@ -17,7 +28,7 @@ function insertParam(key, value) {
     }
     else {
         var i = kvp.length
-        var x
+        var x = ''
         while (i--) {
             x = kvp[i].split('=')
             if (x[0] == key) {
@@ -286,6 +297,9 @@ function deleteUser(id) {
 }
 
 function change_language(lang) {
+    if (lang == null || lang == undefined || getCookie('lang')[0] == lang) {
+        return
+    }
     var data = {
         'lang': lang,
     }
