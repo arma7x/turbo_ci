@@ -98,4 +98,4 @@ $lang['M_SUCCESS_UPDATE_STATUS'] = 'Successsfully update %s status.';
 $lang['M_FAIL_UPDATE_STATUS'] = 'Unable to update %s status.';
 $lang['M_OFFLINE'] = 'Content Unavailable!';
 $lang['M_CACHE_CONTENT'] = 'This is offline copy.';
-$lang['M_SUCCESS_INSTALL_CACHE'] = 'Succeccfully store new cache.';
+$lang['M_SUCCESS_INSTALL_CACHE'] = 'Successfully store new cache.';
