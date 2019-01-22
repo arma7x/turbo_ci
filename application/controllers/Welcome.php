@@ -32,6 +32,7 @@ class Welcome extends MY_Controller {
 	}
 
 	public function index() {
+		$this->AllowGetMethodRequest();
 		$this->data['title'] = APP_NAME.' | '.lang('H_HOMEPAGE');
 		$this->data['page_name'] = str_replace('%s', APP_NAME, lang('H_WELCOME'));
 		$templates[] = 'welcome_message';
@@ -39,6 +40,7 @@ class Welcome extends MY_Controller {
 	}
 
 	public function offline() {
+		$this->AllowGetMethodRequest();
 		$this->container->user = NULL;
 		$this->data['title'] = APP_NAME.' | '.lang('H_Offline');
 		$this->data['page_name'] = lang('H_Offline');
@@ -48,6 +50,7 @@ class Welcome extends MY_Controller {
 	}
 
 	public function language() {
+		$this->BlockGetMethodRequest();
 		$this->load->helper('cookie');
 		$expire = time() + (60 * 60 * 24 * 365);
 		$lang = 'english';

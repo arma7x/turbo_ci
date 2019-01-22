@@ -20,6 +20,18 @@ class MY_Controller extends CI_Controller {
 		$this->output->enable_profiler(ENVIRONMENT == 'development' ? $debug : FALSE);
 	}
 
+	final protected function AllowGetMethodRequest() {
+		if ($this->input->method(FALSE) !== 'get') {
+			show_error("Method Not Allowed", 405);
+		}
+	}
+
+	final protected function BlockGetMethodRequest() {
+		if ($this->input->method(FALSE) === 'get') {
+			show_error("Method Not Allowed", 405);
+		}
+	}
+
 	final protected function _render($template = []) {
 		$this->load->view($this->header_template, $this->data);
 		foreach ($template as $view) {

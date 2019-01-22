@@ -26,6 +26,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_login() {
+		$this->AllowGetMethodRequest();
 		$this->data['title'] = APP_NAME.' | '.lang('H_LOGIN');
 		$this->data['page_name'] = lang('H_LOGIN');
 		$templates[] = 'auth/login';
@@ -33,6 +34,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function login() {
+		$this->BlockGetMethodRequest();
 		$data = array(
 			'email' => strtolower($this->input->post_get('email', TRUE)),
 			'password' => $this->input->post_get('password'),
@@ -75,6 +77,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_register() {
+		$this->AllowGetMethodRequest();
 		$this->data['title'] = APP_NAME.' | '.lang('H_REGISTER');
 		$this->data['page_name'] = lang('H_REGISTER');
 		$templates[] = 'auth/register';
@@ -82,6 +85,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function register() {
+		$this->BlockGetMethodRequest();
 		$data = array(
 			'username' => strtolower($this->input->post_get('username', TRUE)),
 			'email' => strtolower($this->input->post_get('email', TRUE)),
@@ -119,6 +123,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_activate_account() {
+		$this->AllowGetMethodRequest();
 		if ($this->input->post_get('token', TRUE) !== NULL) {
 			$this->load->helper('url');
 			$result = $this->authenticator->validate_activation_token($this->input->post_get('token', TRUE));
@@ -136,6 +141,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function activate_account() {
+		$this->BlockGetMethodRequest();
 		$data = array(
 			'email' => strtolower($this->input->post_get('email', TRUE)),
 		);
@@ -164,6 +170,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_forgot_password() {
+		$this->AllowGetMethodRequest();
 		$this->data['title'] = APP_NAME.' | '.lang('H_FORGOT_PASSWORD');
 		$this->data['page_name'] = lang('H_FORGOT_PASSWORD');
 		$templates[] = 'auth/forgot_password';
@@ -171,6 +178,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function forgot_password() {
+		$this->BlockGetMethodRequest();
 		$data = array(
 			'email' => strtolower($this->input->post_get('email', TRUE)),
 		);
@@ -200,6 +208,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_reset_password() {
+		$this->AllowGetMethodRequest();
 		$this->load->helper('url');
 		if ($this->input->post_get('token', TRUE) !== NULL) {
 			$result = $this->authenticator->verify_reset_token($this->input->post_get('token', TRUE));
@@ -219,6 +228,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function reset_password() {
+		$this->BlockGetMethodRequest();
 		$data = array(
 			'token' => $this->input->post_get('token', TRUE),
 			'new_password' => $this->input->post_get('new_password'),
@@ -252,6 +262,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function ui_update_password() {
+		$this->AllowGetMethodRequest();
 		$this->data['title'] = APP_NAME.' | '.lang('H_UPDATE_PASSWORD');
 		$this->data['page_name'] = lang('H_UPDATE_PASSWORD');
 		$templates[] = 'auth/update_password';
@@ -259,6 +270,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function update_password() {
+		$this->BlockGetMethodRequest();
 		$data = array(
 			'old_password' => $this->input->post_get('old_password'),
 			'new_password' => $this->input->post_get('new_password'),
@@ -292,6 +304,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function upload_avatar() {
+		$this->BlockGetMethodRequest();
 		$data = array(
 			'avatar' => $this->input->post_get('avatar'),
 		);
@@ -320,6 +333,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function manage_token() {
+		$this->AllowGetMethodRequest();
 		$this->data['title'] = APP_NAME.' | '.lang('H_LOG_IN_DEVICES');
 		$this->data['page_name'] = lang('H_LOG_IN_DEVICES');
 		$this->data['token_list'] = $this->authenticator->get_remember_token(array('user' => $this->container->user['id']));
@@ -329,6 +343,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function delete_token() {
+		$this->BlockGetMethodRequest();
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
 		);
@@ -358,6 +373,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function log_out() {
+		$this->BlockGetMethodRequest();
 		$this->authenticator->clear_credential();
 		$data = array(
 			'message' => lang('M_SUCCESS_LOGOUT'),
