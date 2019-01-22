@@ -36,6 +36,7 @@ $lang['L_LIMITED'] = 'Terhad';
 $lang['L_LANGUAGE'] = 'Bahasa';
 $lang['L_ENGLISH_LANG'] = 'Inggeris';
 $lang['L_MALAY_LANG'] = 'Melayu';
+$lang['L_HELP'] = 'Bantuan & Sokongan';
 $lang['L_F_RENDER_ELAPSED'] = '%s saat';
 $lang['L_F_MEMORY_USAGE'] = 'Kegunaan Ingatan %s';
 $lang['L_F_CI_VER'] = 'Versi Codeigniter';
