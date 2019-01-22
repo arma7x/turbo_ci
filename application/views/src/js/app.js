@@ -10,14 +10,14 @@ $(document).ajaxComplete(function(event, jqxhr, settings) {
 });
 
 function getCookie(name) {
-  var d = []
-  var e = document.cookie.split(';')
-  var a = RegExp(`^\\s*${name}=\\s*(.*?)\\s*$`)
-  for (var b = 0; b < e.length; b++) {
-    var f = e[b].match(a)
-    f && d.push(f[1])
-  }
-  return d
+    var d = []
+    var e = document.cookie.split(';')
+    var a = RegExp(`^\\s*${name}=\\s*(.*?)\\s*$`)
+    for (var b = 0; b < e.length; b++) {
+        var f = e[b].match(a)
+        f && d.push(f[1])
+    }
+    return d
 }
 
 function getQueryStringValue(key) {  
@@ -338,6 +338,10 @@ function navigate(pathname) {
         Turbolinks.visit(pathname, { action: "advance" })
     }
 }
+
+window.addEventListener("load", function() {
+    loadingSpinner(false)
+})
 
 $(document).ready(function() {
 
