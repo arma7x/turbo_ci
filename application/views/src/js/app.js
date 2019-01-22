@@ -1,3 +1,14 @@
+$(document).ajaxStart(function(event, jqxhr, settings) {
+    loadingSpinner(true)
+});
+
+$(document).ajaxComplete(function(event, jqxhr, settings) {
+    if (jqxhr.statusText === 'error') {
+        showDangerMessage(jqxhr.statusText)
+    }
+    loadingSpinner(false)
+});
+
 function getCookie(name) {
   var d = []
   var e = document.cookie.split(';')
@@ -69,7 +80,6 @@ function uploadAvatar(data) {
         'avatar': data,
     }
     data[window.csrf_token_name] = window.csrf_hash
-    loadingSpinner(true)
     var request = $.ajax({
         url: "/authentication/upload_avatar",
         method: "POST",
@@ -88,9 +98,6 @@ function uploadAvatar(data) {
             showDangerMessage(jqXHR.responseJSON.message)
         }
     })
-    request.always(function() {
-        loadingSpinner(false)
-    });
 }
 
 function deleteToken(id) {
@@ -102,7 +109,6 @@ function deleteToken(id) {
             'id': id,
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/authentication/delete_token",
             method: "POST",
@@ -121,9 +127,6 @@ function deleteToken(id) {
                 showDangerMessage(jqXHR.responseJSON.message)
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     }
 }
 
@@ -157,7 +160,6 @@ function updateRole(id) {
             'role': $('#role_'+id).val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/manage_user/update_user_role",
             method: "POST",
@@ -176,9 +178,6 @@ function updateRole(id) {
                 showDangerMessage(jqXHR.responseJSON.message)
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     }
 }
 
@@ -192,7 +191,6 @@ function updateAccessLevel(id) {
             'access_level': $('#access_level_'+id).val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/manage_user/update_user_access_level",
             method: "POST",
@@ -211,9 +209,6 @@ function updateAccessLevel(id) {
                 showDangerMessage(jqXHR.responseJSON.message)
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     }
 }
 
@@ -227,7 +222,6 @@ function updateStatus(id) {
             'status': $('#status_'+id).val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/manage_user/update_user_status",
             method: "POST",
@@ -246,9 +240,6 @@ function updateStatus(id) {
                 showDangerMessage(jqXHR.responseJSON.message)
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     }
 }
 
@@ -261,7 +252,6 @@ function deleteUser(id) {
             'id': id,
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/manage_user/delete_user",
             method: "POST",
@@ -280,9 +270,6 @@ function deleteUser(id) {
                 showDangerMessage(jqXHR.responseJSON.message)
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     }
 }
 
@@ -294,7 +281,6 @@ function change_language(lang) {
         'lang': lang,
     }
     data[window.csrf_token_name] = window.csrf_hash
-    loadingSpinner(true)
     var request = $.ajax({
         url: "/language",
         method: "POST",
@@ -302,15 +288,12 @@ function change_language(lang) {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
         document.location.reload()
     })
     request.fail(function(jqXHR) {
         $('button.enabled').removeAttr("disabled")
+        console.log(jqXHR.statusText);
     })
-    request.always(function() {
-        loadingSpinner(false)
-    });
 }
 
 function loadingSpinner(status) {
@@ -393,7 +376,6 @@ $(document).ready(function() {
             'remember_me': $('#inputRememberMe').prop('checked'),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/authentication/login",
             method: "POST",
@@ -424,9 +406,6 @@ $(document).ready(function() {
                 }
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     })
 
     $('#rgstr_btn').click(function(event) {
@@ -447,7 +426,6 @@ $(document).ready(function() {
             'confirm_password': $('#inputConfirmPassword').val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/authentication/register",
             method: "POST",
@@ -486,9 +464,6 @@ $(document).ready(function() {
                 }
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     })
 
     $('#frgt_pswd_btn').click(function(event) {
@@ -500,7 +475,6 @@ $(document).ready(function() {
             'email': $('#inputEmail').val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/authentication/forgot_password",
             method: "POST",
@@ -527,9 +501,6 @@ $(document).ready(function() {
                 }
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     })
 
     $('#actvt_acct_btn').click(function(event) {
@@ -541,7 +512,6 @@ $(document).ready(function() {
             'email': $('#inputEmail').val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/authentication/activate_account",
             method: "POST",
@@ -568,9 +538,6 @@ $(document).ready(function() {
                 }
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     })
 
     $('#rst_btn').click(function(event) {
@@ -586,7 +553,6 @@ $(document).ready(function() {
             'confirm_password': $('#inputConfirmPassword').val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/authentication/reset_password",
             method: "POST",
@@ -620,9 +586,6 @@ $(document).ready(function() {
                 }
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     })
 
     $('#uptd_btn').click(function(event) {
@@ -640,7 +603,6 @@ $(document).ready(function() {
             'confirm_password': $('#inputConfirmPassword').val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/authentication/update_password",
             method: "POST",
@@ -676,9 +638,6 @@ $(document).ready(function() {
                 }
             }
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     })
 
     $('#logout_btn').click(function(event) {
@@ -687,7 +646,6 @@ $(document).ready(function() {
         }
         var data = {}
         data[window.csrf_token_name] = window.csrf_hash
-        loadingSpinner(true)
         var request = $.ajax({
             url: "/authentication/log_out",
             method: "POST",
@@ -703,8 +661,5 @@ $(document).ready(function() {
         request.fail(function(jqXHR) {
             console.log(jqXHR.responseJSON)
         })
-        request.always(function() {
-            loadingSpinner(false)
-        });
     })
 })

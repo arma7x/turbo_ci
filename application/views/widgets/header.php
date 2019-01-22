@@ -36,9 +36,12 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
       <div>
         <?php if ($this->uri->segment(1) != NULL): ?>
-        <a onclick="goBack()" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">&#xe5c4;</i></a>
+        <a onclick="goBack()" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">arrow_back</i></a>
         <?php endif; ?>
-        <a onclick="goHome()" class="navbar-brand" data-turbolinks="false"><?php echo APP_NAME ?></a>
+        <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
+            <img style="margin-top:-4px;" src="/static/img/favicon-32x32.png" alt="logo"/>
+            <?php echo APP_NAME ?>
+        </a>
       </div>
       <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
         <i id="navmenu_icon" class="material-icons text-dark" style="font-size:1.7em;">menu</i>
@@ -47,7 +50,7 @@
         <ul class="navbar-nav ml-auto">
           <?php if ($this->uri->segment(1) != NULL): ?>
           <li class="nav-item">
-            <a onclick="goBack()" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">&#xe5c4;</i> <?php echo lang('H_BACK');?></a>
+            <a onclick="goBack()" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">arrow_back</i> <?php echo lang('H_BACK');?></a>
           </li>
           <?php endif; ?>
           <li class="nav-item dropdown">
