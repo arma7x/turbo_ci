@@ -25,7 +25,7 @@
       </div>
       <div id="inputConfirmPasswordErrorText" class="form-control-feedback text-danger"></div>
     </div>
-    <button id="rst_btn" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_RESET_PASSWORD');?></button>
+    <button id="rst_btn" onclick="reset()" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_RESET_PASSWORD');?></button>
   </form>
   </div>
 </div>

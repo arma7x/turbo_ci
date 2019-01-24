@@ -14,7 +14,7 @@
       </div>
       <div id="inputEmailErrorText" class="form-control-feedback text-danger"></div>
     </div>
-    <button id="actvt_acct_btn" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_ACTIVATE_ACCOUNT');?></button>
+    <button id="actvt_acct_btn" onclick="activate_account()" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_ACTIVATE_ACCOUNT');?></button>
   </form>
   </div>
 </div>

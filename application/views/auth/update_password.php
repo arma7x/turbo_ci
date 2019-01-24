@@ -36,7 +36,7 @@
       </div>
       <div id="inputConfirmPasswordErrorText" class="form-control-feedback text-danger"></div>
     </div>
-    <button id="uptd_btn" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_UPDATE_PASSWORD');?></button>
+    <button id="uptd_btn" onclick="update_password()" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_UPDATE_PASSWORD');?></button>
   </form>
   </div>
 </div>

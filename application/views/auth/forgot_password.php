@@ -14,7 +14,7 @@
       </div>
       <div id="inputEmailErrorText" class="form-control-feedback text-danger"></div>
     </div>
-    <button id="frgt_pswd_btn" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_FORGOT_PASSWORD');?></button>
+    <button id="frgt_pswd_btn" onclick="forgot_password()" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_FORGOT_PASSWORD');?></button>
   </form>
   </div>
 </div>

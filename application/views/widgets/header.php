@@ -95,7 +95,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a id="logout_btn" class="nav-link" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
+            <a onclick="logout()" class="nav-link" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
           </li>
           <?php endif; ?>
         </ul>

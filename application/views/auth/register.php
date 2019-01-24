@@ -47,7 +47,7 @@
       </div>
       <div id="inputConfirmPasswordErrorText" class="form-control-feedback text-danger"></div>
     </div>
-    <button id="rgstr_btn" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_REGISTER');?></button>
+    <button id="rgstr_btn" onclick="register()" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_REGISTER');?></button>
   </form>
   </div>
 </div>
