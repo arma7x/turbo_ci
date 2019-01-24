@@ -3,9 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Authenticator {
 
-	/*
-	 * https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
-	*/
+	// https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
 
 	protected $CI;
 	protected $user_table = 'users';
@@ -13,8 +11,8 @@ class Authenticator {
 	protected $remember_token_name = 'remember_me';
 	protected $activation_token_table = 'activation_tokens';
 	protected $reset_token_table = 'reset_tokens';
-	protected $default_role = 127; // 0:ADMIN, 1:MODERATOR <- lowest is more power
-	protected $default_access_level = 127; // 0:SUDO <- lowest is more power
+	protected $default_role = 127; // lowest value has more power, 0 is lowest value
+	protected $default_access_level = 127; // lowest value has more power, 0 is lowest value
 	protected $default_status = 1; // -1:BAN, 1:ACTIVE, 0:INACTIVE
 	protected $default_avatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAAAAAA7VNdtAAAACXBIWXMAAAA4AAAAOABi1B8JAAABTklEQVRIx+3Tv0vDUBDA8f6/p8FBLSQgaCtNoThEoXWoDgYEK4joIlRcRMTBH1DrIFXrL1rEKjGS5FwcFOzLu9w9R8Hv/D7Lvbvcx6/L/ZO/Q7CzVXNdb70VGxI8mYXv7GZsQt7rMFS5L5PABSX7TiK4AKmmXgTSBK0lZMnbhE6gw5I9QsAySzyKTMYMScYpAjcMCUgBpwwZ0OSYISFNzhiCeZI8chOrUcJOOHJIkVX2XyJHF9Y9v2NHOmlIm+ynRSmS7iVaVEXxWb5K3LSGNz8wOGS8Kv2I/DnK5Dp1lpU28iTesLSJ+SFHBnPUVxZ62eRpml5Lu5tFXmcgI6dHk2QeMiuEJNkGphUkyO0YR6ClE/RYAYVYI20Q2tdIVSJFTJH+iETgMkV2RAF+ilRk4iQKCUdlAg8KuTAQcKCQXRPSUMiaCakqpG5Cyl9vPwHZXW4PhaKQ+wAAAABJRU5ErkJggg==';
 
@@ -359,7 +357,7 @@ class Authenticator {
 		$this->CI->email->subject($subject);
 		$this->CI->email->message($this->CI->load->view($template, $data, TRUE));
 		if (!$this->CI->email->send(FALSE)) {
-			//echo $this->CI->email->print_debugger();
+			// echo $this->CI->email->print_debugger();
 			log_message('error', $subject.'::'.$data['user']['email']);
 		}
 	}

@@ -3,36 +3,53 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends MY_Controller {
 
-	// Flow checking auth -> role(auth must TRUE) -> access_level(auth must TRUE)
+	/*
+	#AUTHENTICATION FLOW
+	(1) auth
+		-> NULL[allow all]
+		-> TRUE[must logged-in]
+		-> FALSE[must not logged-in]
+	(2) role(auth must TRUE to define this value)
+		-> lowest value has more power, 0 is lowest value
+		-> USER['role'] value must lower than or equal to defined value
+	(3) access_level(auth must TRUE to define this value)
+		-> lowest value has more power, 0 is lowest value
+		-> USER['access_level'] value must lower than or equal to defined value
 
-	// [USELESS]array('auth' = NULL, role' => 0, 'access_level' => 0); // caught on auth error
-	// [USELESS]array('auth' = FALSE, role' => 0, 'access_level' => 0); // caught on auth error
+	#GUIDE
+	[USELESS]array('auth' = NULL, role' => 0, 'access_level' => 0);
+	[USELESS]array('auth' = FALSE, role' => 0, 'access_level' => 0);
 
-	// [VALID]array('auth' = NULL);
-	// [VALID]array('auth' = TRUE);
-	// [VALID]array('auth' = FALSE);
-	// [VALID]array('role' => 0, 'access_level' => 0);
-	// [VALID]array('auth' = TRUE, 'role' => 0, 'access_level' => 0);
+	[VALID]array('auth' = NULL);
+	[VALID]array('auth' = TRUE);
+	[VALID]array('auth' = FALSE);
+	[VALID]array('role' => 0, 'access_level' => 0);
+	[VALID]array('auth' = TRUE, 'role' => 0, 'access_level' => 0);
 
-	// use lowercase class name for global, will overrride all method rules
-	// public $welcome = array('auth' => NULL); // if need check auth only
-	// public $welcome = array('role' => 0, 'access_level' => 0); //auth is consider TRUE, if defined NULL or FALSE will run it first before continue process flow
+	use class name(lowercase) for global rule, this will overrride all method rules
+	public $welcome = array('auth' => NULL);
+	public $welcome = array('role' => 0, 'access_level' => 0);
 
-	// use lowercase method name for specific method
-	// public $index = array('auth' => NULL); // if need check auth only
-	// public $index = array('role' => 0, 'access_level' => 0); //auth is consider TRUE, if defined NULL or FALSE will run it first before continue process flow
+	use method name(lowercase) for specific method only
+	public $index = array('auth' => NULL);
+	public $index = array('role' => 0, 'access_level' => 0);
 
-	// -> NULL[allow all]
-	// -> TRUE[must logged-in]
-	// -> FALSE[must not logged-in]
+	#EXAMPLE
+	public $index = array('role' => 1, 'access_level' => 1);
+	USER['role'] 0 and USER['access_level'] 0 is ALLOW
+	USER['role'] 0 and USER['access_level'] 1 is ALLOW
+	USER['role'] 1 and USER['access_level'] 1 is ALLOW
+	USER['role'] 1 and USER['access_level'] 0 is ALLOW
+	USER['role'] 2 and USER['access_level'] 2 is BLOCK
+	*/
 
 	public function __construct() {
 		parent::__construct();
-		// Set here if controller need dynamic rules
+		// Set rule here if controller need dynamic rules
 	}
 
 	public function index() {
-		$this->AllowGetMethodRequest();
+		$this->AllowGetRequest();
 		$this->data['title'] = APP_NAME.' | '.lang('H_HOMEPAGE');
 		$this->data['page_name'] = str_replace('%s', APP_NAME, lang('H_WELCOME'));
 		$templates[] = 'welcome_message';
@@ -40,7 +57,7 @@ class Welcome extends MY_Controller {
 	}
 
 	public function offline() {
-		$this->AllowGetMethodRequest();
+		$this->AllowGetRequest();
 		$this->container->user = NULL;
 		$this->data['title'] = APP_NAME.' | '.lang('H_Offline');
 		$this->data['page_name'] = lang('H_Offline');
@@ -50,7 +67,7 @@ class Welcome extends MY_Controller {
 	}
 
 	public function language() {
-		$this->BlockGetMethodRequest();
+		$this->BlockGetRequest();
 		$this->load->helper('cookie');
 		$expire = time() + (60 * 60 * 24 * 365);
 		$lang = 'english';

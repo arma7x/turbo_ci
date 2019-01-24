@@ -20,13 +20,13 @@ class MY_Controller extends CI_Controller {
 		$this->output->enable_profiler(ENVIRONMENT == 'development' ? $debug : FALSE);
 	}
 
-	final protected function AllowGetMethodRequest() {
+	final protected function AllowGetRequest() {
 		if ($this->input->method(FALSE) !== 'get') {
 			show_error("Method Not Allowed", 405);
 		}
 	}
 
-	final protected function BlockGetMethodRequest() {
+	final protected function BlockGetRequest() {
 		if ($this->input->method(FALSE) === 'get') {
 			show_error("Method Not Allowed", 405);
 		}

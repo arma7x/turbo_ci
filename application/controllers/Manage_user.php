@@ -10,7 +10,7 @@ class Manage_user extends MY_Controller {
 	public $delete_user = array('role' => 0, 'access_level' => 0);
 
 	public function user_list() {
-		$this->AllowGetMethodRequest();
+		$this->AllowGetRequest();
 		$this->data['title'] = APP_NAME.' | '.lang('H_MANAGE_USERS');
 		$this->data['page_name'] = lang('H_MANAGE_USERS');
 		$this->load->helper('url');
@@ -28,7 +28,7 @@ class Manage_user extends MY_Controller {
 	}
 
 	public function update_user_role() {
-		$this->BlockGetMethodRequest();
+		$this->BlockGetRequest();
 		$this->load->library('form_validation');
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
@@ -68,7 +68,7 @@ class Manage_user extends MY_Controller {
 	}
 
 	public function update_user_access_level() {
-		$this->BlockGetMethodRequest();
+		$this->BlockGetRequest();
 		$this->load->library('form_validation');
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
@@ -108,7 +108,7 @@ class Manage_user extends MY_Controller {
 	}
 
 	public function update_user_status() {
-		$this->BlockGetMethodRequest();
+		$this->BlockGetRequest();
 		$this->load->library('form_validation');
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
@@ -148,7 +148,7 @@ class Manage_user extends MY_Controller {
 	}
 
 	public function delete_user() {
-		$this->BlockGetMethodRequest();
+		$this->BlockGetRequest();
 		$this->load->library('form_validation');
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),

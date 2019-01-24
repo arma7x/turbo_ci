@@ -5,7 +5,7 @@ class Src extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->AllowGetMethodRequest();
+		$this->AllowGetRequest();
 	}
 
 	public function css() {
