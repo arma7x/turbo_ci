@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// $DATABASE_URL set to SERVER will get from getenv('DATABASE_URL')
+// $DATABASE_URL set to SERVER will fetch from getenv('DATABASE_URL')
 $DATABASE_URL = 'SERVER'; // mysqli://root:root@localhost/ci_starter
-// $ENCRYPTION_KEY set to SERVER will get from getenv('ENCRYPTION_KEY')
+// $ENCRYPTION_KEY set to SERVER will fetch from getenv('ENCRYPTION_KEY')
 $ENCRYPTION_KEY = 'SERVER'; // 09FA7BE0A09C30D0050B05C6EE9974938094
-// $EMAIL_URL set to SERVER will get from getenv('EMAIL_URL')
+// $EMAIL_URL set to SERVER will fetch from getenv('EMAIL_URL')
 $EMAIL_URL = 'SERVER'; // smtp://username@yahoo.com:password@smtp.mail.yahoo.com:587/tls
 $APP_NAME = 'TurboCI';
 $APP_URL = 'https://turboci.herokuapp.com/';

@@ -36,10 +36,10 @@
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
       <div>
         <?php if ($this->uri->segment(1) != NULL): ?>
-        <a onclick="goBack()" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">arrow_back</i></a>
+        <!-- <a onclick="goBack()" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">arrow_back</i></a> -->
         <?php endif; ?>
         <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
-            <img style="margin-top:-4px;" src="/static/img/favicon-32x32.png" alt="logo"/>
+            <img style="margin-top:-4px;" width="32px" height="32px" src="/static/img/android-chrome-192x192.png" alt="logo"/>
             <?php echo APP_NAME ?>
         </a>
       </div>
@@ -48,11 +48,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navCollapsed">
         <ul class="navbar-nav ml-auto">
-          <?php if ($this->uri->segment(1) != NULL): ?>
+          <!-- <?php if ($this->uri->segment(1) != NULL): ?>
           <li class="nav-item">
             <a onclick="goBack()" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">arrow_back</i> <?php echo lang('H_BACK');?></a>
-          </li>
-          <?php endif; ?>
+          </li> 
+          <?php endif; ?> -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe8e2;</i> <?php echo lang('L_LANGUAGE') ?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
