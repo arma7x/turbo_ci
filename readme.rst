@@ -16,9 +16,10 @@ Extra Flavours
 
 - Simple authentication system
 - Service Worker
+- Turbolinks
 
 *******************
-Additional setup 
+Additional Setup 
 *******************
 
 - `Development Config<https://github.com/arma7x/turbo_ci/blob/master/application/config/development/config.php#L4-L9>`_
