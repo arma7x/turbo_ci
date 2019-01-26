@@ -21,7 +21,8 @@ Extra Flavours
 Additional setup 
 *******************
 
-- https://github.com/arma7x/turbo_ci/blob/master/application/config/config.php#L4-L12
+- https://github.com/arma7x/turbo_ci/blob/master/application/config/development/config.php#L4-L9
+- https://github.com/arma7x/turbo_ci/blob/master/application/config/production/config.php#L4-L9
 
 *******************
 Server Requirements
