@@ -1,12 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-// $DATABASE_URL set to SERVER will fetch from getenv('DATABASE_URL')
-$DATABASE_URL = 'SERVER'; // mysqli://root:root@localhost/ci_starter
-// $ENCRYPTION_KEY set to SERVER will fetch from getenv('ENCRYPTION_KEY')
-$ENCRYPTION_KEY = 'SERVER'; // 09FA7BE0A09C30D0050B05C6EE9974938094
-// $EMAIL_URL set to SERVER will fetch from getenv('EMAIL_URL')
-$EMAIL_URL = 'SERVER'; // smtp://username@yahoo.com:password@smtp.mail.yahoo.com:587/tls
+$DATABASE_URL = 'SERVER'; // getenv('DATABASE_URL')
+$ENCRYPTION_KEY = 'SERVER'; // getenv('ENCRYPTION_KEY')
+$EMAIL_URL = 'SERVER'; // getenv('EMAIL_URL')
 $APP_NAME = 'TurboCI';
 $APP_URL = 'https://turboci.herokuapp.com/';
 $APP_ADMIN_EMAIL = 'zeon_msi@yahoo.com';
@@ -59,7 +56,7 @@ define('APP_EMAIL_CREDENTIAL', $APP_EMAIL_CREDENTIAL);
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = ENVIRONMENT === 'production' ? APP_URL : $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/' ;
+$config['base_url'] = APP_URL;
 
 /*
 |--------------------------------------------------------------------------
