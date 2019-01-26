@@ -7,11 +7,13 @@
 				<div class="card-body text-center">
 					<h1 class="card-title"><?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?></h1>
 					<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-					<p>If you would like to edit this page you'll find it located at:</p>
-					<code>application/views/welcome_message.php</code>
-					<p>The corresponding controller for this page is found at:</p>
+					<p>If you would like to edit this page you'll find it located at:
+						<code>application/views/welcome_message.php</code>
+					</p>
+					<p>The corresponding controller for this page is found at:
 					<code>application/controllers/Welcome.php</code>
-					<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="https://codeigniter.com/user_guide/" target="_blank" rel="noopener">User Guide</a>.</p>
+					</p>
+					<p>Fork <?php echo APP_NAME ?> on <a href="https://github.com/arma7x/turbo_ci" target="_blank" rel="noopener">Github</a> OR if you are exploring CodeIgniter for the very first time, you should start by reading the <a href="https://codeigniter.com/user_guide/" target="_blank" rel="noopener">User Guide</a></p>
 				</div>
 			</div>
 		</div>

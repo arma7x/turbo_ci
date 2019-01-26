@@ -21,8 +21,9 @@ Extra Flavours
 Additional setup 
 *******************
 
-- https://github.com/arma7x/turbo_ci/blob/master/application/config/development/config.php#L4-L9
-- https://github.com/arma7x/turbo_ci/blob/master/application/config/production/config.php#L4-L9
+- `Development config <https://github.com/arma7x/turbo_ci/blob/master/application/config/development/config.php#L4-L9>`_
+- `Production config <https://github.com/arma7x/turbo_ci/blob/master/application/config/production/config.php#L4-L9>`_
+- `Demo website <https://turboci.herokuapp.com>`_
 
 *******************
 Server Requirements
