@@ -21,9 +21,9 @@ Extra Flavours
 Additional setup 
 *******************
 
-- `Development config <https://github.com/arma7x/turbo_ci/blob/master/application/config/development/config.php#L4-L9>`_
-- `Production config <https://github.com/arma7x/turbo_ci/blob/master/application/config/production/config.php#L4-L9>`_
-- `Demo website <https://turboci.herokuapp.com>`_
+- `Development Config<https://github.com/arma7x/turbo_ci/blob/master/application/config/development/config.php#L4-L9>`_
+- `Production Config<https://github.com/arma7x/turbo_ci/blob/master/application/config/production/config.php#L4-L9>`_
+- `Demo Website<https://turboci.herokuapp.com>`_
 
 *******************
 Server Requirements
@@ -41,10 +41,3 @@ Installation
 
 Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
 of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
