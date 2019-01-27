@@ -128,7 +128,7 @@
     <?php endif; ?>
     <div id="dangerMessage" class="fixed-top text-sm-center alert alert-danger top-alert-noround sr-only" role="alert">
     </div>
-    <main id="main" role="main" class="container">
+    <main id="main" role="main">
     <?php if($this->container->user !== NULL): ?>
     <input id="upload-avatar" class="sr-only" type="file" accept="image/*" onChange="processPic('upload-avatar')"/>
     <?php endif; ?>
