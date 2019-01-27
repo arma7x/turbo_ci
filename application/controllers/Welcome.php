@@ -26,11 +26,11 @@ class Welcome extends MY_Controller {
 	| [VALID]array('role' => 0, 'access_level' => 0);
 	| [VALID]array('auth' = TRUE, 'role' => 0, 'access_level' => 0);
 	| 
-	| use class name(lowercase) for global rule, this will overrride all method rules
+	| #use class name(lowercase) for global rule, this will overrride all method rules
 	| public $welcome = array('auth' => NULL);
 	| public $welcome = array('role' => 0, 'access_level' => 0);
 	| 
-	| use method name(lowercase) for specific method only
+	| #use method name(lowercase) for specific method only
 	| public $index = array('auth' => NULL);
 	| public $index = array('role' => 0, 'access_level' => 0);
 	| 
