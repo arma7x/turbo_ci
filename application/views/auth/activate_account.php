@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
+<div class="container">
 <div class="row justify-content-sm-center align-items-center" style="min-height:60vh;">
   <div class="col-sm-4">
   <form class="form-center">
@@ -17,4 +18,5 @@
     <button id="actvt_acct_btn" onclick="activate_account()" class="btn btn-primary btn-block" type="submit"><?php echo lang('BTN_ACTIVATE_ACCOUNT');?></button>
   </form>
   </div>
+</div>
 </div>

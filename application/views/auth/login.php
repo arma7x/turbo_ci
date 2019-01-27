@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
+<div class="container">
 <div class="row justify-content-sm-center align-items-center" style="min-height:60vh;">
   <div class="col-sm-4">
   <form class="form-center">
@@ -30,4 +31,5 @@
     <button id="lgn_btn" onclick="login()" class="btn btn-primary btn-block mb-1" type="submit"><?php echo lang('BTN_LOGIN');?></button>
   </form>
   </div>
+</div>
 </div>

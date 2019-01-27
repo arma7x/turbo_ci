@@ -9,29 +9,23 @@ $APP_URL = 'https://turboci.herokuapp.com/';
 $APP_ADMIN_EMAIL = 'zeon_msi@yahoo.com';
 
 $DB_AUTH = parse_url($DATABASE_URL);
-$APP_DATABASE_CREDENTIAL = array(
-    'hostname' => isset($DB_AUTH['host']) ? $DB_AUTH['host'].(isset($DB_AUTH['port']) ? ':'.($DB_AUTH['port']) : '') : '',
-    'username' => isset($DB_AUTH['user']) ? $DB_AUTH['user'] : '',
-    'password' => isset($DB_AUTH['pass']) ? $DB_AUTH['pass'] : '',
-    'database' => isset($DB_AUTH['path']) ? ltrim($DB_AUTH['path'],'/') : '',
-    'dbdriver' => isset($DB_AUTH['scheme']) ? $DB_AUTH['scheme'] : '',
-);
 $EMAIL_AUTH = parse_url($EMAIL_URL);
-$APP_EMAIL_CREDENTIAL = array(
-    'protocol' => isset($EMAIL_AUTH['scheme']) ? $EMAIL_AUTH['scheme'] : '',
-    'smtp_host' => isset($EMAIL_AUTH['host']) ? $EMAIL_AUTH['host'] : '',
-    'smtp_user' => isset($EMAIL_AUTH['user']) ? $EMAIL_AUTH['user'] : '',
-    'smtp_pass' => isset($EMAIL_AUTH['pass']) ? $EMAIL_AUTH['pass'] : '',
-    'smtp_port' => isset($EMAIL_AUTH['port']) ? $EMAIL_AUTH['port'] : '',
-    'smtp_crypto' => isset($EMAIL_AUTH['path']) ? ltrim($EMAIL_AUTH['path'],'/') : '',
-);
 
 define('APP_NAME', $APP_NAME);
 define('APP_URL', $APP_URL);
 define('APP_ADMIN_EMAIL', $APP_ADMIN_EMAIL);
-define('APP_DATABASE_CREDENTIAL', $APP_DATABASE_CREDENTIAL);
 define('APP_ENCRYPTION_KEY', $ENCRYPTION_KEY);
-define('APP_EMAIL_CREDENTIAL', $APP_EMAIL_CREDENTIAL);
+define('APP_DATABASE_HOSTNAME', isset($DB_AUTH['host']) ? $DB_AUTH['host'].(isset($DB_AUTH['port']) ? ':'.($DB_AUTH['port']) : '') : '');
+define('APP_DATABASE_USERNAME', isset($DB_AUTH['user']) ? $DB_AUTH['user'] : '');
+define('APP_DATABASE_PASSWORD', isset($DB_AUTH['pass']) ? $DB_AUTH['pass'] : '');
+define('APP_DATABASE_NAME', isset($DB_AUTH['path']) ? ltrim($DB_AUTH['path'],'/') : '');
+define('APP_DATABASE_DBDRIVER', isset($DB_AUTH['scheme']) ? $DB_AUTH['scheme'] : '');
+define('APP_EMAIL_PROTOCOL', isset($EMAIL_AUTH['scheme']) ? $EMAIL_AUTH['scheme'] : '');
+define('APP_EMAIL_SMTP_HOST', isset($EMAIL_AUTH['host']) ? $EMAIL_AUTH['host'] : '');
+define('APP_EMAIL_SMTP_USER', isset($EMAIL_AUTH['user']) ? $EMAIL_AUTH['user'] : '');
+define('APP_EMAIL_SMTP_PASS', isset($EMAIL_AUTH['pass']) ? $EMAIL_AUTH['pass'] : '');
+define('APP_EMAIL_SMTP_PORT', isset($EMAIL_AUTH['port']) ? $EMAIL_AUTH['port'] : '');
+define('APP_EMAIL_SMTP_CRYPTO', isset($EMAIL_AUTH['path']) ? ltrim($EMAIL_AUTH['path'],'/') : '');
 
 /*
 |--------------------------------------------------------------------------
