@@ -4,43 +4,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Welcome extends MY_Controller {
 
 	/*
-	#AUTHENTICATION FLOW
-	(1) auth
-		-> NULL[allow all]
-		-> TRUE[must logged-in]
-		-> FALSE[must not logged-in]
-	(2) role(auth must TRUE to define this value)
-		-> lowest value has more power, 0 is lowest value
-		-> USER['role'] value must lower than or equal to defined value
-	(3) access_level(auth must TRUE to define this value)
-		-> lowest value has more power, 0 is lowest value
-		-> USER['access_level'] value must lower than or equal to defined value
-
-	#GUIDE
-	[USELESS]array('auth' = NULL, role' => 0, 'access_level' => 0);
-	[USELESS]array('auth' = FALSE, role' => 0, 'access_level' => 0);
-
-	[VALID]array('auth' = NULL);
-	[VALID]array('auth' = TRUE);
-	[VALID]array('auth' = FALSE);
-	[VALID]array('role' => 0, 'access_level' => 0);
-	[VALID]array('auth' = TRUE, 'role' => 0, 'access_level' => 0);
-
-	use class name(lowercase) for global rule, this will overrride all method rules
-	public $welcome = array('auth' => NULL);
-	public $welcome = array('role' => 0, 'access_level' => 0);
-
-	use method name(lowercase) for specific method only
-	public $index = array('auth' => NULL);
-	public $index = array('role' => 0, 'access_level' => 0);
-
-	#EXAMPLE
-	public $index = array('role' => 1, 'access_level' => 1);
-	USER['role'] 0 and USER['access_level'] 0 is ALLOW
-	USER['role'] 0 and USER['access_level'] 1 is ALLOW
-	USER['role'] 1 and USER['access_level'] 1 is ALLOW
-	USER['role'] 1 and USER['access_level'] 0 is ALLOW
-	USER['role'] 2 and USER['access_level'] 2 is BLOCK
+	| #AUTHENTICATION FLOW
+	| (1) auth
+	| 	-> NULL[allow all]
+	| 	-> TRUE[must logged-in]
+	| 	-> FALSE[must not logged-in]
+	| (2) role(auth must TRUE to define this value)
+	| 	-> lowest value has more power, 0 is lowest value
+	| 	-> USER['role'] value must lower than or equal to defined value
+	| (3) access_level(auth must TRUE to define this value)
+	| 	-> lowest value has more power, 0 is lowest value
+	| 	-> USER['access_level'] value must lower than or equal to defined value
+	| 
+	| #GUIDE
+	| [USELESS]array('auth' = NULL, role' => 0, 'access_level' => 0);
+	| [USELESS]array('auth' = FALSE, role' => 0, 'access_level' => 0);
+	| 
+	| [VALID]array('auth' = NULL);
+	| [VALID]array('auth' = TRUE);
+	| [VALID]array('auth' = FALSE);
+	| [VALID]array('role' => 0, 'access_level' => 0);
+	| [VALID]array('auth' = TRUE, 'role' => 0, 'access_level' => 0);
+	| 
+	| use class name(lowercase) for global rule, this will overrride all method rules
+	| public $welcome = array('auth' => NULL);
+	| public $welcome = array('role' => 0, 'access_level' => 0);
+	| 
+	| use method name(lowercase) for specific method only
+	| public $index = array('auth' => NULL);
+	| public $index = array('role' => 0, 'access_level' => 0);
+	| 
+	| #EXAMPLE
+	| public $index = array('role' => 1, 'access_level' => 1);
+	| USER['role'] 0 and USER['access_level'] 0 is ALLOW
+	| USER['role'] 0 and USER['access_level'] 1 is ALLOW
+	| USER['role'] 1 and USER['access_level'] 1 is ALLOW
+	| USER['role'] 1 and USER['access_level'] 0 is ALLOW
+	| USER['role'] 2 and USER['access_level'] 2 is BLOCK
 	*/
 
 	public function __construct() {
