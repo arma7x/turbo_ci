@@ -10,11 +10,11 @@ class Welcome extends MY_Controller {
 	| 	-> TRUE[must logged-in]
 	| 	-> FALSE[must not logged-in]
 	| (2) role(auth must TRUE to define this value)
-	| 	-> lowest value has more power, 0 is lowest value
-	| 	-> USER['role'] value must lower than or equal to defined value
+	| 	-> lowest value has more power, 0 is lowest value, maximum value  is 127
+	| 	-> USER['role'] value must lower than or equal to defined value to PASS
 	| (3) access_level(auth must TRUE to define this value)
-	| 	-> lowest value has more power, 0 is lowest value
-	| 	-> USER['access_level'] value must lower than or equal to defined value
+	| 	-> lowest value has more power, 0 is lowest value, maximum value is 127
+	| 	-> USER['access_level'] value must lower than or equal to defined value to PASS
 	| 
 	| #GUIDE
 	| [USELESS]array('auth' = NULL, role' => 0, 'access_level' => 0);
@@ -36,11 +36,15 @@ class Welcome extends MY_Controller {
 	| 
 	| #EXAMPLE
 	| public $index = array('role' => 1, 'access_level' => 1);
-	| USER['role'] 0 and USER['access_level'] 0 is ALLOW
-	| USER['role'] 0 and USER['access_level'] 1 is ALLOW
-	| USER['role'] 1 and USER['access_level'] 1 is ALLOW
-	| USER['role'] 1 and USER['access_level'] 0 is ALLOW
-	| USER['role'] 2 and USER['access_level'] 2 is BLOCK
+	|
+	| USER['role'] is 0 and USER['access_level'] is 0 = ALLOW
+	| USER['role'] is 0 and USER['access_level'] is 1 = ALLOW
+	| USER['role'] is 1 and USER['access_level'] is 1 = ALLOW
+	| USER['role'] is 1 and USER['access_level'] is 0 = ALLOW
+	|
+	| USER['role'] is 0 and USER['access_level'] is 127 = BLOCK
+	| USER['role'] is 1 and USER['access_level'] is 127 = BLOCK
+	| USER['role'] is 127 and USER['access_level'] is 127 = BLOCK
 	*/
 
 	public function __construct() {
