@@ -77,11 +77,15 @@ a {
 }
 
 .starter-template {
-	padding: 0.8rem;
+	padding: 2.1rem;
 }
 
 .form-center {
 	padding: 15px;
+}
+
+.text-pink {
+	color: #e83e8c;
 }
 
 .form-center .checkbox {
