@@ -35,24 +35,32 @@
   <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
       <div>
-        <?php if ($this->uri->segment(1) != NULL): ?>
-        <!-- <a onclick="goBack()" class="d-sm-none navbar-brand" data-turbolinks="false"><i class="material-icons" style="font-size:1.5em;">arrow_back</i></a> -->
-        <?php endif; ?>
         <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
-            <img style="margin-top:-4px;" width="32px" height="32px" src="/static/img/android-chrome-192x192.png" alt="logo"/>
+            <img class="logo" src="/static/img/android-chrome-192x192.png" alt="logo"/>
             <?php echo APP_NAME ?>
         </a>
       </div>
+      <?php if ($this->uri->segment(1) != NULL): ?>
+      <button onclick="goHome()" class="navbar-toggler" type="button" style="border:0;padding-right:0;">
+        <i class="material-icons text-dark" style="font-size:1.5em;">home</i>
+      </button>
+      <button onclick="goBack()" class="navbar-toggler" type="button" style="border:0;padding-right:0;">
+        <i class="material-icons text-dark" style="font-size:1.5em;">arrow_back</i>
+      </button>
+      <?php endif; ?>
       <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
         <i id="navmenu_icon" class="material-icons text-dark" style="font-size:1.7em;">menu</i>
       </button>
       <div class="collapse navbar-collapse" id="navCollapsed">
         <ul class="navbar-nav ml-auto">
-          <!-- <?php if ($this->uri->segment(1) != NULL): ?>
+          <?php if ($this->uri->segment(1) != NULL): ?>
+          <li class="nav-item">
+            <a onclick="goHome()" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">home</i> <?php echo lang('H_HOMEPAGE');?></a>
+          </li>
           <li class="nav-item">
             <a onclick="goBack()" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">arrow_back</i> <?php echo lang('H_BACK');?></a>
-          </li> 
-          <?php endif; ?> -->
+          </li>
+          <?php endif; ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe8e2;</i> <?php echo lang('L_LANGUAGE') ?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -78,8 +86,9 @@
           <?php if($this->container->user !== NULL): ?>
           <li class="nav-item" onclick="selectPic()">
             <a id="avatar_pic" class="nav-link" data-turbolinks="false">
+              <i class="material-icons">&#xe1bc;</i>
+              <?php echo 'Hi, '.$this->container->user['username']?>
               <img class="rounded-circle avatar" src="<?php echo $this->container->user['avatar'] ?>"/>
-              <?php echo $this->container->user['username']?>
             </a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_update_password' ? ' active' : ''?>">

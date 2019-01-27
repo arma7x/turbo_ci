@@ -307,6 +307,7 @@ class Authentication extends MY_Controller {
 		$this->BlockGetRequest();
 		$data = array(
 			'avatar' => $this->input->post_get('avatar'),
+			'updated_at' => time(),
 		);
 		$this->form_validation->set_data($data);
 		$this->form_validation->set_rules('avatar', lang('L_AVATAR'), 'required|max_length[10000]');

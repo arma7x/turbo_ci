@@ -64,9 +64,16 @@ a {
 	background-color: #e83e8c;
 }
 
+.logo {
+	width: 32px;
+	height: 32px;
+	margin-top:-4px;
+}
+
 .avatar {
 	width: 20px;
 	height: 20px;
+	margin-top:-4px;
 }
 
 .starter-template {
