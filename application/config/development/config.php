@@ -8,7 +8,7 @@ $APP_NAME = 'TurboCI';
 $APP_URL = 'http://127.0.0.1:1000/';
 $APP_ADMIN_EMAIL = 'zeon_msi@yahoo.com';
 
-$DB_AUTH = parse_url($DATABASE_URL == 'SERVER' ? getenv('DATABASE_URL') : $DATABASE_URL);
+$DB_AUTH = parse_url($DATABASE_URL);
 $APP_DATABASE_CREDENTIAL = array(
     'hostname' => isset($DB_AUTH['host']) ? $DB_AUTH['host'].(isset($DB_AUTH['port']) ? ':'.($DB_AUTH['port']) : '') : '',
     'username' => isset($DB_AUTH['user']) ? $DB_AUTH['user'] : '',
@@ -16,8 +16,7 @@ $APP_DATABASE_CREDENTIAL = array(
     'database' => isset($DB_AUTH['path']) ? ltrim($DB_AUTH['path'],'/') : '',
     'dbdriver' => isset($DB_AUTH['scheme']) ? $DB_AUTH['scheme'] : '',
 );
-$APP_ENCRYPTION_KEY = ($ENCRYPTION_KEY == 'SERVER') ? getenv('ENCRYPTION_KEY') : $ENCRYPTION_KEY;
-$EMAIL_AUTH = parse_url($EMAIL_URL == 'SERVER' ? getenv('EMAIL_URL') : $EMAIL_URL);
+$EMAIL_AUTH = parse_url($EMAIL_URL);
 $APP_EMAIL_CREDENTIAL = array(
     'protocol' => isset($EMAIL_AUTH['scheme']) ? $EMAIL_AUTH['scheme'] : '',
     'smtp_host' => isset($EMAIL_AUTH['host']) ? $EMAIL_AUTH['host'] : '',
@@ -31,7 +30,7 @@ define('APP_NAME', $APP_NAME);
 define('APP_URL', $APP_URL);
 define('APP_ADMIN_EMAIL', $APP_ADMIN_EMAIL);
 define('APP_DATABASE_CREDENTIAL', $APP_DATABASE_CREDENTIAL);
-define('APP_ENCRYPTION_KEY', $APP_ENCRYPTION_KEY);
+define('APP_ENCRYPTION_KEY', $ENCRYPTION_KEY);
 define('APP_EMAIL_CREDENTIAL', $APP_EMAIL_CREDENTIAL);
 
 /*
