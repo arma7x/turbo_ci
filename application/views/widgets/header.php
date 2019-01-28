@@ -41,10 +41,10 @@
         </a>
       </div>
       <?php if ($this->uri->segment(1) != NULL): ?>
-      <button onclick="goHome()" class="navbar-toggler" type="button" style="border:0;padding-right:0;">
+      <button onclick="goHome()" class="navbar-toggler" type="button" style="border:0;padding-left:5px;padding-right:5px;">
         <i class="material-icons text-dark" style="font-size:1.5em;">home</i>
       </button>
-      <button onclick="goBack()" class="navbar-toggler" type="button" style="border:0;padding-right:0;">
+      <button onclick="goBack()" class="navbar-toggler" type="button" style="border:0;padding-left:5px;padding-right:5px;">
         <i class="material-icons text-dark" style="font-size:1.5em;">arrow_back</i>
       </button>
       <?php endif; ?>
