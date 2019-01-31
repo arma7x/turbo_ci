@@ -33,11 +33,15 @@ class MY_Controller extends CI_Controller {
 	}
 
 	final protected function _render($template = []) {
-		$this->load->view($this->header_template, $this->data);
+		if ($this->header_template !== NULL) {
+			$this->load->view($this->header_template, $this->data);
+		}
 		foreach ($template as $view) {
 			$this->load->view($view, $this->data);
 		}
-		$this->load->view($this->footer_template, $this->data);
+		if ($this->footer_template !== NULL) {
+			$this->load->view($this->footer_template, $this->data);
+		}
 	}
 
 	final protected function _renderJSON($status = 200, $data = array()) {

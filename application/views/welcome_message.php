@@ -35,7 +35,7 @@
 		</div>
 	</div>
 	<h5 class="text-center text-primary">We make it simple and we built with powerful tools</h5>
-	<div class="row">
+	<div class="row justify-content-center">
 		<div class="col col-12 col-sm-3 mb-2">
 			<div class="card shadow-sm">
 				<div class="card-body">
