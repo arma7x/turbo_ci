@@ -1,5 +1,12 @@
+
 (function($) {
   "use strict"; // Start of use strict
+  AOS.init({
+    offset: 200,
+    duration: 600,
+    easing: 'ease-in-sine',
+    delay: 80,
+  });
 
   // Scroll to top button appear
   $(document).scroll(function() {
