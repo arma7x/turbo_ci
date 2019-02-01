@@ -1,11 +1,32 @@
 
 (function($) {
   "use strict"; // Start of use strict
-  AOS.init({
-    offset: 200,
-    duration: 600,
-    easing: 'ease-in-sine',
-    delay: 80,
+  AOS.init();
+
+  $('.hub-slider-ingredient-slides ul').hubSlider({
+    selector: $('li'),
+    button: {
+        next: $('.hub-slider-ingredient-arrow_next'),
+        prev: $('.hub-slider-ingredient-arrow_prev')
+    },
+    transition: '0.7s',
+    startOffset: 30,
+    auto: false,
+    opacity: 1,
+    time: 300 // secondly
+  });
+
+  $('.hub-slider-testimoni ul').hubSlider({
+      selector: $('li'),
+      button: {
+          next: $('.hub-slider-testimoni-arrow_next'),
+          prev: $('.hub-slider-testimoni-arrow_prev')
+      },
+      transition: '0.7s',
+      startOffset: 30,
+      auto: false,
+      opacity: 1,
+      time: 300 // secondly
   });
 
   // Scroll to top button appear
