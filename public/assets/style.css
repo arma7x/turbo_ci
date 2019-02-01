@@ -27,6 +27,12 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 2em;
 }
 
+.img-obesity {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+}
+
 .container {
   max-width: 960px;
 }
@@ -104,17 +110,17 @@ header.masthead {
 
 .fab-container {
 	margin-left: 65vw;
-	width:100px;
-	right:0;
-	z-index:999999;"
+	width: 100px;
+	right: 0;
+	z-index: 999999;
 }
 
 @media (min-width: 992px) {
 	.fab-container {
 		margin-left: 90vw;
-		width:100px;
-		right:0;
-		z-index:999999;"
+		width: 100px;
+		right: 0;
+		z-index: 999999;
 	}
 }
 
@@ -281,12 +287,14 @@ header.masthead {
     margin-top: 0;
   }
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active {
-    color: #000;
+    color: #fff;
     background: #FB4251;
+    border-radius: 20px;
   }
   #mainNav .navbar-nav > li.nav-item > a.nav-link.active:active, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:focus, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover {
-    color: #000;
+    color: #fff;
     background: #FB4251;
+    border-radius: 20px;
   }
   #mainNav.navbar-shrink {
     padding-top: 0.5rem;
