@@ -33,7 +33,7 @@
     </script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top shadow-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header">
       <div>
         <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
             <img class="logo" src="/static/img/android-chrome-192x192.png" alt="logo"/>
