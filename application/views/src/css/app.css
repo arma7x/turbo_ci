@@ -85,7 +85,7 @@ a {
 }
 
 .text-pink {
-	color: #e83e8c;
+	color: var(--pink);
 }
 
 .form-center .checkbox {

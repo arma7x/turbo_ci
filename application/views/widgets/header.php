@@ -13,8 +13,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="apple-mobile-web-app-title" content="<?php echo APP_NAME ?>">
-    <meta name="application-name" content="<?php echo APP_NAME ?>">
+    <meta name="apple-mobile-web-app-title" content="<?php echo $this->container->app_name ?>">
+    <meta name="application-name" content="<?php echo $this->container->app_name ?>">
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -33,11 +33,11 @@
     </script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header d-flex flex-row-reverse flex-lg-row">
       <div>
         <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
+            <strong class="text-pink"><?php echo $this->container->app_name ?></strong>
             <img class="logo" src="/static/img/android-chrome-192x192.png" alt="logo"/>
-            <?php echo APP_NAME ?>
         </a>
       </div>
       <?php if ($this->uri->segment(1) != NULL): ?>
@@ -126,7 +126,11 @@
       </button>
     </div>
     <?php endif; ?>
-    <div id="dangerMessage" class="fixed-top text-sm-center alert alert-danger top-alert-noround sr-only" role="alert">
+    <div class="fixed-bottom row justify-content-center align-items-center mb-5">
+        <div class="toast mb-5 mx-2" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+          <div id="dangerMessage" class="text-white toast-body bg-danger">
+          </div>
+        </div>
     </div>
     <main id="main" role="main">
     <?php if($this->container->user !== NULL): ?>

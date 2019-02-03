@@ -11,7 +11,7 @@ class Manage_user extends MY_Controller {
 
 	public function user_list() {
 		$this->AllowGetRequest();
-		$this->data['title'] = APP_NAME.' | '.lang('H_MANAGE_USERS');
+		$this->data['title'] = $this->container->app_name.' | '.lang('H_MANAGE_USERS');
 		$this->data['page_name'] = lang('H_MANAGE_USERS');
 		$this->load->helper('url');
 		$this->load->model('User_Model', 'user_model');

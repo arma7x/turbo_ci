@@ -18,7 +18,7 @@ $hook['post_controller_constructor'][] = function() {
 	$expire = time() + (60 * 60 * 24 * 365);
 	$lang = get_cookie('lang');
 	if ($lang === NULL) {
-		$lang = 'english';
+		$lang = $CI->config->item('language');
 	}
 	setcookie('lang', $lang, $expire, $CI->config->item('cookie_path'), $CI->config->item('cookie_domain'), $CI->config->item('cookie_secure'), $CI->config->item('cookie_httponly'));
 	if ($lang === 'malay') {
@@ -30,6 +30,7 @@ $hook['post_controller_constructor'][] = function() {
 
 $hook['post_controller_constructor'][] = function() {
 	$CI = &get_instance();
+	$CI->container['app_name'] = APP_NAME;
 	if ($CI->session->status !== NULL) {
 		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->session->user['id']), 'id, username, email, role, access_level, status, avatar');
 		if ($user !== NULL) {
@@ -43,6 +44,7 @@ $hook['post_controller_constructor'][] = function() {
 	$CI->container['sw_offline_cache'] = $CI->input->get_request_header('Sw-Offline-Cache', TRUE);
 	if ($CI->container['sw_offline_cache'] !== NULL) {
 		$CI->container->user = NULL;
+		$CI->lang->load('app', $CI->config->item('language'));
 		log_message('error', 'Cache::'.$CI->container['sw_offline_cache']);
 	}
 };

@@ -302,16 +302,12 @@ loadingSpinner(false)
 
 function showDangerMessage(text) {
     $('#dangerMessage').text(text)
-    $('#dangerMessage').removeClass('sr-only')
-    $('#dangerMessage').removeClass('fade')
-    $('#dangerMessage').addClass('show')
-    $('#dangerMessage').append('<button type="button" class="close" aria-label="Close" onclick="hideDangerMessage()"><span aria-hidden="true">&times;</span></button>')
+    $('#dangerMessage').append('<button type="button" class="text-white ml-2 mb-1 close" aria-label="Close" onclick="hideDangerMessage()"><span aria-hidden="true">&times;</span></button>')
+    $('.toast').toast('show');
 }
 
 function hideDangerMessage() {
-    $('#dangerMessage').removeClass('show')
-    // $('#dangerMessage').addClass('sr-only')
-    $('#dangerMessage').addClass('fade')
+    $('.toast').toast('hide');
     $('#dangerMessage').text('')
 }
 
@@ -601,8 +597,7 @@ function update_password() {
         $('#uptd_btn').removeAttr("disabled")
         if (jqXHR.responseJSON != undefined) {
             if (jqXHR.responseJSON.message != undefined) {
-                $('#dangerMessage').text(jqXHR.responseJSON.message)
-                $('#dangerMessage').removeClass('sr-only')
+                showDangerMessage(jqXHR.responseJSON.message)
             }
             if (jqXHR.responseJSON.errors != undefined) {
                 if (jqXHR.responseJSON.errors.confirm_password != undefined) {
