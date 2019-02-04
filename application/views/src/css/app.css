@@ -1,119 +1,119 @@
 @font-face {
-	font-family: 'Material Icons';
-	font-style: normal;
-	font-weight: 400;
-	src: url(/static/font/MaterialIcons-Regular.woff2) format('woff2');
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/static/font/MaterialIcons-Regular.woff2) format('woff2');
 }
 
 .material-icons {
-	font-family: 'Material Icons';
-	font-weight: normal;
-	font-style: normal;
-	font-size: 18px;
-	line-height: 1;
-	letter-spacing: normal;
-	text-transform: none;
-	display: inline-block;
-	white-space: nowrap;
-	word-wrap: normal;
-	direction: ltr;
-	-webkit-font-feature-settings: 'liga';
-	-webkit-font-smoothing: antialiased;
-	margin-top: -4px;
-	vertical-align: middle !important;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  margin-top: -4px;
+  vertical-align: middle !important;
 }
 
 html {
-	position: relative;
-	min-height: 100%;
-	font-size: 100%;
-	-webkit-text-size-adjust: 100%;
-	font-variant-ligatures: none;
-	-webkit-font-variant-ligatures: none;
-	text-rendering: optimizeLegibility;
-	-moz-osx-font-smoothing: grayscale;
-	font-smoothing: antialiased;
-	-webkit-font-smoothing: antialiased;
-	text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
-	font-family: “Helvetica Neue Light”, “Helvetica Neue”, Helvetica, Arial, “Lucida Grande”, sans-serif;
-	font-weight: 300;
+  position: relative;
+  min-height: 100%;
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-variant-ligatures: none;
+  -webkit-font-variant-ligatures: none;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
+  font-family: “Helvetica Neue Light”, “Helvetica Neue”, Helvetica, Arial, “Lucida Grande”, sans-serif;
+  font-weight: 300;
 }
 
 body {
-	padding-top: 5em;
-	margin-bottom: 50px; /* Margin bottom by footer height */
+  padding-top: 5em;
+  margin-bottom: 50px; /* Margin bottom by footer height */
 }
 
 a {
-	cursor:pointer!important;
+  cursor:pointer!important;
 }
 
 .footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	min-height: 50px; /* Set the fixed height of the footer here */
-	line-height: 50px; /* Vertically center the text there */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 50px; /* Set the fixed height of the footer here */
+  line-height: 50px; /* Vertically center the text there */
 }
 
 .shadow-header {
-	box-shadow: 0 1px 3px 0 rgba(0,0,0, 0.2), 0 1px 1px 0 rgba(0,0,0, 0.14), 0 2px 1px -1px rgba(0,0,0, 0.12)
+  box-shadow: 0 1px 3px 0 rgba(0,0,0, 0.2), 0 1px 1px 0 rgba(0,0,0, 0.14), 0 2px 1px -1px rgba(0,0,0, 0.12)
 }
 
 .turbolinks-progress-bar {
-	background-color: #e83e8c;
+  background-color: #e83e8c;
 }
 
 .logo {
-	width: 32px;
-	height: 32px;
-	margin-top:-4px;
+  width: 32px;
+  height: 32px;
+  margin-top:-4px;
 }
 
 .avatar {
-	width: 20px;
-	height: 20px;
-	margin-top:-4px;
+  width: 20px;
+  height: 20px;
+  margin-top:-4px;
 }
 
 .starter-template {
-	padding: 2rem;
+  padding: 2rem;
 }
 
 .form-center {
-	padding: 15px;
+  padding: 15px;
 }
 
 .text-pink {
-	color: var(--pink);
+  color: var(--pink);
 }
 
 .form-center .checkbox {
-	font-weight: 400;
+  font-weight: 400;
 }
 
 .form-center .form-control {
-	position: relative;
-	box-sizing: border-box;
-	height: auto;
-	font-size: 16px;
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  font-size: 16px;
 }
 
 .form-center .form-control:focus {
-	z-index: 2;
+  z-index: 2;
 }
 
 .form-center input {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .icon-h3 {
-	font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .top-alert-noround {
-	margin-top: 56px;
-	border-radius: 0;
+  margin-top: 56px;
+  border-radius: 0;
 }
 
 @keyframes spin {
@@ -200,4 +200,122 @@ a {
   border: none;
   width: 32px;
   height: 32px;
+}
+
+.dashboard-menu {
+  padding-top: 56px;
+  z-index: 999;
+  height: 100%;
+  background: #f8f9fa;
+}
+
+.dashboard-container {
+  padding-top: 56px;
+}
+
+.navbar-collapse-dashboard.collapse:not(.show) {
+  display: contents;
+}
+
+@media (max-width: 768px) {
+  .dashboard-menu {
+    padding-top: 0px;
+    z-index: 999;
+    height: auto;
+    background: #f8f9fa;
+  }
+  .navbar-collapse-dashboard {
+    position: absolute;
+    top: 54px;
+    left: 0;
+    width: 280px;
+  }
+  .navbar-collapse-dashboard.collapse:not(.show) {
+    display: none;
+  }
+  .navbar-collapse-dashboard.collapsing {
+    height: auto;
+    -webkit-transition: left 0.35s ease;
+    -o-transition: left 0.35s ease;
+    -moz-transition: left 0.35s ease;
+    transition: left 0.35s ease;
+    left: -100%;
+  }
+  .navbar-collapse-dashboard.show {
+    left: 0;
+    -webkit-transition: left 0.25s ease-in;
+    -o-transition: left 0.25s ease-in;
+    -moz-transition: left 0.25s ease-in;
+    transition: left 0.25s ease-in;
+  }
+}
+
+#accordionDashboard{
+  height: 100vh;
+}
+
+#accordionDashboard > .dropdown-divider {
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+}
+
+#accordionDashboard > .dropdown-item {
+  cursor: pointer!important;
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  border-radius: 0!important;
+}
+
+#accordionDashboard > .dropdown-item:first-child {
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
+#accordionDashboard > .dropdown-item:last-child {
+  border-bottom-right-radius: calc(0.25rem - 1px);
+  border-bottom-left-radius: calc(0.25rem - 1px);
+}
+
+#accordionDashboard > .dropdown-item:hover, .dropdown-item:focus {
+  color: #16181b;
+  text-decoration: none;
+  background-color: #f8f9fa;
+}
+
+#accordionDashboard > .dropdown-item.active, .dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #007bff;
+}
+
+#accordionDashboard > .dropdown-item.disabled, .dropdown-item:disabled {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: transparent;
+}
+
+#accordionDashboard > .dropdown-header {
+  display: block;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+#accordionDashboard > .dropdown-item-text {
+  display: block;
+  padding: 0.25rem 1.5rem;
+  color: #212529;
 }

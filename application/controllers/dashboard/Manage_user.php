@@ -3,13 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Manage_user extends MY_Controller {
 
-	public $user_list = array('role' => 1, 'access_level' => 1);
+	public $index = array('role' => 1, 'access_level' => 1);
 	public $update_user_role = array('role' => 0, 'access_level' => 0);
 	public $update_user_access_level = array('role' => 0, 'access_level' => 0);
 	public $update_user_status = array('role' => 0, 'access_level' => 0);
 	public $delete_user = array('role' => 0, 'access_level' => 0);
 
-	public function user_list() {
+	public function __construct() {
+		parent::__construct();
+		$this->header_template = 'widgets/dashboard/header';
+		$this->footer_template = 'widgets/dashboard/footer';
+	}
+
+	public function index() {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_MANAGE_USERS');
 		$this->data['page_name'] = lang('H_MANAGE_USERS');
@@ -23,7 +29,7 @@ class Manage_user extends MY_Controller {
 		);
 		$this->data['filter'] = $filter;
 		$this->data['user_list'] = $this->user_model->get_user_list($filter, current_url(), 10, (int) $this->input->get('page'), TRUE);
-		$templates[] = 'admin/manage_user';
+		$templates[] = 'dashboard/manage_user';
 		$this->_render($templates);
 	}
 
@@ -55,7 +61,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ROLE')),
-					'redirect' => $this->config->item('base_url').'manage_user/user_list'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ROLE'))));
 				$this->_renderJSON(200, $data);
@@ -95,7 +101,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ACCESS_LEVEL')),
-					'redirect' => $this->config->item('base_url').'manage_user/user_list'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ACCESS_LEVEL'))));
 				$this->_renderJSON(200, $data);
@@ -135,7 +141,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_STATUS')),
-					'redirect' => $this->config->item('base_url').'manage_user/user_list'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_STATUS'))));
 				$this->_renderJSON(200, $data);
@@ -167,7 +173,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE')),
-					'redirect' => $this->config->item('base_url').'manage_user/user_list'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE'))));
 				$this->_renderJSON(200, $data);

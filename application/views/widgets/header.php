@@ -94,14 +94,11 @@
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_update_password' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_update_password' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_update_password')"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe871;</i> <?php echo lang('H_DASHBOARD');?></a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <?php if((int) $this->container->user['role'] <= 1): ?>
-              <a class="dropdown-item" onclick="navigate('/manage_user/user_list')"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
-              <?php endif; ?>
-              <a class="dropdown-item" onclick="navigate('/authentication/manage_token')"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
-            </div>
+          <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/manage_token' ? ' active' : ''?>">
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/manage_token' ? ' text-primary' : ''?>" onclick="navigate('/authentication/manage_token')"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" onclick="navigate('/dashboard/index')"><i class="material-icons">&#xe871;</i> <?php echo lang('H_DASHBOARD');?></a>
           </li>
           <li class="nav-item">
             <a onclick="logout()" class="nav-link" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
@@ -128,8 +125,7 @@
     <?php endif; ?>
     <div class="fixed-bottom row justify-content-center align-items-center mb-5">
         <div class="toast mb-5 mx-2" role="status" aria-live="polite" aria-atomic="true" data-autohide="false">
-            <div id="dangerMessage" class="text-white toast-body bg-danger">
-          </div>
+            <div id="dangerMessage" class="text-white toast-body bg-danger"></div>
         </div>
     </div>
     <main id="main" role="main">

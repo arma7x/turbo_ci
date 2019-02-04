@@ -152,7 +152,7 @@ function updateRole(id) {
         }
         data[window.csrf_token_name] = window.csrf_hash
         var request = $.ajax({
-            url: "/manage_user/update_user_role",
+            url: "/dashboard/manage_user/update_user_role",
             method: "POST",
             data: data,
             dataType: "json"
@@ -184,7 +184,7 @@ function updateAccessLevel(id) {
         }
         data[window.csrf_token_name] = window.csrf_hash
         var request = $.ajax({
-            url: "/manage_user/update_user_access_level",
+            url: "/dashboard/manage_user/update_user_access_level",
             method: "POST",
             data: data,
             dataType: "json"
@@ -216,7 +216,7 @@ function updateStatus(id) {
         }
         data[window.csrf_token_name] = window.csrf_hash
         var request = $.ajax({
-            url: "/manage_user/update_user_status",
+            url: "/dashboard/manage_user/update_user_status",
             method: "POST",
             data: data,
             dataType: "json"
@@ -247,7 +247,7 @@ function deleteUser(id) {
         }
         data[window.csrf_token_name] = window.csrf_hash
         var request = $.ajax({
-            url: "/manage_user/delete_user",
+            url: "/dashboard/manage_user/delete_user",
             method: "POST",
             data: data,
             dataType: "json"
