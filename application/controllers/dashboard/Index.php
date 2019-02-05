@@ -7,15 +7,14 @@ class Index extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->header_template = 'widgets/dashboard/header';
-		$this->footer_template = 'widgets/dashboard/footer';
+		$this->template = 'widgets/dashboard/template';
 	}
 
 	public function index() {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_DASHBOARD');
 		$this->data['page_name'] = str_replace('%s', $this->container->app_name, lang('H_DASHBOARD'));
-		$templates[] = 'dashboard/welcome';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('dashboard/welcome', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 }

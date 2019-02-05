@@ -5,6 +5,7 @@ require_once(APPPATH.'core/Container.php');
 class MY_Controller extends CI_Controller {
 
 	public $container;
+	protected $template = 'widgets/template';
 	protected $header_template = 'widgets/header';
 	protected $footer_template = 'widgets/footer';
 	protected $data = [];
@@ -32,16 +33,8 @@ class MY_Controller extends CI_Controller {
 		}
 	}
 
-	final protected function _render($template = []) {
-		if ($this->header_template !== NULL) {
-			$this->load->view($this->header_template, $this->data);
-		}
-		foreach ($template as $view) {
-			$this->load->view($view, $this->data);
-		}
-		if ($this->footer_template !== NULL) {
-			$this->load->view($this->footer_template, $this->data);
-		}
+	final protected function _renderLayout() {
+		$this->load->view($this->template, $this->data);
 	}
 
 	final protected function _renderJSON($status = 200, $data = array()) {

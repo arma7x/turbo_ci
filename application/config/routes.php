@@ -55,6 +55,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['offline']['get'] = 'welcome/offline';
 $route['language']['post'] = 'welcome/language';
+$route['dashboard']['get'] = 'dashboard/index';
 $route['src/app.css']['get'] = 'src/css';
 $route['src/app.js']['get'] = 'src/js';
 $route['sw.js']['get'] = 'src/sw';

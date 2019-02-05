@@ -69,8 +69,8 @@ class Welcome extends MY_Controller {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_HOMEPAGE');
 		$this->data['page_name'] = str_replace('%s', $this->container->app_name, lang('H_WELCOME'));
-		$templates[] = 'welcome';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('welcome', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function offline() {
@@ -79,8 +79,8 @@ class Welcome extends MY_Controller {
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_Offline');
 		$this->data['page_name'] = lang('H_Offline');
 		$this->data['message'] = lang('M_OFFLINE');
-		$templates[] = 'offline';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('offline', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function language() {

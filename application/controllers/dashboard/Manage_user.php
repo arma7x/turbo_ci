@@ -11,8 +11,7 @@ class Manage_user extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->header_template = 'widgets/dashboard/header';
-		$this->footer_template = 'widgets/dashboard/footer';
+		$this->template = 'widgets/dashboard/template';
 	}
 
 	public function index() {
@@ -29,8 +28,8 @@ class Manage_user extends MY_Controller {
 		);
 		$this->data['filter'] = $filter;
 		$this->data['user_list'] = $this->user_model->get_user_list($filter, current_url(), 10, (int) $this->input->get('page'), TRUE);
-		$templates[] = 'dashboard/manage_user';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('dashboard/manage_user', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function update_user_role() {

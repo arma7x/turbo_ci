@@ -29,8 +29,8 @@ class Authentication extends MY_Controller {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_LOGIN');
 		$this->data['page_name'] = lang('H_LOGIN');
-		$templates[] = 'auth/login';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('auth/login', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function login() {
@@ -80,8 +80,8 @@ class Authentication extends MY_Controller {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_REGISTER');
 		$this->data['page_name'] = lang('H_REGISTER');
-		$templates[] = 'auth/register';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('auth/register', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function register() {
@@ -136,8 +136,8 @@ class Authentication extends MY_Controller {
 		}
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_ACTIVATE_ACCOUNT');
 		$this->data['page_name'] = lang('H_ACTIVATE_ACCOUNT');
-		$templates[] = 'auth/activate_account';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('auth/activate_account', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function activate_account() {
@@ -173,8 +173,8 @@ class Authentication extends MY_Controller {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_FORGOT_PASSWORD');
 		$this->data['page_name'] = lang('H_FORGOT_PASSWORD');
-		$templates[] = 'auth/forgot_password';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('auth/forgot_password', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function forgot_password() {
@@ -219,8 +219,8 @@ class Authentication extends MY_Controller {
 			$this->data['title'] = $this->container->app_name.' | '.lang('H_RESET_PASSWORD');
 			$this->data['page_name'] = lang('H_RESET_PASSWORD');
 			$this->data['user'] = $result;
-			$templates[] = 'auth/reset_password';
-			$this->_render($templates);
+			$this->data['content'] = $this->load->view('auth/reset_password', $this->data, TRUE);
+			$this->_renderLayout();
 		} else {
 			$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FORGOT_PASSWORD_LINK_INVALID_TOKEN')));
 			redirect($this->config->item('base_url'));
@@ -265,8 +265,8 @@ class Authentication extends MY_Controller {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container->app_name.' | '.lang('H_UPDATE_PASSWORD');
 		$this->data['page_name'] = lang('H_UPDATE_PASSWORD');
-		$templates[] = 'auth/update_password';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('auth/update_password', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function update_password() {
@@ -339,8 +339,8 @@ class Authentication extends MY_Controller {
 		$this->data['page_name'] = lang('H_LOG_IN_DEVICES');
 		$this->data['token_list'] = $this->authenticator->get_remember_token(array('user' => $this->container->user['id']));
 		$this->data['current_token'] = $this->authenticator->get_current_remember_token();
-		$templates[] = 'auth/manage_token';
-		$this->_render($templates);
+		$this->data['content'] = $this->load->view('auth/manage_token', $this->data, TRUE);
+		$this->_renderLayout();
 	}
 
 	public function delete_token() {
