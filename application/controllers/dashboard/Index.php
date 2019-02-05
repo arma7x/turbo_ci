@@ -8,6 +8,8 @@ class Index extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->template = 'widgets/dashboard/template';
+		$this->widgets['nav'] = 'widgets/dashboard/nav';
+		$this->widgets['dashboard_menu'] = 'widgets/dashboard/dashboard_menu';
 	}
 
 	public function index() {

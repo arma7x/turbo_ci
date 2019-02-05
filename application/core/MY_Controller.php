@@ -6,6 +6,13 @@ class MY_Controller extends CI_Controller {
 
 	public $container;
 	protected $template = 'widgets/template';
+	protected $widgets = array(
+		'header' => 'widgets/common/header',
+		'footer' => 'widgets/common/footer',
+		'notification' => 'widgets/common/notification',
+		'spinner' => 'widgets/common/spinner',
+		'nav' => 'widgets/nav',
+	);
 	protected $data = [];
 
 	public function __construct() {
@@ -32,6 +39,9 @@ class MY_Controller extends CI_Controller {
 	}
 
 	final protected function _renderLayout() {
+		foreach ($this->widgets as $index => $widget) {
+			$this->data[$index] = $this->load->view($widget, $this->data, TRUE);
+		}
 		$this->load->view($this->template, $this->data);
 	}
 

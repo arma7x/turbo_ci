@@ -235,10 +235,10 @@ a {
   }
   .navbar-collapse-dashboard.collapsing {
     height: auto;
-    -webkit-transition: left 0.35s ease;
-    -o-transition: left 0.35s ease;
-    -moz-transition: left 0.35s ease;
-    transition: left 0.35s ease;
+    -webkit-transition: left 0.1s ease;
+    -o-transition: left 0.1s ease;
+    -moz-transition: left 0.1s ease;
+    transition: left 0.1s ease;
     left: -100%;
   }
   .navbar-collapse-dashboard.show {

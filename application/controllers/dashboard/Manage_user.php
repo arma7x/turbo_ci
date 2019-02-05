@@ -9,10 +9,13 @@ class Manage_user extends MY_Controller {
 	public $update_user_status = array('role' => 0, 'access_level' => 0);
 	public $delete_user = array('role' => 0, 'access_level' => 0);
 	public $ui_register = array('role' => 0, 'access_level' => 0);
+	public $register = array('role' => 0, 'access_level' => 0);
 
 	public function __construct() {
 		parent::__construct();
 		$this->template = 'widgets/dashboard/template';
+		$this->widgets['nav'] = 'widgets/dashboard/nav';
+		$this->widgets['dashboard_menu'] = 'widgets/dashboard/dashboard_menu';
 	}
 
 	public function index() {
