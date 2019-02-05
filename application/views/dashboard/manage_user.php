@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 <div class="container starter-template">
-	<h3 class="text-center"><?php echo $page_name ? $page_name : 'Codeigniter' ;?></h3>
+	<h2 class="text-center text-primary"><?php echo $page_name ? $page_name : 'Codeigniter' ;?></h2>
 	<div class="row">
 		<form class="form-inline">
 			<div class="input-group input-group-sm mr-sm-1 mb-1">

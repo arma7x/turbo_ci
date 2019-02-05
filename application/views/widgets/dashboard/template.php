@@ -84,23 +84,31 @@
     </div>
     <main class="col" id="main" role="main">
         <div class="row">
-            <div id="dashboard-menu" class="col col-12 col-lg-2 px-0 fixed-top dashboard-menu shadow-sm">
+            <div id="dashboard-menu" class="col col-12 col-lg-2 px-0 fixed-top dashboard-menu shadow">
                 <div id="navCollapsed" class="collapse navbar-collapse-dashboard">
-                    <div id="accordionDashboard" class="accordion bg-light">
-                      <div class="dropdown-item py-2<?php echo '/'.$this->uri->uri_string() == '/dashboard/index' ? ' active' : ''?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <a>Item #1</a>
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionDashboard">
-                          <div>
-                            Anim pariatur cliche
+                    <div class="p-2 border border-top-0 border-right-0 border-left-0">
+                      <div class="row p-2">
+                          <div class="col col-3">
+                            <img class="rounded-circle shadow-sm" width="50px" height="50px" src="<?php echo $this->container->user['avatar'] ?>"/>
                           </div>
-                        </div>
+                          <div class="col col-9">
+                              <div class="ml-1 font-weight-bolder" style="overflow:hidden">
+                                  Hi, <?php echo $this->container->user['username'] ?>
+                              </div>
+                              <div class="ml-1 small">
+                                  <?php echo $this->container->user['role_alias'] ?>
+                              </div>
+                          </div>
                       </div>
+                    </div>
+                    <div id="accordionDashboard" class="accordion bg-light">
+                      <a class="dropdown-item py-2<?php echo '/'.$this->uri->uri_string() == '/dashboard/index' ? ' active' : ''?>" onclick="navigate('/dashboard/index')"><i class="material-icons">&#xe871;</i> <?php echo lang('H_DASHBOARD');?></a>
                       <div class="dropdown-divider"></div>
                       <?php if((int) $this->container->user['role'] <= 1): ?>
                       <a class="dropdown-item py-2<?php echo '/'.$this->uri->uri_string() == '/dashboard/manage_user' ? ' active' : ''?>" onclick="navigate('/dashboard/manage_user')"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
                       <?php endif; ?>
-                      <div class="dropdown-divider"></div>
-                      <div class="dropdown-item py-2" data-toggle="collapse" data-target="#collapseLang" aria-expanded="false" aria-controls="collapseLang">
+                      <div class="dropdown-divider d-lg-none"></div>
+                      <div class="dropdown-item py-2 d-lg-none" data-toggle="collapse" data-target="#collapseLang" aria-expanded="false" aria-controls="collapseLang">
                         <div id="headingLang">
                             <i class="material-icons">&#xe8e2;</i> <?php echo lang('L_LANGUAGE') ?>
                         </div>
@@ -111,9 +119,9 @@
                           </div>
                         </div>
                       </div>
-                      <div class="dropdown-divider"></div>
+                      <div class="dropdown-divider d-lg-none"></div>
                       <?php if($this->container->user !== NULL): ?>
-                        <a class="dropdown-item py-2" onclick="logout()"data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
+                        <a class="dropdown-item py-2 d-lg-none" onclick="logout()"data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
                       <?php endif; ?>
                     </div>
                 </div>

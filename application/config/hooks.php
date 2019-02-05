@@ -34,6 +34,13 @@ $hook['post_controller_constructor'][] = function() {
 	if ($CI->session->status !== NULL) {
 		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->session->user['id']), 'id, username, email, role, access_level, status, avatar');
 		if ($user !== NULL) {
+			if ((int) $user['role'] === 0) {
+				$user['role_alias'] = lang('L_ADMIN');
+			} else if ((int) $user['role'] === 1) {
+				$user['role_alias'] = lang('L_MODERATOR');
+			} else {
+				$user['role_alias'] = lang('L_MEMBER');
+			}
 			$CI->container['user'] = $user;
 			if ((int) $user['status'] < 1) {
 				$CI->authenticator->clear_credential();
