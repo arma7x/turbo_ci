@@ -21,6 +21,10 @@ class Authenticator {
 		$this->validate_remember_token();
 	}
 
+	public function __get($key) {
+		return isset($this->$key) ? $this->$key : NULL;
+	}
+
 	public function get_remember_token($index) {
 		return $this->CI->db->select('id, user_agent, last_used')
 			->get_where($this->remember_token_table, $index)

@@ -28,12 +28,14 @@ class MY_Controller extends CI_Controller {
 
 	final protected function AllowGetRequest() {
 		if ($this->input->method(FALSE) !== 'get') {
+			log_message('error', $this->input->method(FALSE).'::'.$this->uri->uri_string());
 			show_error("Method Not Allowed", 405);
 		}
 	}
 
 	final protected function BlockGetRequest() {
 		if ($this->input->method(FALSE) === 'get') {
+			log_message('error', $this->input->method(FALSE).'::'.$this->uri->uri_string());
 			show_error("Method Not Allowed", 405);
 		}
 	}

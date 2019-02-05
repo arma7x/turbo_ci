@@ -268,6 +268,86 @@ function deleteUser(id) {
     }
 }
 
+function addUser() {
+    $('#add_user_btn').attr("disabled", "disabled")
+    hideDangerMessage()
+    $('#inputUsernameError').removeClass('border-danger')
+    $('#inputUsernameErrorText').text('')
+    $('#inputEmailError').removeClass('border-danger')
+    $('#inputEmailErrorText').text('')
+    $('#inputPasswordError').removeClass('border-danger')
+    $('#inputPasswordErrorText').text('')
+    $('#inputConfirmPasswordError').removeClass('border-danger')
+    $('#inputConfirmPasswordErrorText').text('')
+    $('#inputRoleError').removeClass('border-danger')
+    $('#inputRoleErrorText').text('')
+    $('#inputAccessLevelError').removeClass('border-danger')
+    $('#inputAccessLevelErrorText').text('')
+    $('#inputStatusError').removeClass('border-danger')
+    $('#inputStatusErrorText').text('')
+    var data = {
+        'username': $('#inputUsername').val(),
+        'email': $('#inputEmail').val(),
+        'password': $('#inputPassword').val(),
+        'confirm_password': $('#inputConfirmPassword').val(),
+        'role': $('#inputRole').val(),
+        'access_level': $('#inputAccessLevel').val(),
+        'status': $('#inputStatus').val(),
+    }
+    data[window.csrf_token_name] = window.csrf_hash
+    var request = $.ajax({
+        url: "/dashboard/manage_user/register",
+        method: "POST",
+        data: data,
+        dataType: "json"
+    })
+    request.done(function(data) {
+        console.log(data.message)
+        if (data.redirect != undefined) {
+            Turbolinks.visit(data.redirect, { action: "replace" })
+        }
+    })
+    request.fail(function(jqXHR) {
+        loadingSpinner(false)
+        $('#add_user_btn').removeAttr("disabled")
+        if (jqXHR.responseJSON != undefined) {
+            if (jqXHR.responseJSON.message != undefined) {
+                showDangerMessage(jqXHR.responseJSON.message)
+            }
+            if (jqXHR.responseJSON.errors != undefined) {
+                if (jqXHR.responseJSON.errors.confirm_password != undefined) {
+                    $('#inputConfirmPasswordError').addClass('border-danger')
+                    $('#inputConfirmPasswordErrorText').text(jqXHR.responseJSON.errors.confirm_password)
+                }
+                if (jqXHR.responseJSON.errors.password != undefined) {
+                    $('#inputPasswordError').addClass('border-danger')
+                    $('#inputPasswordErrorText').text(jqXHR.responseJSON.errors.password)
+                }
+                if (jqXHR.responseJSON.errors.email != undefined) {
+                    $('#inputEmailError').addClass('border-danger')
+                    $('#inputEmailErrorText').text(jqXHR.responseJSON.errors.email)
+                }
+                if (jqXHR.responseJSON.errors.username != undefined) {
+                    $('#inputUsernameError').addClass('border-danger')
+                    $('#inputUsernameErrorText').text(jqXHR.responseJSON.errors.username)
+                }
+                if (jqXHR.responseJSON.errors.role != undefined) {
+                    $('#inputRoleError').addClass('border-danger')
+                    $('#inputRoleErrorText').text(jqXHR.responseJSON.errors.role)
+                }
+                if (jqXHR.responseJSON.errors.status != undefined) {
+                    $('#inputStatusError').addClass('border-danger')
+                    $('#inputStatusErrorText').text(jqXHR.responseJSON.errors.status)
+                }
+                if (jqXHR.responseJSON.errors.access_level != undefined) {
+                    $('#inputAccessLevelError').addClass('border-danger')
+                    $('#inputAccessLevelErrorText').text(jqXHR.responseJSON.errors.access_level)
+                }
+            }
+        }
+    })
+}
+
 function change_language(lang) {
     if (lang == null || lang == undefined || getCookie('lang')[0] == lang) {
         return

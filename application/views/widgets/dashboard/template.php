@@ -14,7 +14,7 @@
     <?php echo isset($notification) ? $notification : null ?>
     <main class="col" id="main" role="main">
         <div class="row">
-            <div id="dashboard-menu" class="col col-12 col-lg-2 px-0 fixed-top dashboard-menu shadow">
+            <div id="dashboard-menu" class="col col-12 col-lg-2 px-0 position-fixed dashboard-menu shadow">
             <?php echo isset($dashboard_menu) ? $dashboard_menu : null ?>
             </div>
             <div class="col col-12 col-lg-10 offset-lg-2 dashboard-container">

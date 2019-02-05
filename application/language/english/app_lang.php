@@ -13,6 +13,7 @@ $lang['H_UPDATE_PASSWORD'] = 'Update Password';
 $lang['H_FORGOT_PASSWORD'] = 'Forgot Password';
 $lang['H_ACTIVATE_ACCOUNT'] = 'Activate Account';
 $lang['H_LOGOUT'] = 'Logout';
+$lang['H_ADD_USER'] = 'Add User';
 $lang['H_MANAGE_USERS'] = 'User Management';
 $lang['H_LOG_IN_DEVICES'] = 'Logged-In Device';
 $lang['BTN_LOGIN'] = 'Login Now';

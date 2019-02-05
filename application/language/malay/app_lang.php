@@ -13,6 +13,7 @@ $lang['H_UPDATE_PASSWORD'] = 'Kemaskini Kata Laluan';
 $lang['H_FORGOT_PASSWORD'] = 'Lupa Kata Laluan';
 $lang['H_ACTIVATE_ACCOUNT'] = 'Aktifkan Akaun';
 $lang['H_LOGOUT'] = 'Keluar';
+$lang['H_ADD_USER'] = 'Tambah Pengguna';
 $lang['H_MANAGE_USERS'] = 'Pengurusan Pengguna';
 $lang['H_LOG_IN_DEVICES'] = 'Peranti Aktif';
 $lang['BTN_LOGIN'] = 'Masuk Sekarang';

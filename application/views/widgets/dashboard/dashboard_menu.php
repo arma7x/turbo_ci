@@ -34,7 +34,7 @@
                                   </li>
                                   <li class="nav-item">
                                     <?php if((int) $this->container->user['role'] === 0): ?>
-                                    <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/dashboard/manage_user/ui_register' ? ' active' : ''?>" onclick="navigate('/dashboard/manage_user/ui_register')"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
+                                    <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/dashboard/manage_user/ui_register' ? ' active' : ''?>" onclick="navigate('/dashboard/manage_user/ui_register')"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_ADD_USER');?></a>
                                   <?php endif; ?>
                                   </li>
                               </ul>

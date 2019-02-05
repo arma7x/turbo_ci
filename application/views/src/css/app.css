@@ -80,30 +80,30 @@ a {
   padding: 2rem;
 }
 
-.form-center {
-  padding: 15px;
-}
-
 .text-pink {
   color: var(--pink);
 }
 
-.form-center .checkbox {
+.form-centers {
+  padding: 15px;
+}
+
+.form-centers .checkbox {
   font-weight: 400;
 }
 
-.form-center .form-control {
+.form-centers .form-control {
   position: relative;
   box-sizing: border-box;
   height: auto;
   font-size: 16px;
 }
 
-.form-center .form-control:focus {
+.form-centers .form-control:focus {
   z-index: 2;
 }
 
-.form-center input {
+.form-centers input {
   margin-bottom: 10px;
 }
 
@@ -235,10 +235,10 @@ a {
   }
   .navbar-collapse-dashboard.collapsing {
     height: auto;
-    -webkit-transition: left 0.1s ease;
-    -o-transition: left 0.1s ease;
-    -moz-transition: left 0.1s ease;
-    transition: left 0.1s ease;
+    -webkit-transition: left 0.2s ease;
+    -o-transition: left 0.2s ease;
+    -moz-transition: left 0.2s ease;
+    transition: left 0.2s ease;
     left: -100%;
   }
   .navbar-collapse-dashboard.show {
