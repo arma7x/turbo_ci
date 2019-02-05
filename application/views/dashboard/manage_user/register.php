@@ -4,7 +4,7 @@
 <div class="row justify-content-sm-center align-items-center" style="min-height:60vh;">
   <div class="col-sm-5">
   <form class="form-center">
-    <h2 class="mb-3 text-uppercase text-center text-primary"><?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?></h2>
+    <h2 class="mb-3 text-center text-primary text-uppercase"><?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?></h2>
     <div class="form-group">
       <label for="inputUsername" class="sr-only"><?php echo lang('L_USERNAME');?></label>
       <div id="inputUsernameError" class="input-group border rounded">

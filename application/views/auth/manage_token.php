@@ -1,7 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 <div class="container starter-template">
-	<h3 class="text-center"><?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?></h3>
+	<h2 class="text-center text-primary text-uppercase">
+		<?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?>
+	</h2>
 	<div class="table-responsive">
 		<table id="token_list" class="table table-sm table-bordered">
 			<thead>
