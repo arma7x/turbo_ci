@@ -85,15 +85,15 @@
     <main class="col" id="main" role="main">
         <div class="row">
             <div id="dashboard-menu" class="col col-12 col-lg-2 px-0 fixed-top dashboard-menu shadow">
-                <div id="navCollapsed" class="collapse navbar-collapse-dashboard">
-                    <div class="p-2 border border-top-0 border-right-0 border-left-0">
+                <div id="navCollapsed" class="collapse navbar-collapse-dashboard shadow">
+                    <div class="bg-light p-2 border border-top-0 border-right-0 border-left-0">
                       <div class="row p-2">
                           <div class="col col-3">
                             <img class="rounded-circle shadow-sm" width="50px" height="50px" src="<?php echo $this->container->user['avatar'] ?>"/>
                           </div>
                           <div class="col col-9">
                               <div class="ml-1 font-weight-bolder" style="overflow:hidden">
-                                  Hi, <?php echo $this->container->user['username'] ?>
+                                  <?php echo $this->container->user['username'] ?>
                               </div>
                               <div class="ml-1 small">
                                   <?php echo $this->container->user['role_alias'] ?>
