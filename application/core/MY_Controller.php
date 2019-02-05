@@ -6,8 +6,6 @@ class MY_Controller extends CI_Controller {
 
 	public $container;
 	protected $template = 'widgets/template';
-	protected $header_template = 'widgets/header';
-	protected $footer_template = 'widgets/footer';
 	protected $data = [];
 
 	public function __construct() {
