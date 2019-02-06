@@ -52,7 +52,7 @@ $hook['post_controller_constructor'][] = function() {
 	if ($CI->container['sw_offline_cache'] !== NULL) {
 		$CI->container->user = NULL;
 		$CI->lang->load('app', $CI->config->item('language'));
-		log_message('error', 'Cache::'.$CI->container['sw_offline_cache']);
+		//log_message('error', 'Cache::'.$CI->container['sw_offline_cache']);
 	}
 };
 

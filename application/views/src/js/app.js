@@ -17,8 +17,8 @@ function selectPic() {
     $('#upload-avatar').click()
 }
 
-function processPic(holder) {
-    var pic = document.getElementById(holder)
+function resizePicture(element, ratio, width, height, quality, cb, data) {
+    var pic = document.getElementById(element)
     if (pic.files.length > 0) {
         var fileName = pic.files[0].name
         var fileType = pic.files[0].type
@@ -29,17 +29,18 @@ function processPic(holder) {
             img.src = event.target.result
             img.onload = function() {
                 var elem = document.createElement('canvas')
-                var scale = img.naturalWidth / 120
-                elem.width = (img.naturalWidth/scale)
-                elem.height = (img.naturalHeight/scale)
+                var scale = img.naturalWidth/(ratio||1)
+                elem.width = (width||(img.naturalWidth/scale))
+                elem.height = (height||(img.naturalHeight/scale))
                 var ctx = elem.getContext('2d')
-                ctx.drawImage(img, 0, 0, (img.naturalWidth/scale), (img.naturalHeight/scale))
-                // console.log(ctx.canvas.toDataURL('image/jpeg', .50))
-                uploadAvatar(ctx.canvas.toDataURL('image/jpeg', .50))
-                document.getElementById(holder).value = ""
+                ctx.drawImage(img, 0, 0, elem.width, elem.height)
+                if (cb != undefined && typeof cb == 'function') {
+                    cb(ctx.canvas.toDataURL('image/jpeg', quality), data)
+                }
+                document.getElementById(element).value = ""
                 if (!/safari/i.test(navigator.userAgent)) {
-                    document.getElementById(holder).type = ''
-                    document.getElementById(holder).type = 'file'
+                    document.getElementById(element).type = ''
+                    document.getElementById(element).type = 'file'
                 }
                 //ctx.canvas.toBlob(function(blob) {
                 //    var file = new File([blob], fileName, {
@@ -63,7 +64,7 @@ function processPic(holder) {
     }
 }
 
-function uploadAvatar(data) {
+function uploadAvatar(data, extra) {
     hideDangerMessage()
     var data = {
         'avatar': data,

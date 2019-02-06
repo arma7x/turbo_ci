@@ -14,7 +14,7 @@
     <?php echo isset($notification) ? $notification : null ?>
     <main id="main" role="main">
     <?php if($this->container->user !== NULL): ?>
-    <input id="upload-avatar" class="sr-only" type="file" accept="image/*" onChange="processPic('upload-avatar')"/>
+    <input id="upload-avatar" class="sr-only" type="file" accept="image/*" onChange="resizePicture('upload-avatar', null, 120, 120, .50, uploadAvatar, null)"/>
     <?php endif; ?>
     <?php echo isset($content) ? $content : null ?>
     </main>
