@@ -72,8 +72,8 @@
 					<div class="card shadow-sm">
 						<div class="card-body">
 							<blockquote class="blockquote">
-							  <p class="mb-0 text-pink"><strong>Utilize Javascript</strong></p>
-							  <footer class="blockquote-footer">JQuery to program the behavior of web pages and handle user interaction.</footer>
+							  <p class="mb-0 text-pink"><strong>JS Utilizing</strong></p>
+							  <footer class="blockquote-footer">JQuery to program the behavior of web pages.</footer>
 							</blockquote>
 						</div>
 					</div>
@@ -83,7 +83,7 @@
 						<div class="card-body">
 							<blockquote class="blockquote">
 							  <p class="mb-0 text-pink"><strong>Fast Navigation</strong></p>
-							  <footer class="blockquote-footer">Turbolinks® makes navigating your web application faster.</footer>
+							  <footer class="blockquote-footer">Turbolinks® makes navigating your web app faster.</footer>
 							</blockquote>
 						</div>
 					</div>

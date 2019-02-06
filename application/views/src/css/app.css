@@ -42,6 +42,8 @@ html {
 body {
   padding-top: 5em;
   margin-bottom: 50px; /* Margin bottom by footer height */
+  /* min-height: 92vh; */
+  /* overflow: hidden; */
 }
 
 a {

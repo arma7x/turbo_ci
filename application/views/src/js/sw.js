@@ -2,7 +2,7 @@ const origin = self.location.protocol+'//'+self.location.host;
 const offlinePage = "/offline";
 const wilcardCacheFiles = [];
 const mainCacheFiles = ["/", "/manifest.json", offlinePage];
-const staticCacheFiles = ["/src/app.css", "/static/css/bootstrap.min.css",
+const staticCacheFiles = ["/src/app.css", "/static/css/animate.min.css", "/static/css/bootstrap.min.css",
 "/static/font/MaterialIcons-Regular.woff2", "/static/js/turbolinks.js", "/src/app.js",
 "/static/js/bootstrap.min.js", "/static/js/popper.min.js", "/static/js/jquery-3.3.1.min.js",
 "/static/img/android-chrome-192x192.png", "/static/img/android-chrome-512x512.png",

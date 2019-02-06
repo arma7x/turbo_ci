@@ -17,15 +17,14 @@
                       </div>
                     </div>
                     <div id="accordionDashboard" class="accordion bg-light">
-                      <a class="dropdown-item py-2<?php echo '/'.$this->uri->uri_string() == '/dashboard/index' || '/'.$this->uri->uri_string() == '/dashboard' ? ' active' : ''?>" onclick="navigate('/dashboard/index')"><i class="material-icons">&#xe30d;</i> <?php echo lang('H_DASHBOARD');?></a>
+                      <a class="dropdown-item p-2<?php echo '/'.$this->uri->uri_string() == '/dashboard/index' || '/'.$this->uri->uri_string() == '/dashboard' ? ' active' : ''?>" onclick="navigate('/dashboard/index')"><i class="material-icons">&#xe30d;</i> <?php echo lang('H_DASHBOARD');?></a>
                       <div class="dropdown-divider"></div>
-                      <div class="dropdown-item py-2" data-toggle="collapse" data-target="#collapse_manage_user" aria-expanded="false" aria-controls="collapse_manage_user">
-                        <div id="heading_manage_user">
+                      <div class="dropdown-item p-0">
+                        <div id="heading_manage_user" class="p-2" data-toggle="collapse" data-target="#collapse_manage_user" aria-expanded="false" aria-controls="collapse_manage_user">
                             <i class="material-icons">&#xe2c9;</i> <?php echo lang('H_MANAGE_USERS');?>
                         </div>
                         <div id="collapse_manage_user" class="<?php echo $this->uri->segment(2) == 'manage_user' ? '' : 'collapse'?>" aria-labelledby="heading_manage_user" data-parent="#accordionDashboard">
-                          <div>
-                              <div class="dropdown-divider"></div>
+                          <div class="m-1">
                               <ul class="small nav nav-pills flex-column" style="overflow:hidden">
                                   <li class="nav-item">
                                     <?php if((int) $this->container->user['role'] <= 1): ?>
@@ -42,13 +41,12 @@
                         </div>
                       </div>
                       <div class="dropdown-divider d-lg-none"></div>
-                      <div class="dropdown-item py-2 d-lg-none" data-toggle="collapse" data-target="#collapseLang" aria-expanded="false" aria-controls="collapseLang">
-                        <div id="headingLang">
+                      <div class="dropdown-item p-0 d-lg-none">
+                        <div id="headingLang" class="p-2" data-toggle="collapse" data-target="#collapseLang" aria-expanded="false" aria-controls="collapseLang">
                             <i class="material-icons">&#xe8e2;</i> <?php echo lang('L_LANGUAGE') ?>
                         </div>
                         <div id="collapseLang" class="collapse" aria-labelledby="headingLang" data-parent="#accordionDashboard">
-                          <div>
-                              <div class="dropdown-divider"></div>
+                          <div class="m-1">
                               <ul class="small nav nav-pills flex-column" style="overflow:hidden">
                                   <li class="nav-item">
                                     <a class="nav-link" onclick="change_language('english')" data-turbolinks="false"><?php echo lang('L_ENGLISH_LANG') ?></a>
@@ -62,7 +60,7 @@
                       </div>
                       <div class="dropdown-divider d-lg-none"></div>
                       <?php if($this->container->user !== NULL): ?>
-                        <a class="dropdown-item py-2 d-lg-none" onclick="logout()"data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
+                        <a class="dropdown-item p-2 d-lg-none" onclick="logout()"data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
                       <?php endif; ?>
                     </div>
                 </div>

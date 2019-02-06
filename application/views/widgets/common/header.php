@@ -10,6 +10,7 @@
     <meta name="application-name" content="<?php echo $this->container->app_name ?>">
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
+    <link href="/static/css/animate.min.css" type="text/css" rel="stylesheet">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/src/app.css" type="text/css" rel="stylesheet">
     <script src="/static/js/turbolinks.js"></script>
@@ -23,4 +24,7 @@
             var converted = new Date(parseInt(unix+'000')).toLocaleString();
             $('#'+id).text(converted);
         }
+        $(document).on('turbolinks:load', function() {
+            $('body').addClass('animated fadeIn');
+        });
     </script>
