@@ -17,11 +17,11 @@ function selectPic() {
     $('#upload-avatar').click()
 }
 
-function resizePicture(element, ratio, width, height, quality, cb, data) {
+function resizePicture(element, ratio, width, height, quality, mime, cb, data) {
     var pic = document.getElementById(element)
     if (pic.files.length > 0) {
         var fileName = pic.files[0].name
-        var fileType = pic.files[0].type
+        var fileType = (mime||pic.files[0].type)
         var reader = new FileReader()
         reader.readAsDataURL(pic.files[0])
         reader.onload = function(event) {
@@ -35,7 +35,7 @@ function resizePicture(element, ratio, width, height, quality, cb, data) {
                 var ctx = elem.getContext('2d')
                 ctx.drawImage(img, 0, 0, elem.width, elem.height)
                 if (cb != undefined && typeof cb == 'function') {
-                    cb(ctx.canvas.toDataURL('image/jpeg', quality), data)
+                    cb(ctx.canvas.toDataURL(fileType, quality), data)
                 }
                 document.getElementById(element).value = ""
                 if (!/safari/i.test(navigator.userAgent)) {
@@ -55,7 +55,7 @@ function resizePicture(element, ratio, width, height, quality, cb, data) {
                 //    freader.onerror = function(error) {
                 //        console.log(error)
                 //    }
-                //}, 'image/jpeg', 1)
+                //}, fileType, 1)
             }
         }
         reader.onerror = function(error) {
@@ -538,7 +538,7 @@ function forgot_password() {
     })
     request.done(function(data) {
         console.log(data.message)
-        if (data.redirect != undefined) {
+        if (data.redyrect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         }
     })
