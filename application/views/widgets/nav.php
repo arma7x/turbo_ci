@@ -53,7 +53,8 @@
             <a id="avatar_pic" class="nav-link" data-turbolinks="false">
               <i class="material-icons">&#xe1bc;</i>
               <?php echo 'Hi, '.$this->container['user']['username']?>
-              <img class="rounded-circle avatar" src="<?php echo $this->container['user']['avatar'] ?>"/>
+              <img id="avatar" class="rounded-circle avatar"/>
+              <script src="/src/user.js" type="text/javascript" async></script>
             </a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_update_password' ? ' active' : ''?>">
@@ -63,7 +64,7 @@
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/manage_token' ? ' text-primary' : ''?>" onclick="navigate('/authentication/manage_token')"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" onclick="navigate('/dashboard')"><i class="material-icons">&#xe30d;</i> <?php echo lang('H_DASHBOARD');?></a>
+            <a class="nav-link text-pink font-weight-bold" onclick="navigate('/dashboard')"><i class="material-icons">&#xe30d;</i> <?php echo lang('H_DASHBOARD');?></a>
           </li>
           <li class="nav-item">
             <a onclick="logout()" class="nav-link" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>

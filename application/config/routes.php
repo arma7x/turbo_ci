@@ -58,5 +58,6 @@ $route['language']['post'] = 'welcome/language';
 $route['dashboard']['get'] = 'dashboard/index';
 $route['src/app.css']['get'] = 'src/css';
 $route['src/app.js']['get'] = 'src/js';
+$route['src/user.js']['get'] = 'src/user';
 $route['sw.js']['get'] = 'src/sw';
 $route['manifest.json']['get'] = 'src/manifest';

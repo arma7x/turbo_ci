@@ -4,7 +4,8 @@
                     <div class="bg-light p-2 border border-top-0 border-right-0 border-left-0">
                       <div class="row p-2">
                           <div class="col col-3">
-                            <img class="rounded-circle shadow-sm" width="45px" height="45px" src="<?php echo $this->container['user']['avatar'] ?>"/>
+                            <img id="avatar" class="rounded-circle shadow-sm" width="45px" height="45px"/>
+                            <script src="/src/user.js" type="text/javascript" async></script>
                           </div>
                           <div class="col col-9">
                               <div class="ml-1 font-weight-bolder" style="overflow:hidden">

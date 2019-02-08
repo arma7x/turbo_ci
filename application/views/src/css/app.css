@@ -83,7 +83,7 @@ a {
 }
 
 .text-pink {
-  color: var(--pink);
+  color: var(--pink)!important;
 }
 
 .form-centers {
