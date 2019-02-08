@@ -24,7 +24,7 @@
     </main>
     <?php echo isset($spinner) ? $spinner : null ?>
     <footer class="footer bg-light border-top border-primary">
-      <div class="container">
+      <div class="container text-sm-right">
         <div class="col col-12 col-lg-10 offset-lg-2">
         <span class="text-dark small"><?php echo str_replace('%s', $this->benchmark->elapsed_time(), lang('L_F_RENDER_ELAPSED')).'|'.$this->benchmark->memory_usage().'|'.strtoupper(ENVIRONMENT) ?></span>
         </div>
