@@ -13,7 +13,7 @@
     <?php echo isset($nav) ? $nav : null ?>
     <?php echo isset($notification) ? $notification : null ?>
     <main id="main" role="main">
-    <?php if($this->container->user !== NULL): ?>
+    <?php if($this->container['user'] !== NULL): ?>
     <input id="upload-avatar" class="sr-only" type="file" accept="image/*" onChange="resizePicture('upload-avatar', null, 100, 100, .50, 'image/webp', uploadAvatar, null)"/>
     <?php endif; ?>
     <?php echo isset($content) ? $content : null ?>

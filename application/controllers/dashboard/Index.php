@@ -14,8 +14,8 @@ class Index extends MY_Controller {
 
 	public function index() {
 		$this->AllowGetRequest();
-		$this->data['title'] = $this->container->app_name.' | '.lang('H_DASHBOARD');
-		$this->data['page_name'] = str_replace('%s', $this->container->app_name, lang('H_DASHBOARD'));
+		$this->data['title'] = $this->container['app_name'].' | '.lang('H_DASHBOARD');
+		$this->data['page_name'] = str_replace('%s', $this->container['app_name'], lang('H_DASHBOARD'));
 		$this->data['content'] = $this->load->view('dashboard/welcome', $this->data, TRUE);
 		$this->_renderLayout();
 	}

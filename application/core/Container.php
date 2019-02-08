@@ -10,54 +10,54 @@
 class Container implements ArrayAccess {
 
     /**
-     * Data
+     * Instances
      *
      * @var array
      * @access private
      */
-    private $data = [];
+    private $instances = [];
 
     /**
-     * Get a data by key
+     * Get a instances by key
      *
-     * @param string The key data to retrieve
+     * @param string The key instances to retrieve
      * @access public
      */
     public function &__get ($key) {
-        return $this->data[$key];
+        return $this->instances[$key];
     }
 
     /**
-     * Assigns a value to the specified data
+     * Assigns a value to the specified instances
      * 
-     * @param string The data key to assign the value to
+     * @param string The instances key to assign the value to
      * @param mixed  The value to set
      * @access public 
      */
     public function __set($key,$value) {
-        $this->data[$key] = $value;
+        $this->instances[$key] = $value;
     }
 
     /**
-     * Whether or not an data exists by key
+     * Whether or not an instances exists by key
      *
-     * @param string An data key to check for
+     * @param string An instances key to check for
      * @access public
      * @return boolean
      * @abstracting ArrayAccess
      */
     public function __isset ($key) {
-        return isset($this->data[$key]);
+        return isset($this->instances[$key]);
     }
 
     /**
-     * Unsets an data by key
+     * Unsets an instances by key
      *
      * @param string The key to unset
      * @access public
      */
     public function __unset($key) {
-        unset($this->data[$key]);
+        unset($this->instances[$key]);
     }
 
     /**
@@ -70,9 +70,9 @@ class Container implements ArrayAccess {
      */
     public function offsetSet($offset,$value) {
         if (is_null($offset)) {
-            $this->data[] = $value;
+            $this->instances[] = $value;
         } else {
-            $this->data[$offset] = $value;
+            $this->instances[$offset] = $value;
         }
     }
 
@@ -85,7 +85,7 @@ class Container implements ArrayAccess {
      * @abstracting ArrayAccess
      */
     public function offsetExists($offset) {
-        return isset($this->data[$offset]);
+        return isset($this->instances[$offset]);
     }
 
     /**
@@ -97,7 +97,7 @@ class Container implements ArrayAccess {
      */
     public function offsetUnset($offset) {
         if ($this->offsetExists($offset)) {
-            unset($this->data[$offset]);
+            unset($this->instances[$offset]);
         }
     }
 
@@ -110,7 +110,7 @@ class Container implements ArrayAccess {
      * @abstracting ArrayAccess
      */
     public function offsetGet($offset) {
-        return $this->offsetExists($offset) ? $this->data[$offset] : null;
+        return $this->offsetExists($offset) ? $this->instances[$offset] : null;
     }
 
 }

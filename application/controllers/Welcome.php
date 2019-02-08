@@ -67,16 +67,16 @@ class Welcome extends MY_Controller {
 
 	public function index() {
 		$this->AllowGetRequest();
-		$this->data['title'] = $this->container->app_name.' | '.lang('H_HOMEPAGE');
-		$this->data['page_name'] = str_replace('%s', $this->container->app_name, lang('H_WELCOME'));
+		$this->data['title'] = $this->container['app_name'].' | '.lang('H_HOMEPAGE');
+		$this->data['page_name'] = str_replace('%s', $this->container['app_name'], lang('H_WELCOME'));
 		$this->data['content'] = $this->load->view('welcome', $this->data, TRUE);
 		$this->_renderLayout();
 	}
 
 	public function offline() {
 		$this->AllowGetRequest();
-		$this->container->user = NULL;
-		$this->data['title'] = $this->container->app_name.' | '.lang('H_Offline');
+		$this->container['user'] = NULL;
+		$this->data['title'] = $this->container['app_name'].' | '.lang('H_Offline');
 		$this->data['page_name'] = lang('H_Offline');
 		$this->data['message'] = lang('M_OFFLINE');
 		$this->data['content'] = $this->load->view('offline', $this->data, TRUE);

@@ -13,7 +13,7 @@
       </button>
     </div>
     <?php endif; ?>
-    <?php if ($this->container->sw_offline_cache !== NULL): ?>
+    <?php if ($this->container['sw_offline_cache'] !== NULL): ?>
     <div class="fixed-top text-sm-center alert alert-info alert-dismissible top-alert-noround fade show" role="alert">
       <?php echo lang('M_CACHE_CONTENT'); ?>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">

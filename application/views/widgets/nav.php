@@ -2,7 +2,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header d-flex flex-row-reverse flex-lg-row">
       <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
-        <strong class="text-pink"><?php echo $this->container->app_name ?></strong>
+        <strong class="text-pink"><?php echo $this->container['app_name'] ?></strong>
         <img class="logo" src="/static/img/android-chrome-192x192.png" alt="logo"/>
       </a>
       <?php if ($this->uri->segment(1) != NULL): ?>
@@ -33,7 +33,7 @@
               <a class="dropdown-item" onclick="change_language('malay')" data-turbolinks="false"><?php echo lang('L_MALAY_LANG') ?></a>
             </div>
           </li>
-          <?php if($this->container->user === NULL): ?>
+          <?php if($this->container['user'] === NULL): ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe887;</i> <?php echo lang('L_HELP');?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -48,12 +48,12 @@
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_register')"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
           </li>
           <?php endif; ?>
-          <?php if($this->container->user !== NULL): ?>
+          <?php if($this->container['user'] !== NULL): ?>
           <li class="nav-item" onclick="selectPic()">
             <a id="avatar_pic" class="nav-link" data-turbolinks="false">
               <i class="material-icons">&#xe1bc;</i>
-              <?php echo 'Hi, '.$this->container->user['username']?>
-              <img class="rounded-circle avatar" src="<?php echo $this->container->user['avatar'] ?>"/>
+              <?php echo 'Hi, '.$this->container['user']['username']?>
+              <img class="rounded-circle avatar" src="<?php echo $this->container['user']['avatar'] ?>"/>
             </a>
           </li>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_update_password' ? ' active' : ''?>">

@@ -4,14 +4,14 @@
                     <div class="bg-light p-2 border border-top-0 border-right-0 border-left-0">
                       <div class="row p-2">
                           <div class="col col-3">
-                            <img class="rounded-circle shadow-sm" width="45px" height="45px" src="<?php echo $this->container->user['avatar'] ?>"/>
+                            <img class="rounded-circle shadow-sm" width="45px" height="45px" src="<?php echo $this->container['user']['avatar'] ?>"/>
                           </div>
                           <div class="col col-9">
                               <div class="ml-1 font-weight-bolder" style="overflow:hidden">
-                                  <?php echo $this->container->user['username'] ?>
+                                  <?php echo $this->container['user']['username'] ?>
                               </div>
                               <div class="ml-1 small">
-                                  <?php echo $this->container->user['role_alias'] ?>
+                                  <?php echo $this->container['user']['role_alias'] ?>
                               </div>
                           </div>
                       </div>
@@ -27,12 +27,12 @@
                           <div class="m-1">
                               <ul class="small nav nav-pills flex-column" style="overflow:hidden">
                                   <li class="nav-item">
-                                    <?php if((int) $this->container->user['role'] <= 1): ?>
+                                    <?php if((int) $this->container['user']['role'] <= 1): ?>
                                     <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/dashboard/manage_user/index' ? ' active' : ''?>" onclick="navigate('/dashboard/manage_user/index')"><i class="material-icons">&#xe7ef;</i> <?php echo lang('H_MANAGE_USERS');?></a>
                                       <?php endif; ?>
                                   </li>
                                   <li class="nav-item">
-                                    <?php if((int) $this->container->user['role'] === 0): ?>
+                                    <?php if((int) $this->container['user']['role'] === 0): ?>
                                     <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/dashboard/manage_user/ui_register' ? ' active' : ''?>" onclick="navigate('/dashboard/manage_user/ui_register')"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_ADD_USER');?></a>
                                   <?php endif; ?>
                                   </li>
@@ -59,7 +59,7 @@
                         </div>
                       </div>
                       <div class="dropdown-divider d-lg-none"></div>
-                      <?php if($this->container->user !== NULL): ?>
+                      <?php if($this->container['user'] !== NULL): ?>
                         <a class="dropdown-item p-2 d-lg-none" onclick="logout()"data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
                       <?php endif; ?>
                     </div>

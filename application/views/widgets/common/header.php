@@ -6,8 +6,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png">
     <link rel="manifest" href="/manifest.json">
     <link rel="mask-icon" href="/static/img/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="apple-mobile-web-app-title" content="<?php echo $this->container->app_name ?>">
-    <meta name="application-name" content="<?php echo $this->container->app_name ?>">
+    <meta name="apple-mobile-web-app-title" content="<?php echo $this->container['app_name'] ?>">
+    <meta name="application-name" content="<?php echo $this->container['app_name'] ?>">
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
     <link href="/static/css/animate.min.css" type="text/css" rel="stylesheet">

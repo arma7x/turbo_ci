@@ -22,8 +22,8 @@ class Src extends MY_Controller {
 
 	public function manifest() {
 		$this->data = array(
-			"name" => $this->container->app_name,
-			"short_name" => $this->container->app_name,
+			"name" => $this->container['app_name'],
+			"short_name" => $this->container['app_name'],
 			"icons" => array(
 				array(
 					"src" => "/static/img/android-chrome-192x192.png",

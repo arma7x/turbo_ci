@@ -20,7 +20,7 @@ class Manage_user extends MY_Controller {
 
 	public function index() {
 		$this->AllowGetRequest();
-		$this->data['title'] = $this->container->app_name.' | '.lang('H_MANAGE_USERS');
+		$this->data['title'] = $this->container['app_name'].' | '.lang('H_MANAGE_USERS');
 		$this->data['page_name'] = lang('H_MANAGE_USERS');
 		$this->load->helper('url');
 		$this->load->model('User_Model', 'user_model');
@@ -41,7 +41,7 @@ class Manage_user extends MY_Controller {
 		$this->load->library('form_validation');
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
-			'user' => $this->container->user['id'],
+			'user' => $this->container['user']['id'],
 			'role' => $this->input->post_get('role', TRUE),
 		);
 		$this->form_validation->set_data($data);
@@ -81,7 +81,7 @@ class Manage_user extends MY_Controller {
 		$this->load->library('form_validation');
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
-			'user' => $this->container->user['id'],
+			'user' => $this->container['user']['id'],
 			'access_level' => $this->input->post_get('access_level', TRUE),
 		);
 		$this->form_validation->set_data($data);
@@ -121,7 +121,7 @@ class Manage_user extends MY_Controller {
 		$this->load->library('form_validation');
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
-			'user' => $this->container->user['id'],
+			'user' => $this->container['user']['id'],
 			'status' => $this->input->post_get('status', TRUE),
 		);
 		$this->form_validation->set_data($data);
@@ -161,7 +161,7 @@ class Manage_user extends MY_Controller {
 		$this->load->library('form_validation');
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
-			'user' => $this->container->user['id'],
+			'user' => $this->container['user']['id'],
 		);
 		$this->form_validation->set_data($data);
 		$this->form_validation->set_rules('id', lang('L_ID'), 'required|differs[user]');
@@ -190,7 +190,7 @@ class Manage_user extends MY_Controller {
 
 	public function ui_register() {
 		$this->AllowGetRequest();
-		$this->data['title'] = $this->container->app_name.' | '.lang('H_ADD_USER');
+		$this->data['title'] = $this->container['app_name'].' | '.lang('H_ADD_USER');
 		$this->data['page_name'] = lang('H_ADD_USER');
 		$this->data['content'] = $this->load->view('dashboard/manage_user/register', $this->data, TRUE);
 		$this->_renderLayout();

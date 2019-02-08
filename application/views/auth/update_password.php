@@ -5,7 +5,7 @@
   <div class="col-sm-5">
   <form class="form-center">
     <h2 class="mb-3 text-uppercase text-center text-primary"><?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?></h2>
-    <input id="username" name="username" type="text" class="sr-only" value="<?php echo $this->container->user['email'] ?>">
+    <input id="username" name="username" type="text" class="sr-only" value="<?php echo $this->container['user']['email'] ?>">
     <div class="form-group">
       <label for="inputOldPassword" class="sr-only"><?php echo lang('L_OLD_PASSWORD');?></label>
       <div id="inputOldPasswordError" class="input-group border rounded">

@@ -19,7 +19,7 @@
               <a class="dropdown-item" onclick="change_language('malay')" data-turbolinks="false"><?php echo lang('L_MALAY_LANG') ?></a>
             </div>
           </li>
-          <?php if($this->container->user !== NULL): ?>
+          <?php if($this->container['user'] !== NULL): ?>
           <li class="nav-item">
             <a onclick="logout()" class="nav-link" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
           </li>

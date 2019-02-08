@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once(APPPATH.'core/Container.php');
+// require_once(APPPATH.'core/Container.php');
+use Pimple\Container;
 
 class MY_Controller extends CI_Controller {
 
