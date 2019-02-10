@@ -65,10 +65,16 @@ $hook['post_controller_constructor'][] = function() {
 	$require_auth = NULL;
 
 	if (isset($CI->$class)) {
+		if((isset($CI->$class['enable']) ? $CI->$class['enable'] : TRUE) === FALSE) {
+			show_404();
+		}
 		if((isset($CI->$class['auth']) ? $CI->$class['auth'] : NULL) !== NULL) {
 			$require_auth = $CI->$class['auth'];
 		}
 	} else if (isset($CI->$method)) {
+		if((isset($CI->$method['enable']) ? $CI->$method['enable'] : TRUE) === FALSE) {
+			show_404();
+		}
 		if ((isset($CI->$method['auth']) ? $CI->$method['auth'] : NULL) !== NULL) {
 			$require_auth = $CI->$method['auth'];
 		}

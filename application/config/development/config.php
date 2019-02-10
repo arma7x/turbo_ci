@@ -1,17 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// CONFIG BEGIN HERE
 $DATABASE_URL = 'mysqli://root:root@localhost/ci_starter';
 $ENCRYPTION_KEY = '09FA7BE0A09C30D0050B05C6EE9974938094E5FF1C0FC59A3A6776242D0787D4';
 $EMAIL_URL = 'smtp://username@yahoo.com:password@smtp.mail.yahoo.com:587/tls';
 $APP_NAME = 'TurboCI';
 $APP_URL = 'http://127.0.0.1:1000/';
 $APP_ADMIN_EMAIL = 'zeon_msi@yahoo.com';
+$ENABLE_REGISTRATION = TRUE;
+// CONFIG END HERE
 
 $DB_AUTH = parse_url($DATABASE_URL);
 $EMAIL_AUTH = parse_url($EMAIL_URL);
 
 define('APP_NAME', $APP_NAME);
+define('APP_REGISTRATION', $ENABLE_REGISTRATION);
 define('APP_URL', $APP_URL);
 define('APP_ADMIN_EMAIL', $APP_ADMIN_EMAIL);
 define('APP_ENCRYPTION_KEY', $ENCRYPTION_KEY);

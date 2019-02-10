@@ -34,6 +34,7 @@
             </div>
           </li>
           <?php if($this->container['user'] === NULL): ?>
+          <?php if(APP_REGISTRATION === TRUE): ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe887;</i> <?php echo lang('L_HELP');?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -41,12 +42,15 @@
                 <a class="dropdown-item" onclick="navigate('/authentication/ui_forgot_password')"><i class="material-icons">&#xe898;</i> <?php echo lang('H_FORGOT_PASSWORD');?></a>
             </div>
           </li>
+          <?php endif; ?>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_login')"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
           </li>
+          <?php if(APP_REGISTRATION === TRUE): ?>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_register')"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
           </li>
+          <?php endif; ?>
           <?php endif; ?>
           <?php if($this->container['user'] !== NULL): ?>
           <li class="nav-item" onclick="selectPic()">

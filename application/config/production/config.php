@@ -1,17 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// CONFIG BEGIN HERE
 $DATABASE_URL = getenv('DATABASE_URL');
 $ENCRYPTION_KEY = getenv('ENCRYPTION_KEY');
 $EMAIL_URL = getenv('EMAIL_URL');
 $APP_NAME = 'TurboCI';
 $APP_URL = 'https://turboci.herokuapp.com/';
 $APP_ADMIN_EMAIL = 'zeon_msi@yahoo.com';
+$ENABLE_REGISTRATION = TRUE;
+// CONFIG END HERE
 
 $DB_AUTH = parse_url($DATABASE_URL);
 $EMAIL_AUTH = parse_url($EMAIL_URL);
 
 define('APP_NAME', $APP_NAME);
+define('APP_REGISTRATION', $ENABLE_REGISTRATION);
 define('APP_URL', $APP_URL);
 define('APP_ADMIN_EMAIL', $APP_ADMIN_EMAIL);
 define('APP_ENCRYPTION_KEY', $ENCRYPTION_KEY);

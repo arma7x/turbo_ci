@@ -5,14 +5,14 @@ class Authentication extends MY_Controller {
 
 	public $ui_login = array('auth' => FALSE);
 	public $login = array('auth' => FALSE);
-	public $ui_register = array('auth' => FALSE);
-	public $register = array('auth' => FALSE);
-	public $ui_activate_account = array('auth' => FALSE);
-	public $activate_account = array('auth' => FALSE);
-	public $ui_forgot_password = array('auth' => FALSE);
-	public $forgot_password = array('auth' => FALSE);
-	public $ui_reset_password = array('auth' => FALSE);
-	public $reset_password = array('auth' => FALSE);
+	public $ui_register = array('auth' => FALSE, 'enable' => APP_REGISTRATION);
+	public $register = array('auth' => FALSE, 'enable' => APP_REGISTRATION);
+	public $ui_activate_account = array('auth' => FALSE, 'enable' => APP_REGISTRATION);
+	public $activate_account = array('auth' => FALSE, 'enable' => APP_REGISTRATION);
+	public $ui_forgot_password = array('auth' => FALSE, 'enable' => APP_REGISTRATION);
+	public $forgot_password = array('auth' => FALSE, 'enable' => APP_REGISTRATION);
+	public $ui_reset_password = array('auth' => FALSE, 'enable' => APP_REGISTRATION);
+	public $reset_password = array('auth' => FALSE, 'enable' => APP_REGISTRATION);
 	public $ui_update_password = array('auth' => TRUE);
 	public $update_password = array('auth' => TRUE);
 	public $upload_avatar = array('auth' => TRUE);
