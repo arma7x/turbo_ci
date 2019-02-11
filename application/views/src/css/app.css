@@ -47,7 +47,7 @@ body {
 }
 
 a {
-  cursor:pointer!important;
+  cursor:pointer !important;
 }
 
 .footer {
@@ -82,8 +82,12 @@ a {
   padding: 1.5rem;
 }
 
-.text-pink {
-  color: var(--pink)!important;
+.text-primary {
+  color: var(--pink) !important;
+}
+
+a.text-primary:hover, a.text-primary:focus {
+  color: var(--red) !important;
 }
 
 .form-centers {
@@ -264,7 +268,7 @@ a {
 }
 
 #accordionDashboard > .dropdown-item {
-  cursor: pointer!important;
+  cursor: pointer !important;
   display: block;
   width: 100%;
   padding: 0.25rem 1.5rem;
@@ -276,7 +280,7 @@ a {
   background-color: transparent;
   border: 0;
   overflow: hidden;
-  border-radius: 0!important;
+  border-radius: 0 !important;
 }
 
 #accordionDashboard > .dropdown-item:first-child {

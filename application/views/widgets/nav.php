@@ -2,7 +2,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header d-flex flex-row-reverse flex-lg-row">
       <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
-        <strong class="text-pink"><?php echo $this->container['app_name'] ?></strong>
+        <strong class="text-primary"><?php echo $this->container['app_name'] ?></strong>
         <img class="logo" src="/static/img/android-chrome-192x192.png" alt="logo"/>
       </a>
       <?php if ($this->uri->segment(1) != NULL): ?>
@@ -68,7 +68,7 @@
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/manage_token' ? ' text-primary' : ''?>" onclick="navigate('/authentication/manage_token')"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-pink font-weight-bold" onclick="navigate('/dashboard')"><i class="material-icons">&#xe30d;</i> <?php echo lang('H_DASHBOARD');?></a>
+            <a class="nav-link text-primary font-weight-bold" onclick="navigate('/dashboard')"><i class="material-icons">&#xe30d;</i> <?php echo lang('H_DASHBOARD');?></a>
           </li>
           <li class="nav-item">
             <a onclick="logout()" class="nav-link" data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>

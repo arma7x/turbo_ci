@@ -10,7 +10,7 @@
 				<div class="col col-12">
 					<div class="card shadow-sm mb-4">
 						<div class="card-body">
-							<span class="text-primary">=></span> Fork <strong class="text-pink"><?php echo APP_NAME ?></strong> on <a href="https://github.com/arma7x/turbo_ci" target="_blank" rel="noopener">Github</a>. If you are exploring <strong>CodeIgniter</strong> for the very first time, you should start by reading the <a href="https://codeigniter.com/user_guide/" target="_blank" rel="noopener">User Guide</a>
+							<span class="text-primary">=></span> Fork <strong class="text-primary"><?php echo APP_NAME ?></strong> on <a href="https://github.com/arma7x/turbo_ci" target="_blank" rel="noopener">Github</a>. If you are exploring <strong>CodeIgniter</strong> for the very first time, you should start by reading the <a href="https://codeigniter.com/user_guide/" target="_blank" rel="noopener">User Guide</a>
 						</div>
 					</div>
 				</div>
@@ -31,7 +31,7 @@
 				<div class="col col-12 col-sm-6">
 					<div class="card shadow-sm mb-4">
 						<div class="card-body">
-							<span class="text-primary">=></span> Login as <strong><?php echo lang('L_MODERATOR') ?><br></strong> <strong class="text-pink">ahmadmuhamad101@gmail.com</strong><br><strong class="text-pink">1111111111</strong> (1x10)
+							<span class="text-primary">=></span> Login as <strong><?php echo lang('L_MODERATOR') ?><br></strong> <strong class="text-primary">ahmadmuhamad101@gmail.com</strong><br><strong class="text-primary">1111111111</strong> (1x10)
 						</div>
 					</div>
 				</div>
@@ -39,7 +39,7 @@
 					<div class="card shadow-sm mb-4">
 						<div class="card-body">
 							<span class="text-primary">=></span> Login as <strong><?php echo lang('L_MEMBER') ?><br>
-							</strong> <strong class="text-pink">arma7x@live.com</strong><br><strong class="text-pink">1111111111</strong> (1x10)
+							</strong> <strong class="text-primary">arma7x@live.com</strong><br><strong class="text-primary">1111111111</strong> (1x10)
 						</div>
 					</div>
 				</div>
@@ -52,7 +52,7 @@
 					<div class="card shadow-sm">
 						<div class="card-body">
 							<blockquote class="blockquote">
-							  <p class="mb-0 text-pink"><strong>Written in PHP</strong></p>
+							  <p class="mb-0 text-primary"><strong>Written in PHP</strong></p>
 							  <footer class="blockquote-footer">CodeIgniter is a powerful PHP framework with a very small footprint.</footer>
 							</blockquote>
 						</div>
@@ -62,7 +62,7 @@
 					<div class="card shadow-sm">
 						<div class="card-body">
 							<blockquote class="blockquote">
-							  <p class="mb-0 text-pink"><strong>CSS Styling</strong></p>
+							  <p class="mb-0 text-primary"><strong>CSS Styling</strong></p>
 							  <footer class="blockquote-footer">Bootstrap is the most popular HTML, CSS, and JavaScript framework.</footer>
 							</blockquote>
 						</div>
@@ -72,7 +72,7 @@
 					<div class="card shadow-sm">
 						<div class="card-body">
 							<blockquote class="blockquote">
-							  <p class="mb-0 text-pink"><strong>JS Utilizing</strong></p>
+							  <p class="mb-0 text-primary"><strong>JS Utilizing</strong></p>
 							  <footer class="blockquote-footer">JQuery to program the behavior of web pages.</footer>
 							</blockquote>
 						</div>
@@ -82,7 +82,7 @@
 					<div class="card shadow-sm">
 						<div class="card-body">
 							<blockquote class="blockquote">
-							  <p class="mb-0 text-pink"><strong>Fast Navigation</strong></p>
+							  <p class="mb-0 text-primary"><strong>Fast Navigation</strong></p>
 							  <footer class="blockquote-footer">Turbolinks® makes navigating your web app faster.</footer>
 							</blockquote>
 						</div>
