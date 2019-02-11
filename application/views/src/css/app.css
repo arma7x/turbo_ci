@@ -63,7 +63,7 @@ a {
 }
 
 .turbolinks-progress-bar {
-  background-color: #e83e8c;
+  background-color: var(--pink) !important;
 }
 
 .logo {
