@@ -32,7 +32,7 @@ class Manage_user extends MY_Controller {
 		);
 		$this->data['filter'] = $filter;
 		$this->data['user_list'] = $this->user_model->get_user_list($filter, current_url(), 10, (int) $this->input->get('page'), TRUE);
-		$this->data['content'] = $this->load->view('dashboard/manage_user/index', $this->data, TRUE);
+		$this->widgets['content'] = 'dashboard/manage_user/index';
 		$this->_renderLayout();
 	}
 
@@ -192,7 +192,7 @@ class Manage_user extends MY_Controller {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container['app_name'].' | '.lang('H_ADD_USER');
 		$this->data['page_name'] = lang('H_ADD_USER');
-		$this->data['content'] = $this->load->view('dashboard/manage_user/register', $this->data, TRUE);
+		$this->widgets['content'] = 'dashboard/manage_user/register';
 		$this->_renderLayout();
 	}
 

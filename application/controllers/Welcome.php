@@ -69,7 +69,7 @@ class Welcome extends MY_Controller {
 		$this->AllowGetRequest();
 		$this->data['title'] = $this->container['app_name'].' | '.lang('H_HOMEPAGE');
 		$this->data['page_name'] = str_replace('%s', $this->container['app_name'], lang('H_WELCOME'));
-		$this->data['content'] = $this->load->view('welcome', $this->data, TRUE);
+		$this->widgets['content'] = 'welcome';
 		$this->_renderLayout();
 	}
 
