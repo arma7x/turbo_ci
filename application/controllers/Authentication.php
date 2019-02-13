@@ -52,9 +52,11 @@ class Authentication extends MY_Controller {
 			$validate_credential = $this->authenticator->validate_credential(array('email' => strtolower($this->input->post_get('email', TRUE))), $this->input->post_get('password'), $remember_me);
 			if ($validate_credential === TRUE) {
 				$data = array(
-					'message' => lang('M_SUCCESS_LOGIN'),
-					'redirect' => $this->config->item('base_url')
+					'message' => lang('M_SUCCESS_LOGIN')
 				);
+				if ($this->input->post_get('redirect') === 'true') {
+					$data['redirect'] = $this->config->item('base_url');
+				}
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_LOGIN')));
 				$this->_renderJSON(200, $data);
 			} else if ($validate_credential === 0) {

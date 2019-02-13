@@ -80,6 +80,8 @@ function uploadAvatar(data, extra) {
         console.log(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
@@ -110,6 +112,8 @@ function deleteToken(id) {
             console.log(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
+            } else {
+                document.location.reload()
             }
         })
         request.fail(function(jqXHR) {
@@ -162,6 +166,8 @@ function updateRole(id) {
             console.log(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
+            } else {
+                document.location.reload()
             }
         })
         request.fail(function(jqXHR) {
@@ -194,6 +200,8 @@ function updateAccessLevel(id) {
             console.log(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
+            } else {
+                document.location.reload()
             }
         })
         request.fail(function(jqXHR) {
@@ -226,6 +234,8 @@ function updateStatus(id) {
             console.log(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
+            } else {
+                document.location.reload()
             }
         })
         request.fail(function(jqXHR) {
@@ -257,6 +267,8 @@ function deleteUser(id) {
             console.log(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
+            } else {
+                document.location.reload()
             }
         })
         request.fail(function(jqXHR) {
@@ -306,6 +318,8 @@ function addUser() {
         console.log(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
@@ -416,7 +430,7 @@ window.addEventListener("load", function() {
     loadingSpinner(false)
 })
 
-function login() {
+function login(redirect) {
     $('#lgn_btn').attr("disabled", "disabled")
     hideDangerMessage()
     $('#inputEmailError').removeClass('border-danger')
@@ -427,6 +441,7 @@ function login() {
         'email': $('#inputEmail').val(),
         'password': $('#inputPassword').val(),
         'remember_me': $('#inputRememberMe').prop('checked'),
+        'redirect': (redirect != undefined ? redirect : true),
     }
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
@@ -439,6 +454,8 @@ function login() {
         console.log(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
@@ -490,6 +507,8 @@ function register() {
         console.log(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
@@ -538,8 +557,10 @@ function forgot_password() {
     })
     request.done(function(data) {
         console.log(data.message)
-        if (data.redyrect != undefined) {
+        if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
@@ -578,6 +599,8 @@ function activate_account() {
         console.log(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
@@ -620,6 +643,8 @@ function reset() {
         console.log(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
@@ -671,6 +696,8 @@ function update_password() {
         console.log(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
@@ -714,6 +741,8 @@ function logout() {
         console.log(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
+        } else {
+            document.location.reload()
         }
     })
     request.fail(function(jqXHR) {
