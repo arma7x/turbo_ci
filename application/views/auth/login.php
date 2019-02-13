@@ -28,7 +28,7 @@
     <div class="checkbox mb-1">
       <label><input id="inputRememberMe" type="checkbox" value="true"> <?php echo lang('L_REMEMBER_ME');?></label>
     </div>
-    <button id="lgn_btn" onclick="login()" class="btn btn-primary btn-block mb-1" type="submit"><?php echo lang('BTN_LOGIN');?></button>
+    <button id="lgn_btn" onclick="login(<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? 'true' : 'false'?>)" class="btn btn-primary btn-block mb-1" type="submit"><?php echo lang('BTN_LOGIN');?></button>
   </form>
   </div>
 </div>
