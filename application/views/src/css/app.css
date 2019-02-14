@@ -25,7 +25,6 @@
 
 html {
   position: relative;
-  min-height: 100%;
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
   font-variant-ligatures: none;
@@ -39,11 +38,14 @@ html {
   font-weight: 300;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   padding-top: 5em;
-  margin-bottom: 30px; /* Margin bottom by footer height */
-  /* min-height: 92vh; */
-  /* overflow: hidden; */
+  display: flex;
+  flex-flow: column;
 }
 
 a {
@@ -51,11 +53,7 @@ a {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  min-height: 30px; /* Set the fixed height of the footer here */
-  line-height: 30px; /* Vertically center the text there */
+  margin-top: auto;
 }
 
 .shadow-header {

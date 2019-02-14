@@ -1,9 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-    <div class="fixed-top row justify-content-center align-items-center mt-5">
-        <div class="toast mb-5 mx-2" role="status" aria-live="polite" aria-atomic="true" data-autohide="false">
-            <div id="dangerMessage" class="text-white toast-body bg-danger"></div>
-        </div>
+	<div class="container">
+		<div class="row justify-content-center align-items-center">
+			<div class="toast" role="status" aria-live="polite" aria-atomic="true" data-autohide="false">
+				<div id="dangerMessage" class="text-white toast-body bg-danger"></div>
+			</div>
+		</div>
     </div>
     <?php if($this->session->__notification): ?>
     <div class="fixed-top text-sm-center alert alert-<?php echo $this->session->__notification['type'] ?> alert-dismissible top-alert-noround fade show" role="alert">
