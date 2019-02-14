@@ -167,8 +167,14 @@ class Manage_user extends MY_Controller {
 		$this->form_validation->set_rules('id', lang('L_ID'), 'required|differs[user]');
 		$this->form_validation->set_rules('user', lang('L_USER'), 'required');
 		if ($this->form_validation->run() === FALSE) {
+			$error = '';
+			if (isset($this->form_validation->error_array()['id'])) {
+				$error = $this->form_validation->error_array()['id'];
+			} else if (isset($this->form_validation->error_array()['user'])) {
+				$error = $this->form_validation->error_array()['user'];
+			}
 			$data = array(
-				'message' => $error = $this->form_validation->error_array()['id']
+				'message' => $error
 			);
 			$this->_renderJSON(400, $data);
 		} else {
