@@ -82,6 +82,14 @@ a {
   padding: 1.5rem;
 }
 
+.border-primary {
+  border-color: var(--pink) !important;
+}
+
+.bg-primary {
+  background: var(--pink) !important;
+}
+
 .text-primary {
   color: var(--pink) !important;
 }
