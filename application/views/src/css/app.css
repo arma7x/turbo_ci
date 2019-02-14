@@ -41,7 +41,7 @@ html {
 
 body {
   padding-top: 5em;
-  margin-bottom: 50px; /* Margin bottom by footer height */
+  margin-bottom: 30px; /* Margin bottom by footer height */
   /* min-height: 92vh; */
   /* overflow: hidden; */
 }
@@ -54,8 +54,8 @@ a {
   position: absolute;
   bottom: 0;
   width: 100%;
-  min-height: 50px; /* Set the fixed height of the footer here */
-  line-height: 50px; /* Vertically center the text there */
+  min-height: 30px; /* Set the fixed height of the footer here */
+  line-height: 30px; /* Vertically center the text there */
 }
 
 .shadow-header {
