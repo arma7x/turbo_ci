@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-    <div class="fixed-bottom row justify-content-center align-items-center mb-5">
+    <div class="fixed-top row justify-content-center align-items-center mt-5">
         <div class="toast mb-5 mx-2" role="status" aria-live="polite" aria-atomic="true" data-autohide="false">
             <div id="dangerMessage" class="text-white toast-body bg-danger"></div>
         </div>
