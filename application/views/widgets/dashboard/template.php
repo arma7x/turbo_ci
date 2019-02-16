@@ -11,13 +11,13 @@
   </head>
   <body class="p-0">
     <?php echo isset($nav) ? $nav : null ?>
-    <?php echo isset($notification) ? $notification : null ?>
     <main class="col" id="main" role="main">
         <div class="row">
             <div id="dashboard-menu" class="col col-12 col-lg-2 px-0 position-fixed dashboard-menu shadow">
             <?php echo isset($dashboard_menu) ? $dashboard_menu : null ?>
             </div>
             <div class="col col-12 col-lg-10 offset-lg-2 dashboard-container">
+                <?php echo isset($notification) ? $notification : null ?>
                 <?php echo isset($content) ? $content : null ?>
             </div>
         </div>

@@ -399,6 +399,7 @@ function showDangerMessage(text) {
     $('#dangerMessage').text(text)
     $('#dangerMessage').append('<button type="button" class="text-white ml-2 mb-1 close" aria-label="Close" onclick="hideDangerMessage()"><span aria-hidden="true">&times;</span></button>')
     $('.toast').toast('show');
+    $(window).scrollTop(0);
 }
 
 function hideDangerMessage() {
