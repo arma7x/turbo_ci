@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 	<div class="container">
-		<div class="row justify-content-center align-items-center">
-			<div class="toast fade hide" role="status" aria-live="polite" aria-atomic="true" data-autohide="false">
+		<div class="fixed-bottom row justify-content-center align-items-center">
+			<div class="toast fade hide mb-5" role="status" aria-live="polite" aria-atomic="true" data-autohide="false">
 				<div id="dangerMessage" class="text-white toast-body bg-danger"></div>
 			</div>
 		</div>
