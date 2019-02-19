@@ -5,6 +5,7 @@ $lang['H_Offline'] = 'Offline';
 $lang['H_WELCOME'] = 'Welcome to %s';
 $lang['H_HOMEPAGE'] = 'Homepage';
 $lang['H_BACK'] = 'Back';
+$lang['H_PROFILE'] = 'Profile';
 $lang['H_DASHBOARD'] = 'Dashboard';
 $lang['H_LOGIN'] = 'Login';
 $lang['H_REGISTER'] = 'Register';

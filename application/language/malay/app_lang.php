@@ -5,6 +5,7 @@ $lang['H_Offline'] = 'Luar Talian';
 $lang['H_WELCOME'] = 'Selamat Datang ke %s';
 $lang['H_HOMEPAGE'] = 'Halaman Utama';
 $lang['H_BACK'] = 'Kembali';
+$lang['H_PROFILE'] = 'Profile';
 $lang['H_DASHBOARD'] = 'Papan Utama';
 $lang['H_LOGIN'] = 'Masuk';
 $lang['H_REGISTER'] = 'Daftar';
