@@ -764,6 +764,12 @@ $(document).ajaxComplete(function(event, jqxhr, settings) {
 
 $(document).ready(function() {
 
+    $('[data-toggle="tooltip"]').tooltip()
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+
     $("form").submit(function(event) {
         event.preventDefault()
     })
