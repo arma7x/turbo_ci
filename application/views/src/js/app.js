@@ -6,6 +6,7 @@ function getCookie(name) {
         var f = e[b].match(a)
         f && d.push(f[1])
     }
+    
     return d
 }
 
