@@ -18,6 +18,11 @@
                       </div>
                     </div>
                     <div id="accordionDashboard" class="accordion bg-light">
+                      <a onclick="goHome()" class="dropdown-item p-2 d-none d-lg-block" data-turbolinks="false">
+                       <i class="material-icons text-dark" style="font-size:1.5em;">home</i>
+                       <strong class="text-primary"><?php echo lang('H_HOMEPAGE') ?></strong>
+                      </a>
+                      <div class="dropdown-divider d-none d-lg-block"></div>
                       <a class="dropdown-item p-2<?php echo '/'.$this->uri->uri_string() == '/dashboard/index' || '/'.$this->uri->uri_string() == '/dashboard' ? ' active' : ''?>" onclick="navigate('/dashboard/index')"><i class="material-icons">&#xe30d;</i> <?php echo lang('H_DASHBOARD');?></a>
                       <div class="dropdown-divider"></div>
                       <div class="dropdown-item p-0">

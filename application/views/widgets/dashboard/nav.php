@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header d-flex flex-row-reverse flex-lg-row">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header">
       <div>
         <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
            <i class="material-icons text-dark" style="font-size:1.5em;">home</i>

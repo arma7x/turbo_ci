@@ -216,8 +216,8 @@ a.text-primary:hover, a.text-primary:focus {
 }
 
 .dashboard-menu {
-  padding-top: 56px;
-  z-index: 999;
+  //padding-top: 56px;
+  z-index: 9999!important;
   height: 100%;
   background: #f8f9fa;
 }
@@ -232,16 +232,16 @@ a.text-primary:hover, a.text-primary:focus {
 
 @media (max-width: 768px) {
   .dashboard-menu {
-    padding-top: 0px;
+    //padding-top: 0px;
     z-index: 999;
     height: auto;
     background: #f8f9fa;
   }
   .navbar-collapse-dashboard {
     position: absolute;
-    top: 54px;
+    //top: 54px;
     left: 0;
-    width: 280px;
+    width: 238px;
   }
   .navbar-collapse-dashboard.collapse:not(.show) {
     display: none;
