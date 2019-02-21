@@ -267,14 +267,14 @@ a.text-primary:hover, a.text-primary:focus {
   min-height: 100vh;
 }
 
-#accordionDashboard > .dropdown-divider {
+#accordionDashboard .dropdown-divider {
   height: 0;
   margin: 0;
   overflow: hidden;
   border-top: 1px solid #e9ecef;
 }
 
-#accordionDashboard > .dropdown-item {
+#accordionDashboard .dropdown-item {
   cursor: pointer !important;
   display: block;
   width: 100%;
@@ -290,35 +290,35 @@ a.text-primary:hover, a.text-primary:focus {
   border-radius: 0 !important;
 }
 
-#accordionDashboard > .dropdown-item:first-child {
+#accordionDashboard .dropdown-item:first-child {
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
 }
 
-#accordionDashboard > .dropdown-item:last-child {
+#accordionDashboard .dropdown-item:last-child {
   border-bottom-right-radius: calc(0.25rem - 1px);
   border-bottom-left-radius: calc(0.25rem - 1px);
 }
 
-#accordionDashboard > .dropdown-item:hover, .dropdown-item:focus {
+#accordionDashboard .dropdown-item:hover, .dropdown-item:focus {
   color: #16181b;
   text-decoration: none;
   background-color: #f8f9fa;
 }
 
-#accordionDashboard > .dropdown-item.active, .dropdown-item:active {
+#accordionDashboard .dropdown-item.active, .dropdown-item:active {
   color: #fff;
   text-decoration: none;
   background-color: #007bff;
 }
 
-#accordionDashboard > .dropdown-item.disabled, .dropdown-item:disabled {
+#accordionDashboard .dropdown-item.disabled, .dropdown-item:disabled {
   color: #6c757d;
   pointer-events: none;
   background-color: transparent;
 }
 
-#accordionDashboard > .dropdown-header {
+#accordionDashboard .dropdown-header {
   display: block;
   padding: 0.5rem 1.5rem;
   margin-bottom: 0;
@@ -327,8 +327,16 @@ a.text-primary:hover, a.text-primary:focus {
   white-space: nowrap;
 }
 
-#accordionDashboard > .dropdown-item-text {
+#accordionDashboard .dropdown-item-text {
   display: block;
   padding: 0.25rem 1.5rem;
   color: #212529;
+}
+
+div.autoscroll {
+    height:460px;
+}
+
+div.autoscroll:hover {
+    overflow-y:scroll!important;
 }

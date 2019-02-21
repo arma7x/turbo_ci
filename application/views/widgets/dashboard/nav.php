@@ -3,8 +3,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header">
       <div>
         <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
-           <i class="material-icons text-dark" style="font-size:1.5em;">home</i>
-           <strong class="text-primary"><?php echo lang('H_HOMEPAGE') ?></strong>
+            <strong class="text-primary"><?php echo $this->container['app_name'] ?></strong>
+            <img class="logo" src="/static/img/android-chrome-192x192.png" alt="logo"/>
         </a>
       </div>
       <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">

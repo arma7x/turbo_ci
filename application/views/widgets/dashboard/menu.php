@@ -2,6 +2,12 @@
 
                 <div id="navCollapsed" class="collapse navbar-collapse-dashboard shadow">
                     <div class="bg-light p-2 border border-top-0 border-right-0 border-left-0">
+                      <div class="text-center pt-3">
+                        <a onclick="goHome()" data-turbolinks="false">
+                            <img class="logo" style="width:60px;height:60px" src="/static/img/android-chrome-192x192.png" alt="logo"/>
+                            <h1 class="text-primary"><?php echo $this->container['app_name'] ?></h1>
+                        </a>
+                      </div>
                       <div class="row p-2">
                           <div class="col col-3">
                             <img id="avatar" class="rounded-circle shadow-sm" width="45px" height="45px"/>
@@ -18,10 +24,7 @@
                       </div>
                     </div>
                     <div id="accordionDashboard" class="accordion bg-light">
-                      <a onclick="goHome()" class="dropdown-item p-2 d-none d-lg-block" data-turbolinks="false">
-                       <i class="material-icons text-dark" style="font-size:1.5em;">home</i>
-                       <strong class="text-primary"><?php echo lang('H_HOMEPAGE') ?></strong>
-                      </a>
+                    <div class="autoscroll">
                       <div class="dropdown-divider d-none d-lg-block"></div>
                       <a class="dropdown-item p-2<?php echo '/'.$this->uri->uri_string() == '/dashboard/index' || '/'.$this->uri->uri_string() == '/dashboard' ? ' active' : ''?>" onclick="navigate('/dashboard/index')"><i class="material-icons">&#xe30d;</i> <?php echo lang('H_DASHBOARD');?></a>
                       <div class="dropdown-divider"></div>
@@ -68,5 +71,6 @@
                       <?php if($this->container['user'] !== NULL): ?>
                         <a class="dropdown-item p-2 d-lg-none" onclick="logout()"data-turbolinks="false"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGOUT');?></a>
                       <?php endif; ?>
+                    </div>
                     </div>
                 </div>
