@@ -267,18 +267,18 @@ a.text-primary:hover, a.text-primary:focus {
   }
   .navbar-collapse-dashboard.collapsing {
     height: auto;
-    -webkit-transition: left 0.2s ease;
-    -o-transition: left 0.2s ease;
-    -moz-transition: left 0.2s ease;
-    transition: left 0.2s ease;
+    -webkit-transition: all 250ms ease-in 0ms;
+    -o-transition: all 250ms ease-in 0ms;
+    -moz-transition: all 250ms-in ease 0ms;
+    transition: all 250ms ease-in 0ms;
     left: -100%;
   }
   .navbar-collapse-dashboard.show {
     left: 0;
-    -webkit-transition: left 0.25s ease-in;
-    -o-transition: left 0.25s ease-in;
-    -moz-transition: left 0.25s ease-in;
-    transition: left 0.25s ease-in;
+    -webkit-transition: all 250ms ease-in 0ms;
+    -o-transition: all 250ms ease-in 0ms;
+    -moz-transition: all 250ms ease-in 0ms;
+    transition: all 250ms ease-in 0ms;
   }
 }
 
