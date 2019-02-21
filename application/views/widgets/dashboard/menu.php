@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-                <div id="navCollapsed" class="collapse navbar-collapse-dashboard shadow">
+                <div id="navCollapsed" class="bg-light collapse navbar-collapse-dashboard shadow">
                     <div class="bg-light p-2 border border-top-0 border-right-0 border-left-0">
                       <div class="text-center pt-3">
                         <a onclick="goHome()" data-turbolinks="false">
