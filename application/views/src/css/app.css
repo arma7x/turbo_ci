@@ -303,12 +303,16 @@ a.text-primary:hover, a.text-primary:focus {
   color: #16181b;
   text-decoration: none;
   background-color: #f8f9fa;
+  border-left: 0.4em solid var(--pink);
+  -webkit-transition: all 500ms ease 100ms;
+  transition: all 500ms ease 100ms;
 }
 
 #accordionDashboard .dropdown-item.active, .dropdown-item:active {
-  color: #fff;
+  color: #16181b;
   text-decoration: none;
-  background-color: #007bff;
+  background-color: #f8f9fa;
+  border-left: 0.4em solid var(--pink);
 }
 
 #accordionDashboard .dropdown-item.disabled, .dropdown-item:disabled {
