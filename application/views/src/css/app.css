@@ -97,8 +97,7 @@ a {
 }
 
 .starter-template {
-  padding: 1rem;
-  padding-bottom: 2rem;
+  padding: 0.5rem 1em 2em 1em;
 }
 
 .border-primary {
