@@ -70,7 +70,7 @@ function fromNetwork(request, timeout) {
     const timeoutId = setTimeout(reject, timeout);
     fetch(request).then((response) => {
       const targetRequest = request.url.replace(origin, '');
-      if (mainCacheFiles.indexOf(targetRequest) !== -1) {
+      if (mainCacheFiles.indexOf(targetRequest) !== -1 || response.headers.get('sw-offline-cache') !== null) {
         if (request.method === 'GET') {
             let requestWithoutCache = request.clone();
             let opts = {};
