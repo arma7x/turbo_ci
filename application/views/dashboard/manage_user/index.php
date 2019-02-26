@@ -46,6 +46,11 @@
 			<div class="input-group mr-sm-1 mb-2">
 				<button type="submit" onclick="searchUser()" class="btn btn-block btn-outline-primary btn-sm"><i class="material-icons">&#xe8b6;</i> <?php echo lang('BTN_SEARCH'); ?></button>
 			</div>
+			<div class="input-group mr-sm-1 mb-2">
+				<button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addModal">
+				  <?php echo lang('H_ADD_USER') ?>
+				</button>
+			</div>
 		</form>
 	</div>
 	<div class="row">
@@ -163,4 +168,5 @@
 	<div class="row justify-content-sm-center align-items-center" >
 	<?php echo $this->pagination->create_links(); ?>
 	</div>
+	<?php echo isset($register_modal) ? $register_modal : NULL ?>
 </div>

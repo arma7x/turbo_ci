@@ -32,6 +32,7 @@ class Manage_user extends MY_Controller {
 		);
 		$this->data['filter'] = $filter;
 		$this->data['user_list'] = $this->user_model->get_user_list($filter, current_url(), 10, (int) $this->input->get('page'), TRUE);
+		$this->widgets['register_modal'] = 'dashboard/manage_user/register_modal';
 		$this->widgets['content'] = 'dashboard/manage_user/index';
 		$this->_renderLayout();
 	}
@@ -64,7 +65,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ROLE')),
-					'redirect' => $this->config->item('base_url').'dashboard/manage_user/index'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ROLE'))));
 				$this->_renderJSON(200, $data);
@@ -104,7 +105,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ACCESS_LEVEL')),
-					'redirect' => $this->config->item('base_url').'dashboard/manage_user/index'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_ACCESS_LEVEL'))));
 				$this->_renderJSON(200, $data);
@@ -144,7 +145,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_STATUS')),
-					'redirect' => $this->config->item('base_url').'dashboard/manage_user/index'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_UPDATE_STATUS'))));
 				$this->_renderJSON(200, $data);
@@ -182,7 +183,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE')),
-					'redirect' => $this->config->item('base_url').'dashboard/manage_user/index'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE'))));
 				$this->_renderJSON(200, $data);
@@ -192,14 +193,6 @@ class Manage_user extends MY_Controller {
 			);
 			$this->_renderJSON(400, $data);
 		}
-	}
-
-	public function ui_register() {
-		$this->AllowGetRequest();
-		$this->data['title'] = $this->container['app_name'].' | '.lang('H_ADD_USER');
-		$this->data['page_name'] = lang('H_ADD_USER');
-		$this->widgets['content'] = 'dashboard/manage_user/register';
-		$this->_renderLayout();
 	}
 
 	public function register() {
@@ -243,7 +236,7 @@ class Manage_user extends MY_Controller {
 			if ($result) {
 				$data = array(
 					'message' => lang('M_SUCCESS_REGISTER'),
-					'redirect' => $this->config->item('base_url').'dashboard/manage_user/ui_register'
+					'redirect' => $this->config->item('base_url').'dashboard/manage_user'
 				);
 				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_REGISTER')));
 				$this->_renderJSON(200, $data);
