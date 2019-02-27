@@ -1,3 +1,27 @@
+function isURL(url) {
+    try {
+        if (url.charAt(0) == '#') {
+            return false
+        }
+        var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi
+        var regex = new RegExp(expression)
+        if (url.match(regex) != null) {
+            return true
+        }
+        var a = new URL(url)
+        if (a.origin === document.location.origin) {
+            return false
+        }
+        return true
+    } catch(e) {
+        return false
+    }
+}
+
+function isCORS() {
+    
+}
+
 function getCookie(name) {
     var d = []
     var e = document.cookie.split(';')
@@ -6,7 +30,6 @@ function getCookie(name) {
         var f = e[b].match(a)
         f && d.push(f[1])
     }
-    
     return d
 }
 
@@ -18,49 +41,86 @@ function selectPic() {
     $('#upload-avatar').click()
 }
 
+function renderImg(src, id) {
+    var img = $(id)
+    img.attr('crossOrigin', 'anonymous')
+    img.attr('src', src)
+}
+
 function resizePicture(element, ratio, width, height, quality, mime, cb, data) {
-    var pic = document.getElementById(element)
-    if (pic.files.length > 0) {
-        var fileName = pic.files[0].name
-        var fileType = (mime||pic.files[0].type)
-        var reader = new FileReader()
-        reader.readAsDataURL(pic.files[0])
-        reader.onload = function(event) {
-            var img = new Image()
-            img.src = event.target.result
-            img.onload = function() {
-                var elem = document.createElement('canvas')
-                var scale = img.naturalWidth/(ratio||1)
-                elem.width = (width||(img.naturalWidth/scale))
-                elem.height = (height||(img.naturalHeight/scale))
-                var ctx = elem.getContext('2d')
-                ctx.drawImage(img, 0, 0, elem.width, elem.height)
-                if (cb != undefined && typeof cb == 'function') {
-                    cb(ctx.canvas.toDataURL(fileType, quality), data)
+    if(isURL(element) == false) {
+        var pic = document.getElementById(element)
+        if (pic.files.length > 0) {
+            var fileName = pic.files[0].name
+            var fileType = (mime||pic.files[0].type)
+            var reader = new FileReader()
+            reader.readAsDataURL(pic.files[0])
+            reader.onload = function(event) {
+                var img = new Image()
+                img.src = event.target.result
+                img.onload = function() {
+                    var elem = document.createElement('canvas')
+                    var scale = img.naturalWidth/(ratio||1)
+                    elem.width = (width||(img.naturalWidth/scale))
+                    elem.height = (height||(img.naturalHeight/scale))
+                    var ctx = elem.getContext('2d')
+                    ctx.drawImage(img, 0, 0, elem.width, elem.height)
+                    if (cb != undefined && typeof cb == 'function') {
+                        cb(ctx.canvas.toDataURL(fileType, quality), data)
+                    }
+                    document.getElementById(element).value = ""
+                    if (!/safari/i.test(navigator.userAgent)) {
+                        document.getElementById(element).type = ''
+                        document.getElementById(element).type = 'file'
+                    }
+                    //ctx.canvas.toBlob(function(blob) {
+                    //    var file = new File([blob], fileName, {
+                    //        type: fileType,
+                    //        lastModified: Date.now()
+                    //    })
+                    //    var freader = new FileReader()
+                    //    freader.readAsDataURL(file)
+                    //    freader.onload = function(e) {
+                    //        console.log(e.target.result)
+                    //    }
+                    //    freader.onerror = function(error) {
+                    //        console.log(error)
+                    //    }
+                    //}, fileType, 1)
                 }
-                document.getElementById(element).value = ""
-                if (!/safari/i.test(navigator.userAgent)) {
-                    document.getElementById(element).type = ''
-                    document.getElementById(element).type = 'file'
-                }
-                //ctx.canvas.toBlob(function(blob) {
-                //    var file = new File([blob], fileName, {
-                //        type: fileType,
-                //        lastModified: Date.now()
-                //    })
-                //    var freader = new FileReader()
-                //    freader.readAsDataURL(file)
-                //    freader.onload = function(e) {
-                //        console.log(e.target.result)
-                //    }
-                //    freader.onerror = function(error) {
-                //        console.log(error)
-                //    }
-                //}, fileType, 1)
+            }
+            reader.onerror = function(error) {
+                console.log(error)
             }
         }
-        reader.onerror = function(error) {
-            console.log(error)
+    } else {
+        var img = new Image()
+        img.crossOrigin = 'Anonymous'
+        img.src = element
+        img.onload = function() {
+            var elem = document.createElement('canvas')
+            var scale = img.naturalWidth/(ratio||1)
+            elem.width = (width||(img.naturalWidth/scale))
+            elem.height = (height||(img.naturalHeight/scale))
+            var ctx = elem.getContext('2d')
+            ctx.drawImage(img, 0, 0, elem.width, elem.height)
+            if (cb != undefined && typeof cb == 'function') {
+                cb(ctx.canvas.toDataURL(fileType, quality), data)
+            }
+            //ctx.canvas.toBlob(function(blob) {
+            //    var file = new File([blob], fileName, {
+            //        type: fileType,
+            //        lastModified: Date.now()
+            //    })
+            //    var freader = new FileReader()
+            //    freader.readAsDataURL(file)
+            //    freader.onload = function(e) {
+            //        console.log(e.target.result)
+            //    }
+            //    freader.onerror = function(error) {
+            //        console.log(error)
+            //    }
+            //}, fileType, 1)
         }
     }
 }
