@@ -47,7 +47,7 @@ function renderImg(src, id) {
     img.attr('src', src)
 }
 
-function resizePicture(element, ratio, width, height, quality, mime, cb, data) {
+function resizePicture(element, ratio, width, height, quality, mime, cb, data, blobcb) {
     if(isURL(element) == false) {
         var pic = document.getElementById(element)
         if (pic.files.length > 0) {
@@ -68,25 +68,16 @@ function resizePicture(element, ratio, width, height, quality, mime, cb, data) {
                     if (cb != undefined && typeof cb == 'function') {
                         cb(ctx.canvas.toDataURL(fileType, quality), data)
                     }
+                    if (blobcb != undefined && typeof blobcb == 'function') {
+                        ctx.canvas.toBlob(function(blob) {
+                            blobcb(blob, data)
+                        }, fileType, 1)
+                    }
                     document.getElementById(element).value = ""
                     if (!/safari/i.test(navigator.userAgent)) {
                         document.getElementById(element).type = ''
                         document.getElementById(element).type = 'file'
                     }
-                    //ctx.canvas.toBlob(function(blob) {
-                    //    var file = new File([blob], fileName, {
-                    //        type: fileType,
-                    //        lastModified: Date.now()
-                    //    })
-                    //    var freader = new FileReader()
-                    //    freader.readAsDataURL(file)
-                    //    freader.onload = function(e) {
-                    //        console.log(e.target.result)
-                    //    }
-                    //    freader.onerror = function(error) {
-                    //        console.log(error)
-                    //    }
-                    //}, fileType, 1)
                 }
             }
             reader.onerror = function(error) {
@@ -107,20 +98,26 @@ function resizePicture(element, ratio, width, height, quality, mime, cb, data) {
             if (cb != undefined && typeof cb == 'function') {
                 cb(ctx.canvas.toDataURL(fileType, quality), data)
             }
-            //ctx.canvas.toBlob(function(blob) {
-            //    var file = new File([blob], fileName, {
-            //        type: fileType,
-            //        lastModified: Date.now()
-            //    })
-            //    var freader = new FileReader()
-            //    freader.readAsDataURL(file)
-            //    freader.onload = function(e) {
-            //        console.log(e.target.result)
-            //    }
-            //    freader.onerror = function(error) {
-            //        console.log(error)
-            //    }
-            //}, fileType, 1)
+            if (blobcb != undefined && typeof blobcb == 'function') {
+                ctx.canvas.toBlob(function(blob) {
+                    blobcb(blob, data)
+                }, fileType, 1)
+            }
+        }
+        img.onerror = function(e) {
+            var img = new Image()
+            img.src = '/static/img/android-chrome-192x192.png'
+            img.onload = function() {
+                var elem = document.createElement('canvas')
+                var scale = img.naturalWidth/(ratio||1)
+                elem.width = (width||(img.naturalWidth/scale))
+                elem.height = (height||(img.naturalHeight/scale))
+                var ctx = elem.getContext('2d')
+                ctx.drawImage(img, 0, 0, elem.width, elem.height)
+                if (cb != undefined && typeof cb == 'function') {
+                    cb(ctx.canvas.toDataURL(fileType, quality), data)
+                }
+            }
         }
     }
 }
