@@ -29,10 +29,9 @@ self.addEventListener('activate', event => {
             let dynamicCacheReq = new Request(url);
             dynamicCacheReq.credentials = 'same-origin';
             let opts = {};
-            if (offlinePage == url) {
-                opts = { credentials: 'same-origin' };
-            } else {
-                opts = { credentials: 'same-origin', headers: cacheHeader };
+            opts['credentials'] = 'same-origin';
+            if (offlinePage !== url) {
+                opts = { headers: cacheHeader };
             }
             fetch(dynamicCacheReq, opts).then((response) => {
               return caches.open(cacheName).then((cache) => {
@@ -70,23 +69,36 @@ function fromNetwork(request, timeout) {
     const timeoutId = setTimeout(reject, timeout);
     fetch(request).then((response) => {
       const targetRequest = request.url.replace(origin, '');
-      if (mainCacheFiles.indexOf(targetRequest) !== -1 || response.headers.get('sw-offline-cache') !== null) {
+      const regex = new RegExp(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|webp))/i);
+      if (mainCacheFiles.indexOf(targetRequest) !== -1 || response.headers.get('sw-offline-cache') !== null || targetRequest.match(regex) !== null) {
         if (request.method === 'GET') {
-            let requestWithoutCache = request.clone();
             let opts = {};
-            if (offlinePage == targetRequest) {
-                opts = { credentials: 'same-origin' };
-            } else {
-                opts = { credentials: 'same-origin', headers: cacheHeader };
-            }
-            requestWithoutCache.credentials = 'same-origin';
-            fetch(requestWithoutCache, opts).then((responseWithoutCookies) => {
-                if (responseWithoutCookies.status === 200) {
-                    const responseToCache = responseWithoutCookies.clone();
-                    caches.open(cacheName).then(cache => cache.put(requestWithoutCache, responseToCache));
-                } else {
-                    caches.open(cacheName).then((cache) => cache.delete(requestWithoutCache));
+            opts['credentials'] = 'same-origin';
+            let offlineReq = request.clone();
+            try {
+                var a = new URL(offlineReq.url)
+                if (a.origin !== origin) {
+                    cacheHeader['Access-Control-Allow-Origin'] = '*';
+                    opts['mode'] = 'no-cors';
+                    opts['credentials'] = 'omit';
                 }
+            } catch(e) {
+                cacheHeader['Access-Control-Allow-Origin'] = '*';
+                opts['mode'] = 'no-cors';
+                opts['credentials'] = 'omit';
+            }
+            if (offlinePage !== targetRequest) {
+                opts = { headers: cacheHeader };
+            }
+            fetch(offlineReq, opts).then((offlineRes) => {
+                if (offlineRes.status === 200) {
+                    const responseToCache = offlineRes.clone();
+                    caches.open(cacheName).then(cache => cache.put(offlineReq, responseToCache));
+                } else {
+                    caches.open(cacheName).then((cache) => cache.delete(offlineReq));
+                }
+            }).catch((err) => {
+                console.log(err);
             });
         }
       }
