@@ -18,8 +18,8 @@ function isURL(url) {
     }
 }
 
-function isCORS() {
-    
+function isCORS(url) {
+    return (url.indexOf(window.location.origin) != 0)
 }
 
 function getCookie(name) {

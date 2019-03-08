@@ -8,7 +8,6 @@ class Manage_user extends MY_Controller {
 	public $update_user_access_level = array('role' => 0, 'access_level' => 0);
 	public $update_user_status = array('role' => 0, 'access_level' => 0);
 	public $delete_user = array('role' => 0, 'access_level' => 0);
-	public $ui_register = array('role' => 0, 'access_level' => 0);
 	public $register = array('role' => 0, 'access_level' => 0);
 
 	public function __construct() {

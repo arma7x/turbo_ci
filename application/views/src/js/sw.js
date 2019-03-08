@@ -78,17 +78,14 @@ function fromNetwork(request, timeout) {
             try {
                 var a = new URL(offlineReq.url)
                 if (a.origin !== origin) {
-                    cacheHeader['Access-Control-Allow-Origin'] = '*';
                     opts['mode'] = 'no-cors';
-                    opts['credentials'] = 'omit';
+                    caches.open(cacheName).then(cache => cache.addAll([offlineReq.url]));
                 }
             } catch(e) {
-                cacheHeader['Access-Control-Allow-Origin'] = '*';
-                opts['mode'] = 'no-cors';
-                opts['credentials'] = 'omit';
+                console.log(e);
             }
             if (offlinePage !== targetRequest) {
-                opts = { headers: cacheHeader };
+                opts['headers'] = { ...cacheHeader };
             }
             fetch(offlineReq, opts).then((offlineRes) => {
                 if (offlineRes.status === 200) {
