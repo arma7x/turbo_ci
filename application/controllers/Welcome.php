@@ -79,6 +79,7 @@ class Welcome extends MY_Controller {
 		$this->data['title'] = $this->container['app_name'].' | '.lang('H_Offline');
 		$this->data['page_name'] = lang('H_Offline');
 		$this->data['message'] = lang('M_OFFLINE');
+		$this->container['sw_offline_cache'] = 'cached';
 		$this->data['content'] = $this->load->view('offline', $this->data, TRUE);
 		$this->_renderLayout();
 	}
