@@ -6,7 +6,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: transparent; 
+  background: var(--light); 
 }
 
 /* Handle */

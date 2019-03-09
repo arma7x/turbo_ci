@@ -26,6 +26,12 @@
             <a onclick="goBack()" class="nav-link d-none d-md-block" data-turbolinks="false"><i class="material-icons">arrow_back</i> <?php echo lang('H_BACK');?></a>
           </li>
           <?php endif; ?>
+          <?php if ($this->container['sw_offline_cache'] !== NULL): ?>
+          <li class="nav-item">
+              <a class="nav-link text-danger"><i class="material-icons">&#xe0ce;</i> <?php echo lang('H_Offline') ?></a>
+          </li>
+          <?php endif ?>
+          <?php if($this->container['sw_offline_cache'] === NULL): ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe8e2;</i> <?php echo lang('L_LANGUAGE') ?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -33,8 +39,9 @@
               <a class="dropdown-item" onclick="change_language('malay')" data-turbolinks="false"><?php echo lang('L_MALAY_LANG') ?></a>
             </div>
           </li>
+          <?php endif ?>
           <?php if($this->container['user'] === NULL): ?>
-          <?php if(APP_REGISTRATION === TRUE): ?>
+          <?php if(APP_REGISTRATION === TRUE && $this->container['sw_offline_cache'] === NULL): ?>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe887;</i> <?php echo lang('L_HELP');?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -43,10 +50,12 @@
             </div>
           </li>
           <?php endif; ?>
+          <?php if($this->container['sw_offline_cache'] === NULL): ?>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_login')"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
           </li>
-          <?php if(APP_REGISTRATION === TRUE): ?>
+          <?php endif; ?>
+          <?php if(APP_REGISTRATION === TRUE && $this->container['sw_offline_cache'] === NULL): ?>
           <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' active' : ''?>">
             <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_register')"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
           </li>
