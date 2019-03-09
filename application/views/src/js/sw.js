@@ -31,7 +31,7 @@ self.addEventListener('activate', event => {
             let opts = {};
             opts['credentials'] = 'same-origin';
             if (offlinePage !== url) {
-                opts = { headers: cacheHeader };
+                opts['headers'] = { ...cacheHeader };
             }
             fetch(dynamicCacheReq, opts).then((response) => {
               return caches.open(cacheName).then((cache) => {
