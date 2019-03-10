@@ -79,7 +79,7 @@ function fromNetwork(request, timeout) {
                 var a = new URL(offlineReq.url)
                 if (a.origin !== origin) {
                     opts['mode'] = 'no-cors';
-                    caches.open(cacheName).then(cache => cache.addAll([offlineReq.url]));
+                    caches.open(cacheName).then(cache => cache.add(offlineReq.url));
                 }
             } catch(e) {
                 console.log(e);
