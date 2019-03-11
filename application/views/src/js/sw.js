@@ -49,18 +49,33 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
     const targetRequest = event.request.url.replace(origin, '');
-    if (staticCacheFiles.indexOf(targetRequest) !== -1) {
-        event.respondWith(fromCache(event.request));
-    } else {
-        event.respondWith(fromNetwork(event.request, 15000).then((result) => {
-            return result;
-        })
-        .catch(() => {
-            if (event.request.method === 'POST') {
-                return 'fail';
+    const parseURL = new URL(event.request.url);
+    if (parseURL.origin !== origin) {
+        event.respondWith(fromCache(event.request)
+        .then((res) => {
+            if (res.url === origin+offlinePage) {
+                return fromNetwork(event.request, 15000)
+            } else {
+                return fromCache(event.request);
             }
+        })
+        .catch((e) => {
             return fromCache(event.request);
         }));
+    } else {
+        if (staticCacheFiles.indexOf(targetRequest) !== -1) {
+            event.respondWith(fromCache(event.request));
+        } else {
+            event.respondWith(fromNetwork(event.request, 15000).then((result) => {
+                return result;
+            })
+            .catch(() => {
+                if (event.request.method === 'POST') {
+                    return 'fail';
+                }
+                return fromCache(event.request);
+            }));
+        }
     }
 });
 
