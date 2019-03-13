@@ -84,7 +84,7 @@ function fromNetwork(request, timeout) {
     const timeoutId = setTimeout(reject, timeout);
     fetch(request).then((response) => {
       const targetRequest = request.url.replace(origin, '');
-      const regex = new RegExp(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|webp))/i);
+      const regex = new RegExp(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif|webp|svg))/i);
       if (mainCacheFiles.indexOf(targetRequest) !== -1 || response.headers.get('sw-offline-cache') !== null || targetRequest.match(regex) !== null) {
         if (request.method === 'GET') {
             let opts = {};
