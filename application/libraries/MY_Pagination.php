@@ -161,7 +161,7 @@ class MY_Pagination extends CI_Pagination {
 		}
 		elseif ($this->cur_page > $this->total_rows)
 		{
-			$this->cur_page = ($num_pages - 1) * $this->per_page;
+			$this->cur_page = ($num_pages) * $this->per_page;
 		}
 
 		$uri_page_number = $this->cur_page;
