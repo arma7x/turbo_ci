@@ -143,6 +143,7 @@ class MY_Pagination extends CI_Pagination {
 		if ( ! ctype_digit($this->cur_page) OR ($this->use_page_numbers && (int) $this->cur_page === 0))
 		{
 			$this->cur_page = $base_page;
+			$this->cur_page = 1;
 		}
 		else
 		{
