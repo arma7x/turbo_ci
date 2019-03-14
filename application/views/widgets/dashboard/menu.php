@@ -10,8 +10,7 @@
                       </div>
                       <div class="row p-2">
                           <div class="col col-3">
-                            <img id="avatar" class="rounded-circle shadow-sm" width="45px" height="45px"/>
-                            <script src="/src/user.js" type="text/javascript" async></script>
+                            <img id="avatar" src="<?php echo $this->container['user']['avatar'] ?>" class="rounded-circle shadow-sm" width="45px" height="45px"/>
                           </div>
                           <div class="col col-9">
                               <div class="ml-1 font-weight-bolder" style="overflow:hidden">

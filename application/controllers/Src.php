@@ -45,8 +45,4 @@ class Src extends MY_Controller {
 		$this->_renderJSON();
 	}
 
-	public function user() {
-		$this->_renderJS(array('src/js/user.js'));
-	}
-
 }

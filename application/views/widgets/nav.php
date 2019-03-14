@@ -66,8 +66,7 @@
             <a id="avatar_pic" class="nav-link" data-turbolinks="false">
               <i class="material-icons">&#xe1bc;</i>
               <?php echo 'Hi, '.$this->container['user']['username']?>
-              <img id="avatar" class="rounded-circle avatar"/>
-              <script src="/src/user.js" type="text/javascript" async></script>
+              <img id="avatar" src="<?php echo $this->container['user']['avatar'] ?>" class="rounded-circle avatar"/>
             </a>
           </li>
           <li class="nav-item dropdown">
