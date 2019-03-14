@@ -10,7 +10,6 @@ const staticCacheFiles = ["/manifest.json", "/src/app.css", "/static/css/animate
 "/static/img/mstile-150x150.png", "/static/img/safari-pinned-tab.svg"];
 const cacheName = 'static-<?php echo filemtime(APPPATH.'views/src/js/sw.js').'-'.filemtime(APPPATH.'views/src/js/app.js').'-'.filemtime(APPPATH.'views/src/css/app.css') ?>';
 const expectedCaches = [cacheName];
-
 const cacheHeader = { 'Sw-Offline-Cache': cacheName };
 
 self.addEventListener('install', event => {
