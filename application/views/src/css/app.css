@@ -68,6 +68,10 @@
 
 html {
   position: relative;
+}
+
+html, body {
+  height: 100%;
   font-size: 100%;
   -webkit-text-size-adjust: 100%;
   font-variant-ligatures: none;
@@ -79,10 +83,6 @@ html {
   text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
   font-family: “Helvetica Neue Light”, “Helvetica Neue”, Helvetica, Arial, “Lucida Grande”, sans-serif;
   font-weight: 300;
-}
-
-html, body {
-  height: 100%;
 }
 
 body {
