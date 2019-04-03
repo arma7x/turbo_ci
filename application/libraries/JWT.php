@@ -65,7 +65,7 @@ class JWT {
 			$token->setId($jti, true);
 		}
 		$token->sign($signer, $this->CI->config->item('encryption_key'));
-		$this->token = $token;
+		$this->token = $token->getToken();
 		$this->CI->output->set_header(SELF::JWT_NAME.': Bearer '.$token->getToken());
 		setcookie(
 			SELF::JWT_NAME,

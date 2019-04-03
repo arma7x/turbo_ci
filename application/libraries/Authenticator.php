@@ -69,7 +69,7 @@ class Authenticator {
 		return $this->CI->db->update($this->user_table, $data, $index);
 	}
 
-	public function set_token_cookie($value) {
+	public function set_remember_cookie($value) {
 		$expire = time() + (60 * 60 * 24 * 365);
 		$secure_cookie = (bool) $this->CI->config->item('cookie_secure');
 		if ($secure_cookie && ! is_https()) {
@@ -169,7 +169,7 @@ class Authenticator {
 			'last_used' => time()
 		);
 		$this->CI->db->insert($this->remember_token_table, $data);
-		$this->set_token_cookie($id.'__'.$validator);
+		$this->set_remember_cookie($id.'__'.$validator);
 		return $id;
 	}
 
@@ -189,14 +189,14 @@ class Authenticator {
 									$this->CI->jwt->generate($id__validator[0], array('uid' => $user['id']));
 									$this->update_user_by_index(array('id' => $user['id']), array('last_logged_in' => time()));
 									$this->CI->db->update($this->remember_token_table, array('last_used' => time()), array('id' => $id__validator[0]));
-									$this->set_token_cookie($value);
+									$this->set_remember_cookie($value);
 								}
 							}
 						}
 					}
 				}
 			}
-		} else if ($this->CI->jwt->token->hasClaim('uid')) {
+		} else if ($this->CI->jwt->token->hasClaim('jti')) {
 			$this->CI->load->helper('cookie');
 			$value = get_cookie($this->remember_token_name);
 			if ($value !== NULL) {
@@ -204,7 +204,7 @@ class Authenticator {
 				if (count($id__validator) > 1) {
 					$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
 					if ($token !== NULL) {
-						$this->set_token_cookie($value);
+						$this->set_remember_cookie($value);
 					} else {
 						$this->clear_credential();
 					}
