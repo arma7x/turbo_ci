@@ -31,8 +31,8 @@ $hook['post_controller_constructor'][] = function() {
 $hook['post_controller_constructor'][] = function() {
 	$CI = &get_instance();
 	$CI->container['app_name'] = APP_NAME;
-	if ($CI->session->status !== NULL) {
-		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->session->user['id']), 'id, username, email, role, access_level, status, avatar');
+	if ($CI->jwt->token->hasClaim('uid')) {
+		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->jwt->token->getClaim('uid')), 'id, username, email, role, access_level, status, avatar');
 		if ($user !== NULL) {
 			if ((int) $user['role'] === 0) {
 				$user['role_alias'] = lang('L_ADMIN');

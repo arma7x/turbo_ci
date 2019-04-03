@@ -105,10 +105,11 @@ class Authenticator {
 			$this->CI->db->delete($this->activation_token_table, array('user' => $user['id']));
 			$this->CI->db->delete($this->reset_token_table, array('user' => $user['id']));
 			$this->update_user_by_index($index, array('last_logged_in' => time()));
-			$this->CI->session->set_userdata(array('status' => TRUE, 'user' => array('id' => $user['id'])));
+			$jti = NULL;
 			if ($remember_me) {
-				$this->generate_remember_token($this->CI->session->user['id']);
+				$jti = $this->generate_remember_token($user['id']);
 			}
+			$this->CI->jwt->generate($jti, array('uid' => $user['id']));
 			return TRUE;
 		}
 		return FALSE;
@@ -169,10 +170,11 @@ class Authenticator {
 		);
 		$this->CI->db->insert($this->remember_token_table, $data);
 		$this->set_token_cookie($id.'__'.$validator);
+		return $id;
 	}
 
 	public function validate_remember_token() {
-		if ($this->CI->session->status === NULL) {
+		if ($this->CI->jwt->token->hasClaim('uid') === FALSE) {
 			$this->CI->load->helper('cookie');
 			$value = get_cookie($this->remember_token_name);
 			if ($value !== NULL) {
@@ -184,12 +186,7 @@ class Authenticator {
 							$user = $this->get_user_by_index(array('id' => $token['user']), NULL);
 							if ($user !== NULL) {
 								if ((int) $user['status'] === 1) {
-									$this->CI->session->set_userdata(array(
-										'status' => TRUE,
-										'user' => array('id' => $user['id']),
-										'remember_token_id' => $id__validator[0],
-										'remember_token_validator' => $id__validator[1],
-									));
+									$this->CI->jwt->generate($id__validator[0], array('uid' => $user['id']));
 									$this->update_user_by_index(array('id' => $user['id']), array('last_logged_in' => time()));
 									$this->CI->db->update($this->remember_token_table, array('last_used' => time()), array('id' => $id__validator[0]));
 									$this->set_token_cookie($value);
@@ -199,7 +196,7 @@ class Authenticator {
 					}
 				}
 			}
-		} else if ($this->CI->session->status === TRUE) {
+		} else if ($this->CI->jwt->token->hasClaim('uid')) {
 			$this->CI->load->helper('cookie');
 			$value = get_cookie($this->remember_token_name);
 			if ($value !== NULL) {
@@ -212,16 +209,7 @@ class Authenticator {
 						$this->clear_credential();
 					}
 				}
-			} else if ($this->CI->session->remember_token_id !== NULL) {
-				$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $this->CI->session->remember_token_id), 1)->row_array();
-				if ($token === NULL) {
-					$this->clear_credential();
-				} else {
-					$value = $token['id'].'__'.$this->CI->session->remember_token_validator;
-					$this->set_token_cookie($value);
-				}
 			}
-			
 		}
 	}
 
@@ -235,9 +223,7 @@ class Authenticator {
 				delete_cookie($this->remember_token_name);
 			}
 		}
-		$this->CI->session->unset_userdata('status');
-		$this->CI->session->unset_userdata('user');
-		$this->CI->session->unset_userdata('remember_token_id');
+		$this->CI->jwt->generate(NULL, array());
 	}
 
 	public function issue_reset_token($index) {

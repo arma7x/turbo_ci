@@ -1,6 +1,7 @@
 {
   "require": {
     "php": "7.2.*",
-    "pimple/pimple": "~3.0"
+    "pimple/pimple": "~3.0",
+    "lcobucci/jwt": "~3"
   }
 }
