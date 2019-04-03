@@ -69,23 +69,6 @@ class Authenticator {
 		return $this->CI->db->update($this->user_table, $data, $index);
 	}
 
-	public function set_remember_cookie($value) {
-		$expire = time() + (60 * 60 * 24 * 365);
-		$secure_cookie = (bool) $this->CI->config->item('cookie_secure');
-		if ($secure_cookie && ! is_https()) {
-			return FALSE;
-		}
-		setcookie(
-			$this->remember_token_name,
-			$value,
-			$expire,
-			$this->CI->config->item('cookie_path'),
-			$this->CI->config->item('cookie_domain'),
-			$secure_cookie,
-			TRUE
-		);
-	}
-
 	public function generate_password_safe_length($string) {
 		return base64_encode(hash('sha384', $string, TRUE));
 	}
@@ -153,6 +136,23 @@ class Authenticator {
 			return $this->update_user_by_index($index, $data);
 		}
 		return FALSE;
+	}
+
+	public function set_remember_cookie($value) {
+		$expire = time() + (60 * 60 * 24 * 365);
+		$secure_cookie = (bool) $this->CI->config->item('cookie_secure');
+		if ($secure_cookie && ! is_https()) {
+			return FALSE;
+		}
+		setcookie(
+			$this->remember_token_name,
+			$value,
+			$expire,
+			$this->CI->config->item('cookie_path'),
+			$this->CI->config->item('cookie_domain'),
+			$secure_cookie,
+			TRUE
+		);
 	}
 
 	public function generate_remember_token($user_id) {
