@@ -30,14 +30,14 @@ class JWT {
 			$token = (new Parser())->parse((string) $token);
 			$signer = new Sha256();
 			if ($token->verify($signer, $this->CI->config->item('encryption_key')) !== TRUE) {
-				log_message('error', 'INVALID JWT');
+				//log_message('error', 'INVALID JWT');
 				$this->generate(NULL, array());
 			} else {
-				log_message('error', json_encode($token->getClaims()));
+				//log_message('error', json_encode($token->getClaims()));
 				$this->token = $token;
 			}
 		} catch(Exception $error) {
-			log_message('error', $error);
+			//log_message('error', $error);
 			$this->generate(NULL, array());
 		}
 	}
@@ -47,8 +47,8 @@ class JWT {
 		$time = time();
 		$expired = $time + 3600;
 		$secure_cookie = (bool) $this->CI->config->item('cookie_secure');
-		if ($secure_cookie && ! is_https()) {
-			$secure_cookie = FALSE;
+		if (is_https()) {
+			$secure_cookie = TRUE;
 		}
 		$token = (new Builder());
 		$token->setIssuer($this->CI->config->item('base_url'))

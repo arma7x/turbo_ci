@@ -141,8 +141,8 @@ class Authenticator {
 	public function set_remember_cookie($value) {
 		$expire = time() + (60 * 60 * 24 * 365);
 		$secure_cookie = (bool) $this->CI->config->item('cookie_secure');
-		if ($secure_cookie && ! is_https()) {
-			return FALSE;
+		if (is_https()) {
+			$secure_cookie = TRUE;
 		}
 		setcookie(
 			$this->remember_token_name,
