@@ -22,8 +22,8 @@ class JWT {
 		if ($this->CI->input->get_request_header(SELF::JWT_NAME, TRUE) !== NULL) {
 			$parts = explode(' ', $this->CI->input->cookie(SELF::JWT_NAME, TRUE));
 			$token = (COUNT($parts) >= 1) ? $parts[1] : '';
-		} else if ($this->CI->input->cookie(SELF::JWT_NAME, TRUE) !== NULL) {
-			$token = $this->CI->input->cookie(SELF::JWT_NAME, TRUE);
+		} else if ($this->CI->input->cookie(strtolower(SELF::JWT_NAME), TRUE) !== NULL) {
+			$token = $this->CI->input->cookie(strtolower(SELF::JWT_NAME), TRUE);
 		}
 		try {
 			$token = (new Parser())->parse((string) $token);
@@ -67,7 +67,7 @@ class JWT {
 		$this->token = $token->getToken();
 		$this->CI->output->set_header(SELF::JWT_NAME.': Bearer '.$token->getToken());
 		$this->CI->input->set_cookie(array(
-				'name'   => SELF::JWT_NAME,
+				'name'   => strtolower(SELF::JWT_NAME),
 				'value'  => $token->getToken(),
 				'expire' => $expired,
 				'domain' => $this->CI->config->item('cookie_domain'),

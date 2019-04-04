@@ -154,10 +154,12 @@ function uploadAvatar(data, extra) {
 function deleteToken(id) {
     var text = '<?php echo lang('L_CONFIRM_REMOVE')?>'
     if (confirm(text.replace('%s', id))) {
+        var password = prompt('<?php echo lang('L_PASSWORD')?>')
         $('button.enabled').attr("disabled", "disabled")
         hideDangerMessage()
         var data = {
             'id': id,
+            'password': password,
         }
         data[window.csrf_token_name] = window.csrf_hash
         var request = $.ajax({

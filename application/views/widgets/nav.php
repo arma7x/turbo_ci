@@ -1,18 +1,15 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header d-flex flex-row-reverse flex-lg-row">
-      <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
-        <strong class="text-primary"><?php echo $this->container['app_name'] ?></strong>
-        <img class="logo" src="/static/img/android-chrome-192x192.png" alt="logo"/>
-      </a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-header d-flex flex-lg-row">
       <?php if ($this->uri->segment(1) != NULL): ?>
-      <button onclick="goHome()" class="navbar-toggler" type="button" style="border:0;padding-left:5px;padding-right:5px;">
-        <i class="material-icons text-dark" style="font-size:1.5em;">home</i>
-      </button>
       <button onclick="goBack()" class="navbar-toggler" type="button" style="border:0;padding-left:5px;padding-right:5px;">
         <i class="material-icons text-dark" style="font-size:1.5em;">arrow_back</i>
       </button>
       <?php endif; ?>
+      <a onclick="goHome()" class="navbar-brand" data-turbolinks="false">
+        <strong class="text-primary"><?php echo $this->container['app_name'] ?></strong>
+        <img class="logo" src="/static/img/android-chrome-192x192.png" alt="logo"/>
+      </a>
       <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
         <i id="navmenu_icon" class="material-icons text-dark" style="font-size:1.7em;">menu</i>
       </button>

@@ -43,6 +43,8 @@ class Authenticator {
 		$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
 		if ($value !== NULL) {
 			return explode('__', $value)[0];
+		} else if ($this->CI->jwt->token->hasClaim('jti')) {
+			return $this->CI->jwt->token->getClaim('jti');
 		}
 		return '';
 	}
@@ -73,7 +75,7 @@ class Authenticator {
 		return base64_encode(hash('sha384', $string, TRUE));
 	}
 
-	public function validate_credential($index, $password, $remember_me) {
+	public function validate_credential($index, $password, $remember_me, $revalidate) {
 		$user = $this->get_user_by_index($index, NULL);
 		if ($user === NULL) {
 			return FALSE;
@@ -88,11 +90,15 @@ class Authenticator {
 			$this->CI->db->delete($this->activation_token_table, array('user' => $user['id']));
 			$this->CI->db->delete($this->reset_token_table, array('user' => $user['id']));
 			$this->update_user_by_index($index, array('last_logged_in' => time()));
-			$jti = NULL;
-			if ($remember_me) {
-				$jti = $this->generate_remember_token($user['id']);
+			if ($revalidate === FALSE) {
+				$jti = NULL;
+				if ($remember_me) {
+					$jti = $this->store_credential_identifier($user['id'], TRUE);
+				} else {
+					$jti = $this->store_credential_identifier($user['id'], FALSE);
+				}
+				$this->CI->jwt->generate($jti, array('uid' => $user['id']));
 			}
-			$this->CI->jwt->generate($jti, array('uid' => $user['id']));
 			return TRUE;
 		}
 		return FALSE;
@@ -125,7 +131,7 @@ class Authenticator {
 	}
 
 	public function update_credential($index, $old_password, $new_password) {
-		$success = $this->validate_credential($index, $old_password, FALSE);
+		$success = $this->validate_credential($index, $old_password, FALSE, TRUE);
 		if ($success === TRUE) {
 			$this->CI->load->library('encryption');
 			$password = $this->CI->encryption->encrypt(password_hash($this->generate_password_safe_length($new_password), PASSWORD_DEFAULT));
@@ -156,7 +162,7 @@ class Authenticator {
 		);
 	}
 
-	public function generate_remember_token($user_id) {
+	public function store_credential_identifier($user_id, $cookie) {
 		$id = bin2hex($this->CI->security->get_random_bytes(8));
 		$validator = bin2hex($this->CI->security->get_random_bytes(10));
 		$hash_validator = hash('sha384', $validator);
@@ -168,7 +174,9 @@ class Authenticator {
 			'last_used' => time()
 		);
 		$this->CI->db->insert($this->remember_token_table, $data);
-		$this->set_remember_cookie($id.'__'.$validator);
+		if ($cookie === TRUE) {
+			$this->set_remember_cookie($id.'__'.$validator);
+		}
 		return $id;
 	}
 
@@ -216,14 +224,11 @@ class Authenticator {
 	}
 
 	public function clear_credential() {
-		$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
-		if ($value !== NULL) {
-			$id__validator = explode('__', $value);
-			if (count($id__validator) > 1) {
-				$this->CI->db->delete($this->remember_token_table, array('id' => $id__validator[0]));
-				$this->CI->load->helper('cookie');
-				delete_cookie($this->remember_token_name);
-			}
+		$jti = $this->get_current_remember_token();
+		if ($jti !== '') {
+			$this->CI->db->delete($this->remember_token_table, array('id' => $jti));
+			$this->CI->load->helper('cookie');
+			delete_cookie($this->remember_token_name);
 		}
 		$this->CI->jwt->generate(NULL, array());
 	}

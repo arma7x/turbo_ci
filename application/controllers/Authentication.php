@@ -54,7 +54,7 @@ class Authentication extends MY_Controller {
 			$this->_renderJSON(400, $data);
 		} else {
 			$remember_me = $this->input->post_get('remember_me') === 'true' ? TRUE : FALSE;
-			$validate_credential = $this->authenticator->validate_credential(array('email' => strtolower($this->input->post_get('email', TRUE))), $this->input->post_get('password'), $remember_me);
+			$validate_credential = $this->authenticator->validate_credential(array('email' => strtolower($this->input->post_get('email', TRUE))), $this->input->post_get('password'), $remember_me, FALSE);
 			if ($validate_credential === TRUE) {
 				$data = array(
 					'message' => lang('M_SUCCESS_LOGIN')
@@ -354,24 +354,29 @@ class Authentication extends MY_Controller {
 		$this->BlockGetRequest();
 		$data = array(
 			'id' => $this->input->post_get('id', TRUE),
+			'password' => $this->input->post_get('password', TRUE),
 		);
 		$this->form_validation->set_data($data);
 		$this->form_validation->set_rules('id', lang('L_ID'), 'required');
+		$this->form_validation->set_rules('password', lang('L_PASSWORD'), 'required');
 		if ($this->form_validation->run() === FALSE) {
 			$data = array(
-				'message' => $this->form_validation->error_array()['id']
+				'message' => isset($this->form_validation->error_array()['id']) ? $this->form_validation->error_array()['id'] : $this->form_validation->error_array()['password'],
 			);
 			$this->_renderJSON(400, $data);
 		} else {
-			$data['user'] = $this->container['user']['id'];
-			$result = $this->authenticator->remove_remember_token($data);
-			if ($result) {
-				$data = array(
-					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE')),
-					'redirect' => $this->config->item('base_url').'authentication/manage_token'
-				);
-				//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE'))));
-				$this->_renderJSON(200, $data);
+			if ($this->authenticator->validate_credential(array('id' => $this->container['user']['id']), $this->input->post_get('password', FALSE), FALSE, TRUE)) {
+				unset($data['password']);
+				$data['user'] = $this->container['user']['id'];
+				$result = $this->authenticator->remove_remember_token($data);
+				if ($result) {
+					$data = array(
+						'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE')),
+						'redirect' => $this->config->item('base_url').'authentication/manage_token'
+					);
+					//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE'))));
+					$this->_renderJSON(200, $data);
+				}
 			}
 			$data = array(
 				'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_FAIL_REMOVE'))
