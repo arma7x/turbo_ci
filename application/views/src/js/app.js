@@ -135,7 +135,7 @@ function uploadAvatar(data, extra) {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {
@@ -167,7 +167,7 @@ function deleteToken(id) {
             dataType: "json"
         })
         request.done(function(data) {
-            console.log(data.message)
+            alert(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
             } else {
@@ -221,7 +221,7 @@ function updateRole(id) {
             dataType: "json"
         })
         request.done(function(data) {
-            console.log(data.message)
+            alert(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
             } else {
@@ -255,7 +255,7 @@ function updateAccessLevel(id) {
             dataType: "json"
         })
         request.done(function(data) {
-            console.log(data.message)
+            alert(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
             } else {
@@ -289,7 +289,7 @@ function updateStatus(id) {
             dataType: "json"
         })
         request.done(function(data) {
-            console.log(data.message)
+            alert(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
             } else {
@@ -322,7 +322,7 @@ function deleteUser(id) {
             dataType: "json"
         })
         request.done(function(data) {
-            console.log(data.message)
+            alert(data.message)
             if (data.redirect != undefined) {
                 Turbolinks.visit(data.redirect, { action: "replace" })
             } else {
@@ -373,7 +373,7 @@ function addUser() {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {
@@ -510,7 +510,7 @@ function login(redirect) {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {
@@ -563,7 +563,7 @@ function register() {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {
@@ -615,7 +615,7 @@ function forgot_password() {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {
@@ -655,7 +655,7 @@ function activate_account() {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {
@@ -699,7 +699,7 @@ function reset() {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {
@@ -752,7 +752,7 @@ function update_password() {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {
@@ -797,7 +797,7 @@ function logout() {
         dataType: "json"
     })
     request.done(function(data) {
-        console.log(data.message)
+        alert(data.message)
         if (data.redirect != undefined) {
             Turbolinks.visit(data.redirect, { action: "replace" })
         } else {

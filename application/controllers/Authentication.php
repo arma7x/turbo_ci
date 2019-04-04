@@ -18,11 +18,16 @@ class Authentication extends MY_Controller {
 	public $upload_avatar = array('auth' => TRUE);
 	public $manage_token = array('auth' => TRUE);
 	public $remove_remember_token = array('auth' => TRUE);
+	public $whoami = array('auth' => TRUE);
 	public $log_out = array('auth' => TRUE);
 
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('form_validation');
+	}
+
+	public function whoami() {
+		$this->_renderJSON(200, $this->container['user']);
 	}
 
 	public function ui_login() {
@@ -57,7 +62,7 @@ class Authentication extends MY_Controller {
 				if ($this->input->post_get('redirect') === 'true') {
 					$data['redirect'] = $this->config->item('base_url');
 				}
-				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_LOGIN')));
+				//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_LOGIN')));
 				$this->_renderJSON(200, $data);
 			} else if ($validate_credential === 0) {
 				$data = array(
@@ -112,13 +117,13 @@ class Authentication extends MY_Controller {
 					'message' => lang('M_SUCCESS_REGISTER'),
 					'redirect' => $this->config->item('base_url')
 				);
-				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_REGISTER')));
+				//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_REGISTER')));
 				$this->_renderJSON(200, $data);
 			} else {
 				$data = array(
 					'message' => lang('M_FAIL_REGISTER'),
 				);
-				$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_REGISTER')));
+				//$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_REGISTER')));
 				$this->_renderJSON(400, $data);
 			}
 		}
@@ -130,10 +135,10 @@ class Authentication extends MY_Controller {
 			$this->load->helper('url');
 			$result = $this->authenticator->validate_activation_token($this->input->post_get('token', TRUE));
 			if ($result) {
-				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_ACTIVE_ACCOUNT')));
+				//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_ACTIVE_ACCOUNT')));
 				redirect($this->config->item('base_url').'authentication/ui_login');
 			}
-			$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_ACTIVE_ACCOUNT')));
+			//$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FAIL_ACTIVE_ACCOUNT')));
 			redirect($this->config->item('base_url'));
 		}
 		$this->data['title'] = $this->container['app_name'].' | '.lang('H_ACTIVATE_ACCOUNT');
@@ -161,7 +166,7 @@ class Authentication extends MY_Controller {
 					'message' => lang('M_ACTIVE_ACCOUNT_LINK'),
 					'redirect' => $this->config->item('base_url')
 				);
-				$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_ACTIVE_ACCOUNT_LINK')));
+				//$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_ACTIVE_ACCOUNT_LINK')));
 				$this->_renderJSON(200, $data);
 			}
 			$data = array(
@@ -199,7 +204,7 @@ class Authentication extends MY_Controller {
 					'message' => lang('M_FORGOT_PASSWORD_LINK'),
 					'redirect' => $this->config->item('base_url')
 				);
-				$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_FORGOT_PASSWORD_LINK')));
+				//$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_FORGOT_PASSWORD_LINK')));
 				$this->_renderJSON(200, $data);
 			}
 			$data = array(
@@ -215,7 +220,7 @@ class Authentication extends MY_Controller {
 		if ($this->input->post_get('token', TRUE) !== NULL) {
 			$result = $this->authenticator->verify_reset_token($this->input->post_get('token', TRUE));
 			if ($result === FALSE) {
-				$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FORGOT_PASSWORD_LINK_INVALID_TOKEN')));
+				//$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FORGOT_PASSWORD_LINK_INVALID_TOKEN')));
 				redirect($this->config->item('base_url'));
 			}
 			$this->data['title'] = $this->container['app_name'].' | '.lang('H_RESET_PASSWORD');
@@ -224,7 +229,7 @@ class Authentication extends MY_Controller {
 			$this->widgets['content'] = 'auth/reset_password';
 			$this->_renderLayout();
 		} else {
-			$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FORGOT_PASSWORD_LINK_INVALID_TOKEN')));
+			//$this->session->set_flashdata('__notification', array('type' => 'warning', 'message'=>lang('M_FORGOT_PASSWORD_LINK_INVALID_TOKEN')));
 			redirect($this->config->item('base_url'));
 		}
 	}
@@ -252,7 +257,7 @@ class Authentication extends MY_Controller {
 					'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
 					'redirect' => $this->config->item('base_url').'authentication/ui_login',
 				);
-				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
+				//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
 				$this->_renderJSON(200, $data);
 			} else {
 				$data = array(
@@ -288,14 +293,14 @@ class Authentication extends MY_Controller {
 			);
 			$this->_renderJSON(400, $data);
 		} else {
-			$index = array('id' => $this->session->user['id']);
+			$index = array('id' => $this->container['user']['id']);
 			$result = $this->authenticator->update_credential($index, $this->input->post_get('old_password'), $this->input->post_get('new_password'));
 			if ($result) {
 				$data = array(
 					'message' => lang('M_SUCCESS_UPDATE_PASSWORD'),
 					'redirect' => $this->config->item('base_url')
 				);
-				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
+				//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPDATE_PASSWORD')));
 				$this->_renderJSON(200, $data);
 			}
 			$data = array(
@@ -325,7 +330,7 @@ class Authentication extends MY_Controller {
 					'message' => lang('M_SUCCESS_UPLOAD_AVATAR'),
 					'redirect' => $this->config->item('base_url')
 				);
-				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPLOAD_AVATAR')));
+				//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>lang('M_SUCCESS_UPLOAD_AVATAR')));
 				$this->_renderJSON(200, $data);
 			}
 			$data = array(
@@ -365,7 +370,7 @@ class Authentication extends MY_Controller {
 					'message' => str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE')),
 					'redirect' => $this->config->item('base_url').'authentication/manage_token'
 				);
-				$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE'))));
+				//$this->session->set_flashdata('__notification', array('type' => 'success', 'message'=>str_replace('%s', $this->input->post_get('id', TRUE), lang('M_SUCCESS_REMOVE'))));
 				$this->_renderJSON(200, $data);
 			}
 			$data = array(
@@ -382,7 +387,7 @@ class Authentication extends MY_Controller {
 			'message' => lang('M_SUCCESS_LOGOUT'),
 			'redirect' => $this->config->item('base_url')
 		);
-		$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_SUCCESS_LOGOUT')));
+		//$this->session->set_flashdata('__notification', array('type' => 'info', 'message'=>lang('M_SUCCESS_LOGOUT')));
 		$this->_renderJSON(200, $data);
 	}
 }

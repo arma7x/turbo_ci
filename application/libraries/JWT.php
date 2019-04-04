@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Parser;
-use Lcobucci\JWT\ValidationData;
 
 class JWT {
 
@@ -45,7 +44,7 @@ class JWT {
 	public function generate($jti, $claims) {
 		$signer = new Sha256();
 		$time = time();
-		$expired = $time + 3600;
+		$expired = 3600;
 		$secure_cookie = (bool) $this->CI->config->item('cookie_secure');
 		if (is_https()) {
 			$secure_cookie = TRUE;
@@ -67,14 +66,15 @@ class JWT {
 		$token->sign($signer, $this->CI->config->item('encryption_key'));
 		$this->token = $token->getToken();
 		$this->CI->output->set_header(SELF::JWT_NAME.': Bearer '.$token->getToken());
-		setcookie(
-			SELF::JWT_NAME,
-			$token->getToken(),
-			$expired,
-			$this->CI->config->item('cookie_path'),
-			$this->CI->config->item('cookie_domain'),
-			$secure_cookie,
-			TRUE
+		$this->CI->input->set_cookie(array(
+				'name'   => SELF::JWT_NAME,
+				'value'  => $token->getToken(),
+				'expire' => $expired,
+				'domain' => $this->CI->config->item('cookie_domain'),
+				'path'   => $this->CI->config->item('cookie_path'),
+				'secure' => $secure_cookie,
+				'httponly' => TRUE
+			)
 		);
 	}
 

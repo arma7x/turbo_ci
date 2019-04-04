@@ -6,12 +6,14 @@
 				<div id="dangerMessage" class="text-white toast-body bg-danger" style="z-index:9999999"></div>
 			</div>
 		</div>
-    </div>
-    <?php if($this->session->__notification): ?>
-    <div class="fixed-top text-sm-center alert alert-<?php echo $this->session->__notification['type'] ?> alert-dismissible top-alert-noround fade show col col-12" role="alert">
-      <?php echo $this->session->__notification['message'] ?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <?php endif; ?>
+	</div>
+<!--
+	<?php //if($this->session->__notification): ?>
+	<div class="fixed-top text-sm-center alert alert-<?php //echo $this->session->__notification['type'] ?> alert-dismissible top-alert-noround fade show col col-12" role="alert">
+		<?php //echo $this->session->__notification['message'] ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<?php //endif; ?>
+-->

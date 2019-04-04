@@ -40,7 +40,7 @@ class Authenticator {
 	}
 
 	public function get_current_remember_token() {
-		$value = get_cookie($this->remember_token_name);
+		$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
 		if ($value !== NULL) {
 			return explode('__', $value)[0];
 		}
@@ -139,25 +139,24 @@ class Authenticator {
 	}
 
 	public function set_remember_cookie($value) {
-		$expire = time() + (60 * 60 * 24 * 365);
+		$expired = (60 * 60 * 24 * 365);
 		$secure_cookie = (bool) $this->CI->config->item('cookie_secure');
 		if (is_https()) {
 			$secure_cookie = TRUE;
 		}
-		setcookie(
-			$this->remember_token_name,
-			$value,
-			$expire,
-			$this->CI->config->item('cookie_path'),
-			$this->CI->config->item('cookie_domain'),
-			$secure_cookie,
-			TRUE
+		$this->CI->input->set_cookie(array(
+				'name'   => $this->remember_token_name,
+				'value'  => $value,
+				'expire' => $expired,
+				'domain' => $this->CI->config->item('cookie_domain'),
+				'path'   => $this->CI->config->item('cookie_path'),
+				'secure' => $secure_cookie,
+				'httponly' => TRUE
+			)
 		);
 	}
 
 	public function generate_remember_token($user_id) {
-		$this->CI->load->library('user_agent');
-		$agent = $this->CI->agent->agent_string();
 		$id = bin2hex($this->CI->security->get_random_bytes(8));
 		$validator = bin2hex($this->CI->security->get_random_bytes(10));
 		$hash_validator = hash('sha384', $validator);
@@ -165,7 +164,7 @@ class Authenticator {
 			'id' => $id,
 			'validator_hash' => $hash_validator,
 			'user' => $user_id,
-			'user_agent' => $agent,
+			'user_agent' => $this->CI->input->user_agent(TRUE),
 			'last_used' => time()
 		);
 		$this->CI->db->insert($this->remember_token_table, $data);
@@ -175,8 +174,7 @@ class Authenticator {
 
 	public function validate_remember_token() {
 		if ($this->CI->jwt->token->hasClaim('uid') === FALSE) {
-			$this->CI->load->helper('cookie');
-			$value = get_cookie($this->remember_token_name);
+			$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
 			if ($value !== NULL) {
 				$id__validator = explode('__', $value);
 				if (count($id__validator) > 1) {
@@ -193,18 +191,22 @@ class Authenticator {
 								}
 							}
 						}
+					} else {
+						$this->CI->load->helper('cookie');
+						delete_cookie($this->remember_token_name);
 					}
 				}
 			}
 		} else if ($this->CI->jwt->token->hasClaim('jti')) {
-			$this->CI->load->helper('cookie');
-			$value = get_cookie($this->remember_token_name);
+			$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
 			if ($value !== NULL) {
 				$id__validator = explode('__', $value);
 				if (count($id__validator) > 1) {
-					$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
-					if ($token !== NULL) {
-						$this->set_remember_cookie($value);
+					if ($this->CI->jwt->token->getClaim('jti') === $id__validator[0]) {
+						$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
+						if ($token !== NULL) {
+							$this->set_remember_cookie($value);
+						}
 					} else {
 						$this->clear_credential();
 					}
@@ -214,12 +216,12 @@ class Authenticator {
 	}
 
 	public function clear_credential() {
-		$this->CI->load->helper('cookie');
-		$value = get_cookie($this->remember_token_name);
+		$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
 		if ($value !== NULL) {
 			$id__validator = explode('__', $value);
 			if (count($id__validator) > 1) {
 				$this->CI->db->delete($this->remember_token_table, array('id' => $id__validator[0]));
+				$this->CI->load->helper('cookie');
 				delete_cookie($this->remember_token_name);
 			}
 		}
