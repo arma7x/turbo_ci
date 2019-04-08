@@ -18,7 +18,7 @@ class Authenticator {
 
 	public function __construct() {
 		$this->CI = &get_instance();
-		$this->validate_remember_token();
+		$this->validate();
 	}
 
 	public function __get($key) {
@@ -75,7 +75,7 @@ class Authenticator {
 		return base64_encode(hash('sha384', $string, TRUE));
 	}
 
-	public function validate_credential($index, $password, $remember_me, $revalidate) {
+	public function validate_credential($index, $password, $revalidate, $remember_me) {
 		$user = $this->get_user_by_index($index, NULL);
 		if ($user === NULL) {
 			return FALSE;
@@ -131,7 +131,7 @@ class Authenticator {
 	}
 
 	public function update_credential($index, $old_password, $new_password) {
-		$success = $this->validate_credential($index, $old_password, FALSE, TRUE);
+		$success = $this->validate_credential($index, $old_password, TRUE, FALSE);
 		if ($success === TRUE) {
 			$this->CI->load->library('encryption');
 			$password = $this->CI->encryption->encrypt(password_hash($this->generate_password_safe_length($new_password), PASSWORD_DEFAULT));
@@ -180,7 +180,7 @@ class Authenticator {
 		return $id;
 	}
 
-	public function validate_remember_token() {
+	public function validate() {
 		if ($this->CI->jwt->token->hasClaim('uid') === FALSE) {
 			$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
 			if ($value !== NULL) {
@@ -200,14 +200,13 @@ class Authenticator {
 							}
 						}
 					} else {
-						$this->CI->load->helper('cookie');
-						delete_cookie($this->remember_token_name);
+						$this->clear_credential();
 					}
 				}
 			}
 		} else if ($this->CI->jwt->token->hasClaim('jti')) {
-			$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
-			if ($value !== NULL) {
+			if ($this->CI->input->cookie($this->remember_token_name, TRUE) !== NULL) {
+				$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
 				$id__validator = explode('__', $value);
 				if (count($id__validator) > 1) {
 					if ($this->CI->jwt->token->getClaim('jti') === $id__validator[0]) {
@@ -218,6 +217,12 @@ class Authenticator {
 					} else {
 						$this->clear_credential();
 					}
+				}
+			} else {
+				$value = $this->CI->jwt->token->getClaim('jti');
+				$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $this->CI->jwt->token->getClaim('jti')), 1)->row_array();
+				if ($token === NULL) {
+					$this->clear_credential();
 				}
 			}
 		}

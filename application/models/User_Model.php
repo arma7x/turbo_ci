@@ -7,7 +7,7 @@ class User_Model extends MY_Model {
 
 	public function get_user_list($filter, $base_url, $per_page, $page_num, $num_links) {
 		$total_rows = $this->get_total_row($filter);
-		$skip = $this->paginate($base_url, $per_page, $page_num, $num_links, $total_rows);
+		$skip = $this->skip($per_page, $page_num);
 		$select = 'id, username, email, role, access_level, status, avatar,created_at, updated_at, last_logged_in';
 		$this->db->select($select);
 		foreach($filter as $index => $value) {
@@ -29,8 +29,8 @@ class User_Model extends MY_Model {
 		$this->db->order_by('role', 'ASC');
 		$this->db->order_by('access_level', 'ASC');
 		$this->db->order_by('status', 'ASC');
-		$result = $this->db->get($this->table)->result_array();
-		return $result;
+
+		return $this->generate($this->db->get($this->table)->result_array(), $base_url, $per_page, $page_num, $total_rows, $skip, $num_links);
 	}
 
 	public function get_total_row($filter) {

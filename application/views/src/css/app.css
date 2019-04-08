@@ -127,11 +127,6 @@ a.text-primary:hover, a.text-primary:focus {
   border-radius: 0;
 }
 
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
-}
 .spinner-gritcode {
   top: 0;
   left: 0;
@@ -144,10 +139,6 @@ a.text-primary:hover, a.text-primary:focus {
   background: rgba(255, 255, 255, 0.9);
 }
 
-.spinner-gritcode.spinner-fixed {
-  position: fixed;
-}
-
 .spinner-gritcode .spinner-wrapper {
   position: absolute;
   top: 50%;
@@ -156,66 +147,9 @@ a.text-primary:hover, a.text-primary:focus {
   -ms-transform: translate(-50%, -50%);
 }
 
-.spinner-gritcode .spinner-circle {
-  position: relative;
-  border: 4px solid #ccc;
-  border-right-color: #337ab7;
-  border-radius: 50%;
-  display: inline-block;
-  animation: spin 0.6s linear;
-  animation-iteration-count: infinite;
-  width: 3em;
-  height: 3em;
-  z-index: 2;
-}
-
-.spinner-gritcode .spinner-text {
-  position: relative;
-  text-align: center;
-  margin-top: 0.5em;
-  z-index: 2;
-  width: 100%;
-  font-size: 95%;
-  color: #337ab7;
-}
-
-.spinner-gritcode.spinner-sm .spinner-circle {
-  width: 1.5em;
-  height: 1.5em;
-}
-
-.spinner-gritcode.spinner-md .spinner-circle {
-  width: 2em;
-  height: 2em;
-}
-
-.spinner-gritcode.spinner-lg .spinner-circle {
-  width: 2.5em;
-  height: 2.5em;
-}
-
-.spinner-gritcode.spinner-xl .spinner-circle {
-  width: 3.5em;
-  height: 3.5em;
-}
-
-.lt-ie10 .spinner-gritcode .spinner-circle,
-.ie9 .spinner-gritcode .spinner-circle,
-.oldie .spinner-gritcode .spinner-circle,
-.no-csstransitions .spinner-gritcode .spinner-circle,
-.no-csstransforms3d .spinner-gritcode .spinner-circle {
-  background: url("http://i2.wp.com/www.thegreatnovelingadventure.com/wp-content/plugins/wp-polls/images/loading.gif") center center no-repeat;
-  animation: none;
-  margin-left: 0;
-  margin-top: 5px;
-  border: none;
-  width: 32px;
-  height: 32px;
-}
-
 .dashboard-menu {
-  //padding-top: 56px;
-  z-index: 9999!important;
+  /* padding-top: 56px; */
+  z-index: 9999 !important;
   height: 100%;
   background: #f8f9fa;
 }
@@ -230,14 +164,14 @@ a.text-primary:hover, a.text-primary:focus {
 
 @media (max-width: 768px) {
   .dashboard-menu {
-    //padding-top: 0px;
+    /* padding-top: 0px; */
     z-index: 999;
     height: auto;
     background: #f8f9fa;
   }
   .navbar-collapse-dashboard {
     position: absolute;
-    //top: 54px;
+    /* top: 54px; */
     left: 0;
     width: 238px;
   }
@@ -302,16 +236,12 @@ a.text-primary:hover, a.text-primary:focus {
   color: #16181b;
   text-decoration: none;
   background-color: #f8f9fa;
-  border-left: 0.4em solid var(--pink);
-  -webkit-transition: all 500ms ease 100ms;
-  transition: all 500ms ease 100ms;
 }
 
 #accordionDashboard .dropdown-item.active, .dropdown-item:active {
   color: #16181b;
   text-decoration: none;
   background-color: #f8f9fa;
-  border-left: 0.4em solid var(--pink);
 }
 
 #accordionDashboard .dropdown-item.disabled, .dropdown-item:disabled {
@@ -341,4 +271,16 @@ div.autoscroll {
 
 div.autoscroll:hover {
     overflow-y:scroll!important;
+}
+
+#navCollapsed #accordionDashboard .dropdown-item:hover, .dropdown-item:focus {
+  border-left: 0.4em solid var(--pink);
+  -webkit-transition: all 500ms ease 100ms;
+  transition: all 500ms ease 100ms;
+}
+
+#navCollapsed #accordionDashboard .dropdown-item.active, .dropdown-item:active {
+  border-left: 0.4em solid var(--pink);
+  -webkit-transition: all 500ms ease 100ms;
+  transition: all 500ms ease 100ms;
 }

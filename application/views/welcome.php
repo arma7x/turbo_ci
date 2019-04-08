@@ -62,7 +62,7 @@
 					<div class="card shadow-sm">
 						<div class="card-body">
 							<blockquote class="blockquote">
-							  <p class="mb-0 text-primary"><strong>CSS Styling</strong></p>
+							  <p class="mb-0 text-primary"><strong>CSS Bootstrap</strong></p>
 							  <footer class="blockquote-footer">Bootstrap is the most popular HTML, CSS, and JavaScript framework.</footer>
 							</blockquote>
 						</div>
@@ -72,7 +72,7 @@
 					<div class="card shadow-sm">
 						<div class="card-body">
 							<blockquote class="blockquote">
-							  <p class="mb-0 text-primary"><strong>JS Utilizing</strong></p>
+							  <p class="mb-0 text-primary"><strong>JQUERY</strong></p>
 							  <footer class="blockquote-footer">JQuery to program the behavior of web pages.</footer>
 							</blockquote>
 						</div>

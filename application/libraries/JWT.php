@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\ValidationData;
 
 class JWT {
 
@@ -25,18 +26,17 @@ class JWT {
 		} else if ($this->CI->input->cookie(strtolower(SELF::JWT_NAME), TRUE) !== NULL) {
 			$token = $this->CI->input->cookie(strtolower(SELF::JWT_NAME), TRUE);
 		}
+		
 		try {
 			$token = (new Parser())->parse((string) $token);
 			$signer = new Sha256();
-			if ($token->verify($signer, $this->CI->config->item('encryption_key')) !== TRUE) {
-				//log_message('error', 'INVALID JWT');
+			$validator = new ValidationData();
+			if ($token->verify($signer, $this->CI->config->item('encryption_key')) !== TRUE || $token->validate($validator) === FALSE) {
 				$this->generate(NULL, array());
 			} else {
-				//log_message('error', json_encode($token->getClaims()));
 				$this->token = $token;
 			}
 		} catch(Exception $error) {
-			//log_message('error', $error);
 			$this->generate(NULL, array());
 		}
 	}
@@ -50,11 +50,12 @@ class JWT {
 			$secure_cookie = TRUE;
 		}
 		$token = (new Builder());
-		$token->setIssuer($this->CI->config->item('base_url'))
+		$token
+			//->setIssuer($this->CI->config->item('base_url'))
 			//->setAudience($this->CI->config->item('base_url'))
 			->setIssuedAt($time)
 			->setNotBefore($time)
-			->setExpiration($expired);
+			->setExpiration(time() + $expired);
 		if (is_array($claims)) {
 			foreach($claims as $name => $value) {
 				$token->set($name, $value);

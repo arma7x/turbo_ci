@@ -9,7 +9,11 @@ class MY_Model extends CI_Model {
 		parent::__construct();
 	}
 
-	final protected function paginate($base_url, $per_page, $page_num, $num_links, $total_rows) {
+	final public function skip($per_page, $page_num) {
+		return ($page_num <= 1 ? 0 : ($page_num - 1)) * $per_page;
+	}
+
+	final public function generate($result, $base_url, $per_page, $page_num, $total_rows, $skip, $num_links) {
 		$this->load->library('pagination');
 		$config['full_tag_open'] = '<ul class="pagination">';
 		$config['full_tag_close'] = '</ul>';
@@ -37,6 +41,21 @@ class MY_Model extends CI_Model {
 		$config['reuse_query_string'] = TRUE;
 		$config['query_string_segment'] = 'page';
 		$this->pagination->initialize($config);
-		return ($page_num <= 1 ? 0 : ($page_num - 1)) * $per_page;
+
+		$last_page = (int) ceil($total_rows / $per_page);
+		$next_page = $page_num < $last_page && $last_page > 1 ? ($page_num === 0 ? 2 : ($page_num + 1)) : NULL;
+		$previos_page = ($skip / $per_page) >= 1 ? (($skip / $per_page) - 1 === 0 ? 1 : ($skip / $per_page)) : NULL;
+		$current_page = $page_num <= 1 ? 1 : $page_num;
+		return array(
+			'url' => $base_url,
+			'current_page' => $current_page,
+			'next_page' => $next_page,
+			'previos_page' => $previos_page,
+			'last_page' => $last_page,
+			'per_page' => $per_page,
+			'total_result' => $total_rows,
+			'result' => $result,
+		);
+		
 	}
 }
