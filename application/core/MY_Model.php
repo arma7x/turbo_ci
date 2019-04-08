@@ -34,7 +34,7 @@ class MY_Model extends CI_Model {
 		$config['last_tag_open'] = '<li class="page-item"><span class="page-link">';
 		$config['last_tag_close'] = '</span></li>';
 		$config['base_url'] = $base_url;
-		$config['num_links'] = $num_links === TRUE ? ($total_rows/$per_page) : FALSE;
+		$config['num_links'] = $num_links === TRUE ? ($total_rows/$per_page) : $num_links;
 		$config['total_rows'] = ($total_rows/$per_page);
 		$config['per_page'] = 1;
 		$config['page_query_string'] = TRUE;
