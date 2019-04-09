@@ -151,15 +151,21 @@ function uploadAvatar(data, extra) {
     })
 }
 
-function deleteToken(id) {
+function promptconfirmPasswordToken(id) {
+    $('#confirmPasswordToken').modal()
+    $('#inputID').val(id)
+    $('#inputPassword').val('')
+}
+
+function deleteToken() {
     var text = '<?php echo lang('L_CONFIRM_REMOVE')?>'
-    if (confirm(text.replace('%s', id))) {
-        var password = prompt('<?php echo lang('L_PASSWORD')?>')
+    if (confirm(text.replace('%s', $('#inputID').val()))) {
+        $('#confirmPasswordToken').modal('hide')
         $('button.enabled').attr("disabled", "disabled")
         hideDangerMessage()
         var data = {
-            'id': id,
-            'password': password,
+            'id': $('#inputID').val(),
+            'password': $('#inputPassword').val(),
         }
         data[window.csrf_token_name] = window.csrf_hash
         var request = $.ajax({
@@ -456,10 +462,15 @@ function loadingSpinner(status) {
 loadingSpinner(false)
 
 function showDangerMessage(text) {
-    $('#dangerMessage').text(text)
-    $('#dangerMessage').append('<button type="button" class="text-white ml-2 mb-1 close" aria-label="Close" onclick="hideDangerMessage()"><span aria-hidden="true">&times;</span></button>')
-    $('.toast').toast('show');
-    $(window).scrollTop(0);
+    if ($('.toast').hasClass('show')) {
+        hideDangerMessage()
+    }
+    setTimeout(function() {
+        $('#dangerMessage').text(text)
+        $('#dangerMessage').append('<button type="button" class="text-white ml-2 mb-1 close" aria-label="Close" onclick="hideDangerMessage()"><span aria-hidden="true">&times;</span></button>')
+        $('.toast').toast('show');
+        $(window).scrollTop(0);
+    }, 100);
 }
 
 function hideDangerMessage() {

@@ -24,7 +24,7 @@
 						<script>parse_date('<?php echo $token['id'] ?>', '<?php echo $token['last_used'] ?>')</script>
 					</span>
 				<td>
-					<button class="btn btn-sm btn-danger<?php echo $current_token !== $token['id'] ? ' enabled' : ''; ?>"<?php echo $current_token === $token['id'] ? ' disabled' : ''; ?> onclick="deleteToken(<?php echo $current_token === $token['id'] ? 'null' : "'".$token['id']."'" ; ?>)">
+					<button class="btn btn-sm btn-danger<?php echo $current_token !== $token['id'] ? ' enabled' : ''; ?>"<?php echo $current_token === $token['id'] ? ' disabled' : ''; ?> onclick="promptconfirmPasswordToken(<?php echo $current_token === $token['id'] ? 'null' : "'".$token['id']."'" ; ?>)">
 						<?php echo lang('BTN_REMOVE');?>
 					</button>
 				</td>
@@ -32,5 +32,29 @@
 			<?php endforeach ?>
 			</tbody>
 		</table>
+	</div>
+	<div id="confirmPasswordToken" class="modal fade" tabindex="-1" role="dialog">
+	  <div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title"><?php echo lang('L_CONFIRM_PASSWORD')?></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<input type="text" id="inputID" class="form-control sr-only">
+					<label for="inputPassword" class="sr-only"><?php echo lang('L_PASSWORD');?></label>
+					<div id="inputPasswordError" class="input-group border rounded">
+						<div class="input-group-prepend"><span class="input-group-text"><i class="material-icons">&#xe0da;</i></span></div>
+						<input type="password" id="inputPassword" class="form-control" placeholder="<?php echo lang('L_PASSWORD');?>">
+					</div>
+					<div id="inputPasswordErrorText" class="form-control-feedback text-danger"></div>
+				</div>
+				<button type="button" onClick="deleteToken()" class="btn btn-danger float-right"><?php echo lang('BTN_REMOVE');?></button>
+			</div>
+		</div>
+	  </div>
 	</div>
 </div>
