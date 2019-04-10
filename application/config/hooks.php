@@ -46,6 +46,8 @@ $hook['post_controller_constructor'][] = function() {
 				$CI->authenticator->clear_credential();
 				show_error('Unauthorized', 401, '401 - Unauthorized');
 			}
+		} else {
+			$CI->container['user'] = NULL;
 		}
 	} else {
 		$CI->container['user'] = NULL;
