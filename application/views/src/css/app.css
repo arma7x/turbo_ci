@@ -149,7 +149,7 @@ a.text-primary:hover, a.text-primary:focus {
 
 .dashboard-menu {
   /* padding-top: 56px; */
-  z-index: 9999 !important;
+  z-index: 9999!important;
   height: 100%;
   background: #f8f9fa;
 }
@@ -242,6 +242,7 @@ a.text-primary:hover, a.text-primary:focus {
   color: #16181b;
   text-decoration: none;
   background-color: #f8f9fa;
+  border-left: 0.4em solid var(--pink);
 }
 
 #accordionDashboard .dropdown-item.disabled, .dropdown-item:disabled {
@@ -265,11 +266,11 @@ a.text-primary:hover, a.text-primary:focus {
   color: #212529;
 }
 
-div.autoscroll {
-    height:370px;
+#accordionDashboard .menuscroll {
+    height: 370px;
 }
 
-div.autoscroll:hover {
+#accordionDashboard .menuscroll:hover {
     overflow-y:scroll!important;
 }
 
