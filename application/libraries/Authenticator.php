@@ -5,19 +5,22 @@ class Authenticator {
 
 	// https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
 
+	const USER_TABLE = 'users';
+	const REMEMBER_TOKEN_TABLE = 'remember_tokens';
+	const REMEMBER_TOKEN_NAME = 'remember_me';
+	const REMEMBER_TOKEN_EXPIRED = 31536000;
+	const ACTIVATION_TOKEN_TABLE = 'activation_tokens';
+	const RESET_TOKEN_TABLE = 'reset_tokens';
+	const DEFAULT_ROLE = 127; // lowest value has more power, 0 is lowest value
+	const DEFAULT_ACCESS_LEVEL = 127; // lowest value has more power, 0 is lowest value
+	const DEFAULT_STATUS = 1; // -1:BAN, 1:ACTIVE, 0:INACTIVE
+	const DEFAULT_AVATAR = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAAAAAA7VNdtAAAACXBIWXMAAAA4AAAAOABi1B8JAAABTklEQVRIx+3Tv0vDUBDA8f6/p8FBLSQgaCtNoThEoXWoDgYEK4joIlRcRMTBH1DrIFXrL1rEKjGS5FwcFOzLu9w9R8Hv/D7Lvbvcx6/L/ZO/Q7CzVXNdb70VGxI8mYXv7GZsQt7rMFS5L5PABSX7TiK4AKmmXgTSBK0lZMnbhE6gw5I9QsAySzyKTMYMScYpAjcMCUgBpwwZ0OSYISFNzhiCeZI8chOrUcJOOHJIkVX2XyJHF9Y9v2NHOmlIm+ynRSmS7iVaVEXxWb5K3LSGNz8wOGS8Kv2I/DnK5Dp1lpU28iTesLSJ+SFHBnPUVxZ62eRpml5Lu5tFXmcgI6dHk2QeMiuEJNkGphUkyO0YR6ClE/RYAYVYI20Q2tdIVSJFTJH+iETgMkV2RAF+ilRk4iQKCUdlAg8KuTAQcKCQXRPSUMiaCakqpG5Cyl9vPwHZXW4PhaKQ+wAAAABJRU5ErkJggg==';
+
 	protected $CI;
-	protected $user_table = 'users';
-	protected $remember_token_table = 'remember_tokens';
-	protected $remember_token_name = 'remember_me';
-	protected $activation_token_table = 'activation_tokens';
-	protected $reset_token_table = 'reset_tokens';
-	protected $default_role = 127; // lowest value has more power, 0 is lowest value
-	protected $default_access_level = 127; // lowest value has more power, 0 is lowest value
-	protected $default_status = 1; // -1:BAN, 1:ACTIVE, 0:INACTIVE
-	protected $default_avatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAAAAAA7VNdtAAAACXBIWXMAAAA4AAAAOABi1B8JAAABTklEQVRIx+3Tv0vDUBDA8f6/p8FBLSQgaCtNoThEoXWoDgYEK4joIlRcRMTBH1DrIFXrL1rEKjGS5FwcFOzLu9w9R8Hv/D7Lvbvcx6/L/ZO/Q7CzVXNdb70VGxI8mYXv7GZsQt7rMFS5L5PABSX7TiK4AKmmXgTSBK0lZMnbhE6gw5I9QsAySzyKTMYMScYpAjcMCUgBpwwZ0OSYISFNzhiCeZI8chOrUcJOOHJIkVX2XyJHF9Y9v2NHOmlIm+ynRSmS7iVaVEXxWb5K3LSGNz8wOGS8Kv2I/DnK5Dp1lpU28iTesLSJ+SFHBnPUVxZ62eRpml5Lu5tFXmcgI6dHk2QeMiuEJNkGphUkyO0YR6ClE/RYAYVYI20Q2tdIVSJFTJH+iETgMkV2RAF+ilRk4iQKCUdlAg8KuTAQcKCQXRPSUMiaCakqpG5Cyl9vPwHZXW4PhaKQ+wAAAABJRU5ErkJggg==';
 
 	public function __construct() {
 		$this->CI = &get_instance();
+		$this->CI->load->library('JWT');
 		$this->validate();
 	}
 
@@ -27,7 +30,7 @@ class Authenticator {
 
 	public function get_remember_token($index) {
 		return $this->CI->db->select('id, user_agent, last_used')
-			->get_where($this->remember_token_table, $index)
+			->get_where(SELF::REMEMBER_TOKEN_TABLE , $index)
 			->result_array();
 	}
 
@@ -35,12 +38,12 @@ class Authenticator {
 		if ($index['id'] === $this->get_current_remember_token()) {
 			return FALSE;
 		}
-		$this->CI->db->delete($this->remember_token_table, $index);
-		return $this->CI->db->select('id')->get_where($this->remember_token_table, $index, 1)->row_array() === NULL;
+		$this->CI->db->delete(SELF::REMEMBER_TOKEN_TABLE , $index);
+		return $this->CI->db->select('id')->get_where(SELF::REMEMBER_TOKEN_TABLE , $index, 1)->row_array() === NULL;
 	}
 
 	public function get_current_remember_token() {
-		$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
+		$value = $this->CI->input->cookie(SELF::REMEMBER_TOKEN_NAME, TRUE);
 		if ($value !== NULL) {
 			return explode('__', $value)[0];
 		} else if ($this->CI->jwt->token->hasClaim('jti')) {
@@ -51,9 +54,9 @@ class Authenticator {
 
 	public function get_user_by_index($index, $select) {
 		if ($select === NULL) {
-			return $this->CI->db->get_where($this->user_table, $index, 1)->row_array();
+			return $this->CI->db->get_where(SELF::USER_TABLE, $index, 1)->row_array();
 		} else {
-			return $this->CI->db->select($select)->get_where($this->user_table, $index, 1)->row_array();
+			return $this->CI->db->select($select)->get_where(SELF::USER_TABLE, $index, 1)->row_array();
 		}
 	}
 
@@ -61,14 +64,14 @@ class Authenticator {
 		if ($this->get_user_by_index(array('id' => $data['id']), 'id') !== NULL) {
 			return FALSE;
 		}
-		return $this->CI->db->insert($this->user_table, $data);
+		return $this->CI->db->insert(SELF::USER_TABLE, $data);
 	}
 
 	public function update_user_by_index($index, $data) {
 		if ($this->get_user_by_index($index, 'id') === NULL) {
 			return FALSE;
 		}
-		return $this->CI->db->update($this->user_table, $data, $index);
+		return $this->CI->db->update(SELF::USER_TABLE, $data, $index);
 	}
 
 	public function generate_password_safe_length($string) {
@@ -87,8 +90,8 @@ class Authenticator {
 		$current_password = $this->CI->encryption->decrypt($user['password']);
 		$match = password_verify($this->generate_password_safe_length($password), $current_password);
 		if ($match) {
-			$this->CI->db->delete($this->activation_token_table, array('user' => $user['id']));
-			$this->CI->db->delete($this->reset_token_table, array('user' => $user['id']));
+			$this->CI->db->delete(SELF::ACTIVATION_TOKEN_TABLE, array('user' => $user['id']));
+			$this->CI->db->delete(SELF::RESET_TOKEN_TABLE, array('user' => $user['id']));
 			$this->update_user_by_index($index, array('last_logged_in' => time()));
 			if ($revalidate === FALSE) {
 				$jti = NULL;
@@ -109,10 +112,10 @@ class Authenticator {
 		$password = $this->CI->encryption->encrypt(password_hash($this->generate_password_safe_length($data['password'], TRUE), PASSWORD_DEFAULT));
 		$data['id'] = bin2hex($this->CI->security->get_random_bytes(5));
 		$data['password'] = $password;
-		$data['role'] = ($data['email'] === APP_ADMIN_EMAIL) ? 0 : $this->default_role;
-		$data['access_level'] = ($data['email'] === APP_ADMIN_EMAIL) ? 0 : $this->default_access_level;
-		$data['status'] = $this->default_status;
-		$data['avatar'] = $this->default_avatar;
+		$data['role'] = ($data['email'] === APP_ADMIN_EMAIL) ? 0 : SELF::DEFAULT_ROLE;
+		$data['access_level'] = ($data['email'] === APP_ADMIN_EMAIL) ? 0 : SELF::DEFAULT_ACCESS_LEVEL;
+		$data['status'] = SELF::DEFAULT_STATUS;
+		$data['avatar'] = SELF::DEFAULT_AVATAR;
 		$data['created_at'] = time();
 		$data['updated_at'] = time();
 		$data['last_logged_in'] = time();
@@ -145,15 +148,14 @@ class Authenticator {
 	}
 
 	public function set_remember_cookie($value) {
-		$expired = (60 * 60 * 24 * 365);
 		$secure_cookie = (bool) $this->CI->config->item('cookie_secure');
 		if (is_https()) {
 			$secure_cookie = TRUE;
 		}
 		$this->CI->input->set_cookie(array(
-				'name'   => $this->remember_token_name,
+				'name'   => SELF::REMEMBER_TOKEN_NAME,
 				'value'  => $value,
-				'expire' => $expired,
+				'expire' => SELF::REMEMBER_TOKEN_EXPIRED,
 				'domain' => $this->CI->config->item('cookie_domain'),
 				'path'   => $this->CI->config->item('cookie_path'),
 				'secure' => $secure_cookie,
@@ -173,7 +175,7 @@ class Authenticator {
 			'user_agent' => $this->CI->input->user_agent(TRUE),
 			'last_used' => time()
 		);
-		$this->CI->db->insert($this->remember_token_table, $data);
+		$this->CI->db->insert(SELF::REMEMBER_TOKEN_TABLE , $data);
 		if ($cookie === TRUE) {
 			$this->set_remember_cookie($id.'__'.$validator);
 		}
@@ -182,11 +184,11 @@ class Authenticator {
 
 	public function validate() {
 		if ($this->CI->jwt->token->hasClaim('uid') === FALSE) {
-			$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
+			$value = $this->CI->input->cookie(SELF::REMEMBER_TOKEN_NAME, TRUE);
 			if ($value !== NULL) {
 				$id__validator = explode('__', $value);
 				if (count($id__validator) > 1) {
-					$token = $this->CI->db->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
+					$token = $this->CI->db->get_where(SELF::REMEMBER_TOKEN_TABLE , array('id' => $id__validator[0]), 1)->row_array();
 					if ($token !== NULL) {
 						if (hash_equals(hash('sha384', $id__validator[1]), $token['validator_hash'])) {
 							$user = $this->get_user_by_index(array('id' => $token['user']), NULL);
@@ -194,7 +196,7 @@ class Authenticator {
 								if ((int) $user['status'] === 1) {
 									$this->CI->jwt->generate($id__validator[0], array('uid' => $user['id']));
 									$this->update_user_by_index(array('id' => $user['id']), array('last_logged_in' => time()));
-									$this->CI->db->update($this->remember_token_table, array('last_used' => time()), array('id' => $id__validator[0]));
+									$this->CI->db->update(SELF::REMEMBER_TOKEN_TABLE , array('last_used' => time()), array('id' => $id__validator[0]));
 									$this->set_remember_cookie($value);
 								}
 							}
@@ -205,12 +207,12 @@ class Authenticator {
 				}
 			}
 		} else if ($this->CI->jwt->token->hasClaim('jti')) {
-			if ($this->CI->input->cookie($this->remember_token_name, TRUE) !== NULL) {
-				$value = $this->CI->input->cookie($this->remember_token_name, TRUE);
+			if ($this->CI->input->cookie(SELF::REMEMBER_TOKEN_NAME, TRUE) !== NULL) {
+				$value = $this->CI->input->cookie(SELF::REMEMBER_TOKEN_NAME, TRUE);
 				$id__validator = explode('__', $value);
 				if (count($id__validator) > 1) {
 					if ($this->CI->jwt->token->getClaim('jti') === $id__validator[0]) {
-						$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $id__validator[0]), 1)->row_array();
+						$token = $this->CI->db->select('id')->get_where(SELF::REMEMBER_TOKEN_TABLE , array('id' => $id__validator[0]), 1)->row_array();
 						if ($token !== NULL) {
 							$this->set_remember_cookie($value);
 						}
@@ -220,7 +222,7 @@ class Authenticator {
 				}
 			} else {
 				$value = $this->CI->jwt->token->getClaim('jti');
-				$token = $this->CI->db->select('id')->get_where($this->remember_token_table, array('id' => $this->CI->jwt->token->getClaim('jti')), 1)->row_array();
+				$token = $this->CI->db->select('id')->get_where(SELF::REMEMBER_TOKEN_TABLE , array('id' => $this->CI->jwt->token->getClaim('jti')), 1)->row_array();
 				if ($token === NULL) {
 					$this->clear_credential();
 				}
@@ -231,9 +233,9 @@ class Authenticator {
 	public function clear_credential() {
 		$jti = $this->get_current_remember_token();
 		if ($jti !== '') {
-			$this->CI->db->delete($this->remember_token_table, array('id' => $jti));
+			$this->CI->db->delete(SELF::REMEMBER_TOKEN_TABLE , array('id' => $jti));
 			$this->CI->load->helper('cookie');
-			delete_cookie($this->remember_token_name);
+			delete_cookie(SELF::REMEMBER_TOKEN_NAME);
 		}
 		$this->CI->jwt->generate(NULL, array());
 	}
@@ -244,7 +246,7 @@ class Authenticator {
 			return FALSE;
 		}
 		if ((int) $user['status'] === 1) {
-			$this->CI->db->delete($this->reset_token_table, array('user' => $user['id']));
+			$this->CI->db->delete(SELF::RESET_TOKEN_TABLE, array('user' => $user['id']));
 			$id = bin2hex($this->CI->security->get_random_bytes(8));
 			$validator = bin2hex($this->CI->security->get_random_bytes(10));
 			$hash_validator = hash('sha384', $validator);
@@ -253,7 +255,7 @@ class Authenticator {
 				'validator_hash' => $hash_validator,
 				'user' => $user['id'],
 			);
-			$this->CI->db->insert($this->reset_token_table, $data);
+			$this->CI->db->insert(SELF::RESET_TOKEN_TABLE, $data);
 			$mail = array(
 				'user' => $user,
 				'url' => $this->CI->config->item('base_url').'authentication/ui_reset_password?token='.$id.'__'.$validator,
@@ -267,7 +269,7 @@ class Authenticator {
 	public function verify_reset_token($token) {
 		$id__validator = explode('__', $token);
 		if (count($id__validator) > 1) {
-			$token = $this->CI->db->get_where($this->reset_token_table, array('id' => $id__validator[0]), 1)->row_array();
+			$token = $this->CI->db->get_where(SELF::RESET_TOKEN_TABLE, array('id' => $id__validator[0]), 1)->row_array();
 			if ($token !== NULL) {
 				if (hash_equals(hash('sha384', $id__validator[1]), $token['validator_hash'])) {
 					$user = $this->get_user_by_index(array('id' => $token['user']), 'id, email, status');
@@ -293,7 +295,7 @@ class Authenticator {
 			'password' => $password,
 			'updated_at' => time(),
 		);
-		$this->CI->db->delete($this->reset_token_table, array('user' => $user['id']));
+		$this->CI->db->delete(SELF::RESET_TOKEN_TABLE, array('user' => $user['id']));
 		return $this->update_user_by_index(array('id' => $user['id']), $data);
 	}
 
@@ -303,13 +305,13 @@ class Authenticator {
 			return FALSE;
 		}
 		if ((int) $user['status'] === 0) {
-			$this->CI->db->delete($this->activation_token_table, array('user' => $user['id']));
+			$this->CI->db->delete(SELF::ACTIVATION_TOKEN_TABLE, array('user' => $user['id']));
 			$id = bin2hex($this->CI->security->get_random_bytes(25));
 			$data = array(
 				'id' => $id,
 				'user' => $user['id'],
 			);
-			$this->CI->db->insert($this->activation_token_table, $data);
+			$this->CI->db->insert(SELF::ACTIVATION_TOKEN_TABLE, $data);
 			$mail = array(
 				'user' => $user,
 				'url' => $this->CI->config->item('base_url').'authentication/ui_activate_account?token='.$id,
@@ -321,23 +323,23 @@ class Authenticator {
 	}
 
 	public function validate_activation_token($token) {
-		$exist = $this->CI->db->get_where($this->activation_token_table, array('id' => $token), 1)->row_array();
+		$exist = $this->CI->db->get_where(SELF::ACTIVATION_TOKEN_TABLE, array('id' => $token), 1)->row_array();
 		if ($exist === NULL) {
 			return FALSE;
 		}
 		$success = $this->update_user_by_index(array('id' => $exist['user']), array('status' => 1, 'updated_at' => time()));
 		if ($success) {
-			$this->CI->db->delete($this->activation_token_table, array('user' => $exist['user']));
+			$this->CI->db->delete(SELF::ACTIVATION_TOKEN_TABLE, array('user' => $exist['user']));
 			RETURN TRUE;
 		}
 		return FALSE;
 	}
 
 	public function destroy_user_data($id) {
-		$this->CI->db->delete($this->remember_token_table, array('user' => $id));
-		$this->CI->db->delete($this->activation_token_table, array('user' => $id));
-		$this->CI->db->delete($this->reset_token_table, array('user' => $id));
-		return $this->CI->db->delete($this->user_table, array('id' => $id));
+		$this->CI->db->delete(SELF::REMEMBER_TOKEN_TABLE , array('user' => $id));
+		$this->CI->db->delete(SELF::ACTIVATION_TOKEN_TABLE, array('user' => $id));
+		$this->CI->db->delete(SELF::RESET_TOKEN_TABLE, array('user' => $id));
+		return $this->CI->db->delete(SELF::USER_TABLE, array('id' => $id));
 	}
 
 	public function send_email($data, $template, $subject) {

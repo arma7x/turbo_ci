@@ -9,6 +9,8 @@ use Lcobucci\JWT\ValidationData;
 class JWT {
 
 	const JWT_NAME = 'Authorization';
+	const JWT_TOKEN_EXPIRED = 31536000;
+	const JWT_COOKIE_EXPIRED = 3600;
 
 	protected $CI;
 	public $token;
@@ -55,7 +57,7 @@ class JWT {
 			//->setAudience($this->CI->config->item('base_url'))
 			->setIssuedAt($time)
 			->setNotBefore($time)
-			->setExpiration(time() + $expired);
+			->setExpiration(time() + SELF::JWT_TOKEN_EXPIRED);
 		if (is_array($claims)) {
 			foreach($claims as $name => $value) {
 				$token->set($name, $value);
@@ -70,7 +72,7 @@ class JWT {
 		$this->CI->input->set_cookie(array(
 				'name'   => strtolower(SELF::JWT_NAME),
 				'value'  => $token->getToken(),
-				'expire' => $expired,
+				'expire' => SELF::JWT_COOKIE_EXPIRED,
 				'domain' => $this->CI->config->item('cookie_domain'),
 				'path'   => $this->CI->config->item('cookie_path'),
 				'secure' => $secure_cookie,
