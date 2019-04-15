@@ -27,6 +27,7 @@ class Authentication extends MY_Controller {
 	}
 
 	public function whoami() {
+		$this->jwt->generate($this->authenticator->get_current_remember_token(), array('uid' => $this->container['user']['id']));
 		$this->_renderJSON(200, $this->container['user']);
 	}
 
