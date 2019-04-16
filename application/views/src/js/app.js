@@ -60,7 +60,7 @@ function resizePicture(element, ratio, width, height, quality, mime, cb, data, b
                 img.src = event.target.result
                 img.onload = function() {
                     var elem = document.createElement('canvas')
-                    var scale = img.naturalWidth/(ratio||1)
+                    var scale = (ratio||1)
                     elem.width = (width||(img.naturalWidth/scale))
                     elem.height = (height||(img.naturalHeight/scale))
                     var ctx = elem.getContext('2d')
@@ -90,7 +90,7 @@ function resizePicture(element, ratio, width, height, quality, mime, cb, data, b
         img.src = element
         img.onload = function() {
             var elem = document.createElement('canvas')
-            var scale = img.naturalWidth/(ratio||1)
+            var scale = (ratio||1)
             elem.width = (width||(img.naturalWidth/scale))
             elem.height = (height||(img.naturalHeight/scale))
             var ctx = elem.getContext('2d')
@@ -109,7 +109,7 @@ function resizePicture(element, ratio, width, height, quality, mime, cb, data, b
             img.src = '/static/img/android-chrome-192x192.png'
             img.onload = function() {
                 var elem = document.createElement('canvas')
-                var scale = img.naturalWidth/(ratio||1)
+                var scale = (ratio||1)
                 elem.width = (width||(img.naturalWidth/scale))
                 elem.height = (height||(img.naturalHeight/scale))
                 var ctx = elem.getContext('2d')
