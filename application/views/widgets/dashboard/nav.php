@@ -8,7 +8,7 @@
         </a>
       </div>
       <button id="navbar-toggler" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapsed" aria-controls="navCollapsed" aria-expanded="false" aria-label="Toggle navigation" style="border:0;">
-        <i id="navmenu_icon" class="material-icons text-dark" style="font-size:1.7em;">menu</i>
+        <i id="navmenu_icon" class="material-icons text-dark" style="font-size:1.7em;">&#xe5d2;</i>
       </button>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
