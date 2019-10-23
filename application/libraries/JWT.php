@@ -8,9 +8,9 @@ use Lcobucci\JWT\ValidationData;
 
 class JWT {
 
-	const JWT_NAME = 'Authorization';
-	const JWT_TOKEN_EXPIRED = 31536000;
-	const JWT_COOKIE_EXPIRED = 3600;
+	public static $JWT_NAME = 'Authorization';
+	public static $JWT_TOKEN_EXPIRED = 31536000;
+	public static $JWT_COOKIE_EXPIRED = 3600;
 
 	protected $CI;
 	public $token;
@@ -22,11 +22,11 @@ class JWT {
 
 	private function validate() {
 		$token = '';
-		if ($this->CI->input->get_request_header(SELF::JWT_NAME, TRUE) !== NULL) {
-			$parts = explode(' ', $this->CI->input->cookie(SELF::JWT_NAME, TRUE));
+		if ($this->CI->input->get_request_header(SELF::$JWT_NAME, TRUE) !== NULL) {
+			$parts = explode(' ', $this->CI->input->cookie(SELF::$JWT_NAME, TRUE));
 			$token = (COUNT($parts) >= 1) ? $parts[1] : '';
-		} else if ($this->CI->input->cookie(strtolower(SELF::JWT_NAME), TRUE) !== NULL) {
-			$token = $this->CI->input->cookie(strtolower(SELF::JWT_NAME), TRUE);
+		} else if ($this->CI->input->cookie(strtolower(SELF::$JWT_NAME), TRUE) !== NULL) {
+			$token = $this->CI->input->cookie(strtolower(SELF::$JWT_NAME), TRUE);
 		}
 		
 		try {
@@ -57,7 +57,7 @@ class JWT {
 			//->setAudience($this->CI->config->item('base_url'))
 			->setIssuedAt($time)
 			->setNotBefore($time)
-			->setExpiration(time() + SELF::JWT_TOKEN_EXPIRED);
+			->setExpiration(time() + SELF::$JWT_TOKEN_EXPIRED);
 		if (is_array($claims)) {
 			foreach($claims as $name => $value) {
 				$token->set($name, $value);
@@ -68,11 +68,11 @@ class JWT {
 		}
 		$token->sign($signer, $this->CI->config->item('encryption_key'));
 		$this->token = $token->getToken();
-		$this->CI->output->set_header(SELF::JWT_NAME.': Bearer '.$token->getToken());
+		$this->CI->output->set_header(SELF::$JWT_NAME.': Bearer '.$token->getToken());
 		$this->CI->input->set_cookie(array(
-				'name'   => strtolower(SELF::JWT_NAME),
+				'name'   => strtolower(SELF::$JWT_NAME),
 				'value'  => $token->getToken(),
-				'expire' => SELF::JWT_COOKIE_EXPIRED,
+				'expire' => SELF::$JWT_COOKIE_EXPIRED,
 				'domain' => $this->CI->config->item('cookie_domain'),
 				'path'   => $this->CI->config->item('cookie_path'),
 				'secure' => $secure_cookie,
