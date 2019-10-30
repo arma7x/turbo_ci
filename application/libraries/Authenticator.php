@@ -18,6 +18,10 @@ class Authenticator {
 
 	protected $CI;
 
+	public static function DEFAULT_AVATAR() {
+		return SELF::$DEFAULT_AVATAR;
+	}
+
 	public function __construct() {
 		$this->CI = &get_instance();
 		$this->CI->load->library('JWT');

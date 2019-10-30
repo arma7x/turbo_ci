@@ -224,7 +224,7 @@ class Manage_user extends MY_Controller {
 			$data['access_level'] = (int) $this->input->post_get('access_level');
 			$data['status'] = (int) $this->input->post_get('status');
 			$data['password'] = $this->encryption->encrypt(password_hash($this->authenticator->generate_password_safe_length($data['confirm_password'], TRUE), PASSWORD_DEFAULT));
-			$data['avatar'] = $this->authenticator->default_avatar;
+			$data['avatar'] = $this->authenticator->DEFAULT_AVATAR();
 			$data['created_at'] = time();
 			$data['updated_at'] = time();
 			$data['last_logged_in'] = time();
