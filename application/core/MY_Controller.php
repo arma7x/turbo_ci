@@ -6,14 +6,8 @@ use Pimple\Container;
 class MY_Controller extends CI_Controller {
 
 	public $container;
-	protected $template = 'widgets/template';
-	protected $widgets = array(
-		'header' => 'widgets/common/header',
-		'footer' => 'widgets/common/footer',
-		'notification' => 'widgets/common/notification',
-		'spinner' => 'widgets/common/spinner',
-		'nav' => 'widgets/nav',
-	);
+	protected $template = 'widgets/frontend/template';
+	protected $widgets = array();
 	protected $data = [];
 
 	public function __construct() {
@@ -22,6 +16,9 @@ class MY_Controller extends CI_Controller {
 		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
 		$this->output->set_header('Cache-Control: post-check=0, pre-check=0');
 		$this->output->set_header('Pragma: no-cache');
+		$this->output->set_header('X-XSS-Protection: 1; mode=block');
+		$this->output->set_header('X-Frame-Options: DENY');
+		$this->output->set_header('X-Content-Type-Options: nosniff');
 		$this->container = new Container();
 		$debug = isset($_GET['debug']) ? TRUE : FALSE;
 		$this->output->enable_profiler(ENVIRONMENT == 'development' ? $debug : FALSE);

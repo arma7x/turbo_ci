@@ -26,11 +26,11 @@ $hook['post_controller_constructor'][] = function() {
 	} else {
 		$CI->lang->load('app', 'english');
 	}
+	$CI->container['app_name'] = APP_NAME;
 };
 
 $hook['post_controller_constructor'][] = function() {
 	$CI = &get_instance();
-	$CI->container['app_name'] = APP_NAME;
 	if ($CI->jwt->token->hasClaim('uid')) {
 		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->jwt->token->getClaim('uid')), 'id, username, email, role, access_level, status, avatar');
 		if ($user !== NULL) {
@@ -67,18 +67,20 @@ $hook['post_controller_constructor'][] = function() {
 	$require_auth = NULL;
 
 	if (isset($CI->$class)) {
-		if((isset($CI->$class['enable']) ? $CI->$class['enable'] : TRUE) === FALSE) {
+		$temp = $CI->$class;
+		if((isset($temp['enable']) ? $temp['enable'] : TRUE) === FALSE) {
 			show_404();
 		}
-		if((isset($CI->$class['auth']) ? $CI->$class['auth'] : NULL) !== NULL) {
-			$require_auth = $CI->$class['auth'];
+		if((isset($temp['auth']) ? $temp['auth'] : NULL) !== NULL) {
+			$require_auth = $temp['auth'];
 		}
 	} else if (isset($CI->$method)) {
-		if((isset($CI->$method['enable']) ? $CI->$method['enable'] : TRUE) === FALSE) {
+		$temp = $CI->$method;
+		if((isset($temp['enable']) ? $temp['enable'] : TRUE) === FALSE) {
 			show_404();
 		}
-		if ((isset($CI->$method['auth']) ? $CI->$method['auth'] : NULL) !== NULL) {
-			$require_auth = $CI->$method['auth'];
+		if ((isset($temp['auth']) ? $temp['auth'] : NULL) !== NULL) {
+			$require_auth = $temp['auth'];
 		}
 	}
 
@@ -97,22 +99,26 @@ $hook['post_controller_constructor'][] = function() {
 	$require_access_level = NULL;
 
 	if (isset($CI->$class)) {
-		if((isset($CI->$class['role']) ? $CI->$class['role'] : NULL) !== NULL) {
-			$require_role = $CI->$class['role'];
+		$temp = $CI->$class;
+		if((isset($temp['role']) ? $temp['role'] : NULL) !== NULL) {
+			$require_role = $temp['role'];
 		}
 	} else if (isset($CI->$method)) {
-		if ((isset($CI->$method['role']) ? $CI->$method['role'] : NULL) !== NULL) {
-			$require_role = $CI->$method['role'];
+		$temp = $CI->$method;
+		if ((isset($temp['role']) ? $temp['role'] : NULL) !== NULL) {
+			$require_role = $temp['role'];
 		}
 	}
 
 	if (isset($CI->$class)) {
-		if((isset($CI->$class['access_level']) ? $CI->$class['access_level'] : NULL) !== NULL) {
-			$require_access_level = $CI->$class['access_level'];
+		$temp = $CI->$class;
+		if((isset($temp['access_level']) ? $temp['access_level'] : NULL) !== NULL) {
+			$require_access_level = $temp['access_level'];
 		}
 	} else if (isset($CI->$method)) {
-		if ((isset($CI->$method['access_level']) ? $CI->$method['access_level'] : NULL) !== NULL) {
-			$require_access_level = $CI->$method['access_level'];
+		$temp = $CI->$method;
+		if ((isset($temp['access_level']) ? $temp['access_level'] : NULL) !== NULL) {
+			$require_access_level = $temp['access_level'];
 		}
 	}
 

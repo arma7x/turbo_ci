@@ -7,22 +7,22 @@
     <meta name="author" content="">
     <meta name="turbolinks-cache-control" content="no-cache">
     <title><?php echo isset($title) ? $title : 'Codeigniter' ?></title>
-    <?php echo isset($header) ? $header : null ?>
+    <?php echo $this->load->view('widgets/common/header', $this, TRUE) ?>
   </head>
   <body class="p-0">
-    <?php echo isset($nav) ? $nav : null ?>
+    <?php echo $this->load->view('widgets/dashboard/nav', $this, TRUE) ?>
     <main class="col" id="main" role="main">
         <div class="row">
             <div id="dashboard-menu" class="col col-12 col-lg-2 px-0 position-fixed dashboard-menu shadow">
-            <?php echo isset($menu) ? $menu : null ?>
+            <?php echo $this->load->view('widgets/dashboard/menu', $this, TRUE) ?>
             </div>
             <div class="col col-12 col-lg-10 offset-lg-2 dashboard-container">
-                <?php echo isset($notification) ? $notification : null ?>
+                <?php echo $this->load->view('widgets/common/notification', $this, TRUE) ?>
                 <?php echo isset($content) ? $content : null ?>
             </div>
         </div>
     </main>
-    <?php echo isset($spinner) ? $spinner : null ?>
+    <?php echo $this->load->view('widgets/common/spinner', $this, TRUE) ?>
     <footer class="footer bg-light border-top border-primary">
       <div class="container text-sm-right">
         <div class="col col-12 col-lg-10 offset-lg-2">
@@ -30,6 +30,6 @@
         </div>
       </div>
     </footer>
-    <?php echo isset($footer) ? $footer : null ?>
+    <?php echo $this->load->view('widgets/common/footer', $this, TRUE) ?>
   </body>
 </html>
