@@ -13,6 +13,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $hook['post_controller_constructor'][] = function() {
+	//$CI = &get_instance();
+	//$CI->output->set_status_header(400);
+	//var_dump($CI->output);
+	//die;
+};
+
+$hook['post_controller_constructor'][] = function() {
 	$CI = &get_instance();
 	$CI->load->helper('cookie');
 	$expire = time() + (60 * 60 * 24 * 365);
