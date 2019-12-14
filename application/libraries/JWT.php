@@ -8,7 +8,7 @@ use Lcobucci\JWT\ValidationData;
 
 class JWT {
 
-	public static $JWT_NAME = 'Authorization';
+	public static $JWT_NAME = 'authorization';
 	public static $JWT_TOKEN_EXPIRED = 31536000;
 	public static $JWT_COOKIE_EXPIRED = 3600;
 
@@ -23,7 +23,7 @@ class JWT {
 	private function validate() {
 		$token = '';
 		if ($this->CI->input->get_request_header(SELF::$JWT_NAME, TRUE) !== NULL) {
-			$parts = explode(' ', $this->CI->input->cookie(SELF::$JWT_NAME, TRUE));
+			$parts = explode(' ', $this->CI->input->get_request_header(SELF::$JWT_NAME, TRUE));
 			$token = (COUNT($parts) >= 1) ? $parts[1] : '';
 		} else if ($this->CI->input->cookie(strtolower(SELF::$JWT_NAME), TRUE) !== NULL) {
 			$token = $this->CI->input->cookie(strtolower(SELF::$JWT_NAME), TRUE);

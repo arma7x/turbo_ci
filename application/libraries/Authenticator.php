@@ -187,6 +187,12 @@ class Authenticator {
 	}
 
 	public function validate() {
+		//var_dump(31536000);
+		//var_dump($this->CI->jwt->token);
+		//var_dump($this->CI->jwt->token->getClaim('exp'));
+		//var_dump((string) $this->CI->jwt->token);
+		//var_dump(time());
+		//die;
 		if ($this->CI->jwt->token->hasClaim('uid') === FALSE) {
 			$value = $this->CI->input->cookie(SELF::REMEMBER_TOKEN_NAME, TRUE);
 			if ($value !== NULL) {
@@ -225,6 +231,7 @@ class Authenticator {
 					}
 				}
 			} else {
+				// this is from non-browser devices
 				$value = $this->CI->jwt->token->getClaim('jti');
 				$token = $this->CI->db->select('id')->get_where(SELF::REMEMBER_TOKEN_TABLE , array('id' => $this->CI->jwt->token->getClaim('jti')), 1)->row_array();
 				if ($token === NULL) {
