@@ -32,6 +32,28 @@ class Authenticator {
 		return isset($this->$key) ? $this->$key : NULL;
 	}
 
+	public static function USER_TABLE() {
+		return SELF::USER_TABLE;
+	}
+
+	public function get_fcm($index) {
+		$fcms = array();
+		$this->CI->db->select(SELF::USER_TABLE.'.id,'.SELF::REMEMBER_TOKEN_TABLE.'.fcm');
+		$this->CI->db->from(SELF::REMEMBER_TOKEN_TABLE);
+		$this->CI->db->join(SELF::USER_TABLE, SELF::USER_TABLE.'.id = '.SELF::REMEMBER_TOKEN_TABLE.'.user');
+		foreach($index as $key => $value) {
+			$this->CI->db->where($key, $value);
+		}
+		foreach($this->CI->db->get()->result_array() as $key => $value) {
+			if (isset($fcms[$value['id']])) {
+				array_push($fcms[$value['id']], $value['fcm']);
+			} else {
+				$fcms[$value['id']] = array($value['fcm']);
+			}
+		}
+		return $fcms;
+	}
+
 	public function get_remember_token($index) {
 		return $this->CI->db->select('id, user_agent, last_used')
 			->get_where(SELF::REMEMBER_TOKEN_TABLE , $index)
@@ -82,7 +104,7 @@ class Authenticator {
 		return base64_encode(hash('sha384', $string, TRUE));
 	}
 
-	public function validate_credential($index, $password, $revalidate, $remember_me) {
+	public function validate_credential($index, $password, $revalidate, $remember_me, $fcm) {
 		$user = $this->get_user_by_index($index, NULL);
 		if ($user === NULL) {
 			return FALSE;
@@ -100,9 +122,9 @@ class Authenticator {
 			if ($revalidate === FALSE) {
 				$jti = NULL;
 				if ($remember_me) {
-					$jti = $this->store_credential_identifier($user['id'], TRUE);
+					$jti = $this->store_credential_identifier($user['id'], $fcm, TRUE);
 				} else {
-					$jti = $this->store_credential_identifier($user['id'], FALSE);
+					$jti = $this->store_credential_identifier($user['id'], $fcm, FALSE);
 				}
 				$this->CI->jwt->generate($jti, array('uid' => $user['id']));
 			}
@@ -168,7 +190,7 @@ class Authenticator {
 		);
 	}
 
-	public function store_credential_identifier($user_id, $cookie) {
+	public function store_credential_identifier($user_id, $fcm, $cookie) {
 		$id = bin2hex($this->CI->security->get_random_bytes(8));
 		$validator = bin2hex($this->CI->security->get_random_bytes(10));
 		$hash_validator = hash('sha384', $validator);
@@ -177,6 +199,7 @@ class Authenticator {
 			'validator_hash' => $hash_validator,
 			'user' => $user_id,
 			'user_agent' => $this->CI->input->user_agent(TRUE),
+			'fcm' => $fcm,
 			'last_used' => time()
 		);
 		$this->CI->db->insert(SELF::REMEMBER_TOKEN_TABLE , $data);
@@ -187,12 +210,6 @@ class Authenticator {
 	}
 
 	public function validate() {
-		//var_dump(31536000);
-		//var_dump($this->CI->jwt->token);
-		//var_dump($this->CI->jwt->token->getClaim('exp'));
-		//var_dump((string) $this->CI->jwt->token);
-		//var_dump(time());
-		//die;
 		if ($this->CI->jwt->token->hasClaim('uid') === FALSE) {
 			$value = $this->CI->input->cookie(SELF::REMEMBER_TOKEN_NAME, TRUE);
 			if ($value !== NULL) {
@@ -231,7 +248,6 @@ class Authenticator {
 					}
 				}
 			} else {
-				// this is from non-browser devices
 				$value = $this->CI->jwt->token->getClaim('jti');
 				$token = $this->CI->db->select('id')->get_where(SELF::REMEMBER_TOKEN_TABLE , array('id' => $this->CI->jwt->token->getClaim('jti')), 1)->row_array();
 				if ($token === NULL) {
