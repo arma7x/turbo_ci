@@ -122,9 +122,9 @@ class Authenticator {
 			if ($revalidate === FALSE) {
 				$jti = NULL;
 				if ($remember_me) {
-					$jti = $this->store_credential_identifier($user['id'], $fcm, TRUE);
+					$jti = $this->store_credential_identifier($user['id'], TRUE);
 				} else {
-					$jti = $this->store_credential_identifier($user['id'], $fcm, FALSE);
+					$jti = $this->store_credential_identifier($user['id'], FALSE);
 				}
 				$this->CI->jwt->generate($jti, array('uid' => $user['id']));
 			}
@@ -190,7 +190,7 @@ class Authenticator {
 		);
 	}
 
-	public function store_credential_identifier($user_id, $fcm, $cookie) {
+	public function store_credential_identifier($user_id, $cookie) {
 		$id = bin2hex($this->CI->security->get_random_bytes(8));
 		$validator = bin2hex($this->CI->security->get_random_bytes(10));
 		$hash_validator = hash('sha384', $validator);
@@ -199,7 +199,6 @@ class Authenticator {
 			'validator_hash' => $hash_validator,
 			'user' => $user_id,
 			'user_agent' => $this->CI->input->user_agent(TRUE),
-			'fcm' => $fcm,
 			'last_used' => time()
 		);
 		$this->CI->db->insert(SELF::REMEMBER_TOKEN_TABLE , $data);
@@ -242,6 +241,8 @@ class Authenticator {
 						$token = $this->CI->db->select('id')->get_where(SELF::REMEMBER_TOKEN_TABLE , array('id' => $id__validator[0]), 1)->row_array();
 						if ($token !== NULL) {
 							$this->set_remember_cookie($value);
+						} else {
+							$this->clear_credential();
 						}
 					} else {
 						$this->clear_credential();
