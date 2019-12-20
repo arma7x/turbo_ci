@@ -55,7 +55,7 @@ class Authentication extends MY_Controller {
 			$this->_renderJSON(400, $data);
 		} else {
 			$remember_me = $this->input->post_get('remember_me') === 'true' ? TRUE : FALSE;
-			$validate_credential = $this->authenticator->validate_credential(array('email' => strtolower($this->input->post_get('email', TRUE))), $this->input->post_get('password'), FALSE, $remember_me);
+			$validate_credential = $this->authenticator->validate_credential(array('email' => strtolower($this->input->post_get('email', TRUE))), $this->input->post_get('password'), FALSE, $remember_me, NULL);
 			if ($validate_credential === TRUE) {
 				$data = array(
 					'message' => lang('M_SUCCESS_LOGIN')
@@ -366,7 +366,7 @@ class Authentication extends MY_Controller {
 			);
 			$this->_renderJSON(400, $data);
 		} else {
-			if ($this->authenticator->validate_credential(array('id' => $this->container['user']['id']), $this->input->post_get('password', FALSE), TRUE, FALSE)) {
+			if ($this->authenticator->validate_credential(array('id' => $this->container['user']['id']), $this->input->post_get('password', FALSE), TRUE, FALSE, NULL)) {
 				unset($data['password']);
 				$data['user'] = $this->container['user']['id'];
 				$result = $this->authenticator->remove_remember_token($data);
