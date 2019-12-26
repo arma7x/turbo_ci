@@ -42,19 +42,19 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe887;</i> <?php echo lang('L_HELP');?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-                <a class="dropdown-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_activate_account' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_activate_account')"><i class="material-icons">&#xe8e8;</i> <?php echo lang('H_ACTIVATE_ACCOUNT');?></a>
-                <a class="dropdown-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_forgot_password' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_forgot_password')"><i class="material-icons">&#xe898;</i> <?php echo lang('H_FORGOT_PASSWORD');?></a>
+                <a class="dropdown-item<?php echo '/'.$this->uri->uri_string() == '/authentication/activate_account' ? ' text-primary' : ''?>" onclick="navigate('/authentication/activate_account')"><i class="material-icons">&#xe8e8;</i> <?php echo lang('H_ACTIVATE_ACCOUNT');?></a>
+                <a class="dropdown-item<?php echo '/'.$this->uri->uri_string() == '/authentication/forgot_password' ? ' text-primary' : ''?>" onclick="navigate('/authentication/forgot_password')"><i class="material-icons">&#xe898;</i> <?php echo lang('H_FORGOT_PASSWORD');?></a>
             </div>
           </li>
           <?php endif; ?>
           <?php if($this->container['sw_offline_cache'] === NULL): ?>
-          <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' active' : ''?>">
-            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_login')"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
+          <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/login' ? ' active' : ''?>">
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/login' ? ' text-primary' : ''?>" onclick="navigate('/authentication/login')"><i class="material-icons">&#xe879;</i> <?php echo lang('H_LOGIN');?></a>
           </li>
           <?php endif; ?>
           <?php if(APP_REGISTRATION === TRUE && $this->container['sw_offline_cache'] === NULL): ?>
-          <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' active' : ''?>">
-            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_register' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_register')"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
+          <li class="nav-item<?php echo '/'.$this->uri->uri_string() == '/authentication/register' ? ' active' : ''?>">
+            <a class="nav-link<?php echo '/'.$this->uri->uri_string() == '/authentication/register' ? ' text-primary' : ''?>" onclick="navigate('/authentication/register')"><i class="material-icons">&#xe7fe;</i> <?php echo lang('H_REGISTER');?></a>
           </li>
           <?php endif; ?>
           <?php endif; ?>
@@ -69,7 +69,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="material-icons">&#xe853;</i> <?php echo lang('H_PROFILE') ?></a>
             <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_update_password' ? ' text-primary' : ''?>" onclick="navigate('/authentication/ui_update_password')"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
+              <a class="dropdown-item<?php echo '/'.$this->uri->uri_string() == '/authentication/update_password' ? ' text-primary' : ''?>" onclick="navigate('/authentication/update_password')"><i class="material-icons">&#xe62f;</i> <?php echo lang('H_UPDATE_PASSWORD');?></a>
             <a class="dropdown-item<?php echo '/'.$this->uri->uri_string() == '/authentication/manage_token' ? ' text-primary' : ''?>" onclick="navigate('/authentication/manage_token')"><i class="material-icons">&#xe1b1;</i> <?php echo lang('H_LOG_IN_DEVICES');?></a>
             </div>
           </li>

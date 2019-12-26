@@ -3,7 +3,7 @@ const offlinePage = "/offline";
 const wilcardCacheFiles = [];
 const mainCacheFiles = ["/", offlinePage];
 const staticCacheFiles = ["/manifest.json", "/src/app.css", "/static/css/animate.min.css", "/static/css/bootstrap.min.css",
-"/static/font/MaterialIcons-Regular.woff2", "/static/js/turbolinks.js", "/src/app.js",
+"/static/font/MaterialIcons-Regular.ttf", "/static/js/turbolinks.js", "/src/app.js",
 "/static/js/bootstrap.min.js", "/static/js/popper.min.js", "/static/js/jquery-3.3.1.min.js",
 "/static/img/android-chrome-192x192.png", "/static/img/android-chrome-512x512.png",
 "/static/img/apple-touch-icon.png", "/static/img/favicon-16x16.png", "/static/img/favicon-32x32.png",
@@ -13,10 +13,10 @@ const expectedCaches = [cacheName];
 const cacheHeader = { 'Sw-Offline-Cache': cacheName };
 
 self.addEventListener('install', event => {
-    self.skipWaiting();
-    event.waitUntil(
-        caches.open(cacheName).then(cache => cache.addAll(staticCacheFiles))
-    );
+  self.skipWaiting();
+  event.waitUntil(
+      caches.open(cacheName).then(cache => cache.addAll(staticCacheFiles))
+  );
 });
 
 self.addEventListener('activate', event => {
@@ -47,35 +47,35 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-    const targetRequest = event.request.url.replace(origin, '');
-    const parseURL = new URL(event.request.url);
-    if (parseURL.origin !== origin) {
-        event.respondWith(fromCache(event.request)
-        .then((res) => {
-            if (res.url === origin+offlinePage) {
-                return fromNetwork(event.request, 15000)
-            } else {
-                return fromCache(event.request);
-            }
-        })
-        .catch((e) => {
-            return fromCache(event.request);
-        }));
-    } else {
-        if (staticCacheFiles.indexOf(targetRequest) !== -1) {
-            event.respondWith(fromCache(event.request));
-        } else {
-            event.respondWith(fromNetwork(event.request, 15000).then((result) => {
-                return result;
-            })
-            .catch(() => {
-                if (event.request.method === 'POST') {
-                    return 'fail';
-                }
-                return fromCache(event.request);
-            }));
-        }
-    }
+  const targetRequest = event.request.url.replace(origin, '');
+  const parseURL = new URL(event.request.url);
+  if (parseURL.origin !== origin) {
+      event.respondWith(fromCache(event.request)
+      .then((res) => {
+          if (res.url === origin+offlinePage) {
+              return fromNetwork(event.request, 15000)
+          } else {
+              return fromCache(event.request);
+          }
+      })
+      .catch((e) => {
+          return fromCache(event.request);
+      }));
+  } else {
+      if (staticCacheFiles.indexOf(targetRequest) !== -1) {
+          event.respondWith(fromCache(event.request));
+      } else {
+          event.respondWith(fromNetwork(event.request, 15000).then((result) => {
+              return result;
+          })
+          .catch(() => {
+              if (event.request.method === 'POST') {
+                  return 'fail';
+              }
+              return fromCache(event.request);
+          }));
+      }
+  }
 });
 
 function fromNetwork(request, timeout) {
@@ -120,10 +120,10 @@ function fromNetwork(request, timeout) {
 }
  
 function fromCache(request) {
-    const offline = new Request(offlinePage);
-    return caches.open(cacheName).then((cache) => {
-        return cache.match(request).then((matching) => {
-            return matching || caches.match(offline);
-        });
-    });
+  const offline = new Request(offlinePage);
+  return caches.open(cacheName).then((cache) => {
+      return cache.match(request).then((matching) => {
+          return matching || caches.match(offline);
+      });
+  });
 }

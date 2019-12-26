@@ -1,8 +1,13 @@
+:root {
+  --primary-color: var(--pink);
+  --secondary-color: var(--red);
+}
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: url(/static/font/MaterialIcons-Regular.woff2) format('woff2');
+  src: url(/static/font/MaterialIcons-Regular.ttf) format('truetype');
 }
 
 .material-icons {
@@ -17,6 +22,8 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
+  font-feature-settings: 'liga';
+  text-rendering: optimizeLegibility;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
   margin-top: -4px;
@@ -61,7 +68,7 @@ a {
 }
 
 .turbolinks-progress-bar {
-  background-color: var(--pink) !important;
+  background-color: var(--primary-color) !important;
 }
 
 .logo {
@@ -81,19 +88,19 @@ a {
 }
 
 .border-primary {
-  border-color: var(--pink) !important;
+  border-color: var(--primary-color) !important;
 }
 
 .bg-primary {
-  background: var(--pink) !important;
+  background: var(--primary-color) !important;
 }
 
 .text-primary {
-  color: var(--pink) !important;
+  color: var(--primary-color) !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: var(--red) !important;
+  color: var(--secondary-color) !important;
 }
 
 .form-centers {
@@ -242,7 +249,7 @@ a.text-primary:hover, a.text-primary:focus {
   color: #16181b;
   text-decoration: none;
   background-color: #f8f9fa;
-  border-left: 0.4em solid var(--pink);
+  border-left: 0.4em solid var(--primary-color);
 }
 
 #accordionDashboard .dropdown-item.disabled, .dropdown-item:disabled {
@@ -267,21 +274,21 @@ a.text-primary:hover, a.text-primary:focus {
 }
 
 #accordionDashboard .menuscroll {
-    height: 370px;
+  height: 370px;
 }
 
 #accordionDashboard .menuscroll:hover {
-    overflow-y:scroll!important;
+  overflow-y:scroll!important;
 }
 
 #navCollapsed #accordionDashboard .dropdown-item:hover, .dropdown-item:focus {
-  border-left: 0.4em solid var(--pink);
+  border-left: 0.4em solid var(--primary-color);
   -webkit-transition: all 500ms ease 100ms;
   transition: all 500ms ease 100ms;
 }
 
 #navCollapsed #accordionDashboard .dropdown-item.active, .dropdown-item:active {
-  border-left: 0.4em solid var(--pink);
+  border-left: 0.4em solid var(--primary-color);
   -webkit-transition: all 500ms ease 100ms;
   transition: all 500ms ease 100ms;
 }

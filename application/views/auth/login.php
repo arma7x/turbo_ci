@@ -2,7 +2,7 @@
 
 <div class="container">
 <div class="row justify-content-sm-center align-items-center" style="min-height:60vh;">
-  <div class="<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? 'col-sm-5' : ''?>">
+  <div class="<?php echo '/'.$this->uri->uri_string() == '/authentication/login' ? 'col-sm-5' : ''?>">
   <form class="form-center">
     <h2 class="mb-3 text-uppercase text-center text-primary"><?php echo isset($page_name) ? $page_name : 'Codeigniter' ;?></h2>
     <div class="form-group">
@@ -28,7 +28,7 @@
     <div class="checkbox mb-1">
       <label><input id="inputRememberMe" type="checkbox" value="true"> <?php echo lang('L_REMEMBER_ME');?></label>
     </div>
-    <button id="lgn_btn" onclick="login(<?php echo '/'.$this->uri->uri_string() == '/authentication/ui_login' ? 'true' : 'false'?>)" class="btn btn-primary btn-block mb-1" type="submit"><?php echo lang('BTN_LOGIN');?></button>
+    <button id="lgn_btn" onclick="login(<?php echo '/'.$this->uri->uri_string() == '/authentication/login' ? 'true' : 'false'?>)" class="btn btn-primary btn-block mb-1" type="submit"><?php echo lang('BTN_LOGIN');?></button>
   </form>
   </div>
 </div>

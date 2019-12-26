@@ -129,7 +129,7 @@ function uploadAvatar(data, extra) {
     }
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
-        url: "/authentication/upload_avatar",
+        url: "/api/authentication/upload_avatar",
         method: "POST",
         data: data,
         dataType: "json"
@@ -169,7 +169,7 @@ function deleteToken() {
         }
         data[window.csrf_token_name] = window.csrf_hash
         var request = $.ajax({
-            url: "/authentication/delete_token",
+            url: "/api/authentication/delete_token",
             method: "POST",
             data: data,
             dataType: "json"
@@ -517,7 +517,7 @@ function login(redirect) {
     }
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
-        url: "/authentication/login",
+        url: "/api/authentication/login",
         method: "POST",
         data: data,
         dataType: "json"
@@ -570,7 +570,7 @@ function register() {
     }
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
-        url: "/authentication/register",
+        url: "/api/authentication/register",
         method: "POST",
         data: data,
         dataType: "json"
@@ -622,7 +622,7 @@ function forgot_password() {
     }
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
-        url: "/authentication/forgot_password",
+        url: "/api/authentication/forgot_password",
         method: "POST",
         data: data,
         dataType: "json"
@@ -662,7 +662,7 @@ function activate_account() {
     }
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
-        url: "/authentication/activate_account",
+        url: "/api/authentication/activate_account",
         method: "POST",
         data: data,
         dataType: "json"
@@ -706,7 +706,7 @@ function reset() {
     }
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
-        url: "/authentication/reset_password",
+        url: "/api/authentication/reset_password",
         method: "POST",
         data: data,
         dataType: "json"
@@ -759,7 +759,7 @@ function update_password() {
     }
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
-        url: "/authentication/update_password",
+        url: "/api/authentication/update_password",
         method: "POST",
         data: data,
         dataType: "json"
@@ -804,7 +804,7 @@ function logout() {
     var data = {}
     data[window.csrf_token_name] = window.csrf_hash
     var request = $.ajax({
-        url: "/authentication/log_out",
+        url: "/api/authentication/log_out",
         method: "POST",
         data: data,
         dataType: "json"
