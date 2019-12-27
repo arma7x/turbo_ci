@@ -38,9 +38,9 @@ class DrawerItem {
 class MyHomePage extends StatefulWidget {
   final drawerFragments = [
     new DrawerItem(
-        "Halaman Utama",
+        "Home",
         Icons.home,
-        (Function loadingCb) => new Home(),
+        (Function loadingCb) => new Home(title: 'Register', loadingCb: loadingCb),
         null
     ),
   ];
