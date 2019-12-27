@@ -1,111 +1,219 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart' show CupertinoPageRoute;
+import 'package:flutterci/navigation/fragments.dart';
+import 'package:flutterci/navigation/screens.dart';
+import 'package:flutterci/config.dart';
+import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
+import 'package:flutterci/state/provider_state.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (_) => Auth()),
+      ],
+      child: MaterialApp(
+        title: Config.APP_NAME,
+        theme: ThemeData(
+          primarySwatch: Config.THEME_COLOR,
+        ),
+        home: MyHomePage(),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
+class DrawerItem {
+  String title;
+  IconData icon;
+  Function body;
+  bool requireLoggedIn;
+  DrawerItem(this.title, this.icon, this.body, this.requireLoggedIn);
+}
+
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  final drawerFragments = [
+    new DrawerItem(
+        "Halaman Utama",
+        Icons.home,
+        (Function loadingCb) => new Home(),
+        null
+    ),
+  ];
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  final drawerScreens = [
+    new DrawerItem(
+        "Register",
+        Icons.person_add,
+        (Function loadingCb) =>
+            new RegisterPage(title: 'Register', loadingCb: loadingCb),
+        false),
+    new DrawerItem(
+        "Login",
+        Icons.exit_to_app,
+        (Function loadingCb) =>
+            new LoginPage(title: 'Login', loadingCb: loadingCb),
+        false),
+    new DrawerItem(
+        "Forgot Password",
+        Icons.lock_open,
+        (Function loadingCb) =>
+            new ForgotPassword(title: 'Lupa Kata Laluan', loadingCb: loadingCb),
+        false),
+  ];
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  MyHomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  int _selectedDrawerFragmentIndex = 0;
+
+  void _loadingDialog(bool show) {
+    if (show == true) {
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext _) {
+          return AlertDialog(
+            content: Container(child: new LinearProgressIndicator()),
+          );
+        },
+      );
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
+  void _logOut() {
+    Navigator.of(context).pop();
+    showDialog(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext _) {
+        return AlertDialog(
+          title: Text("Are you sure to logout ?",
+              style: TextStyle(fontSize: 16.0)),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Yes"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Provider.of<Auth>(context).signOut(_loadingDialog);
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  _getDrawerFragmentWidgetIndex(int pos) {
+    if (widget.drawerFragments[pos] != null) {
+      return widget.drawerFragments[pos].body(_loadingDialog);
+    } else {
+      return new Text("Error");
+    }
+  }
+
+  _onSelectFragment(int index) {
+    setState(() => _selectedDrawerFragmentIndex = index);
+    Navigator.of(context).pop();
+  }
+
+  _onSelectScreen(int index) {
+    if (widget.drawerScreens[index] != null) {
+      Navigator.of(context).pop(); // close drawer
+      Navigator.push(
+          context,
+          CupertinoPageRoute(
+              builder: (BuildContext context) =>
+                  widget.drawerScreens[index].body(_loadingDialog)));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+    final _auth = Provider.of<Auth>(context);
+
+    List<Widget> drawerOptions = [];
+
+    for (var i = 0; i < widget.drawerFragments.length; i++) {
+      var d = widget.drawerFragments[i];
+      if (widget.drawerFragments[i].requireLoggedIn != null &&
+          widget.drawerFragments[i].requireLoggedIn != _auth.loggedIn) {
+        continue;
+      }
+      drawerOptions.add(new ListTile(
+        leading: new Icon(d.icon),
+        title: new Text(d.title),
+        selected: i == _selectedDrawerFragmentIndex,
+        onTap: () => _onSelectFragment(i),
+      ));
+    }
+
+    for (var i = 0; i < widget.drawerScreens.length; i++) {
+      var d = widget.drawerScreens[i];
+      if (widget.drawerScreens[i].requireLoggedIn != null &&
+          widget.drawerScreens[i].requireLoggedIn != _auth.loggedIn) {
+        continue;
+      }
+      drawerOptions.add(new ListTile(
+        leading: new Icon(d.icon),
+        title: new Text(d.title),
+        onTap: () => _onSelectScreen(i),
+      ));
+    }
+
+    if (_auth.loggedIn == true) {
+      drawerOptions.add(new ListTile(
+        leading: new Icon(Icons.exit_to_app),
+        title: new Text("Logout"),
+        onTap: () {
+          _logOut();
+        },
+      ));
+    }
+
+    return new Scaffold(
+      //appBar: new AppBar(
+      //  title: new Text(widget.drawerFragments[_selectedDrawerFragmentIndex].title),
+      //),
+      drawer: new SizedBox(
+        width: MediaQuery.of(context).size.width * 0.80,
+        child: new Drawer(
+          child: new Column(
+            children: <Widget>[
+              new UserAccountsDrawerHeader(
+                accountName: new Text('Hi, ' + _auth.username,
+                    style: TextStyle(fontSize: 16)),
+                accountEmail: new Text(_auth.email,
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  backgroundImage: _auth.avatar,
+                ),
+              ),
+              new Column(children: drawerOptions)
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: _getDrawerFragmentWidgetIndex(_selectedDrawerFragmentIndex),
     );
   }
 }
