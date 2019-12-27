@@ -49,9 +49,8 @@ class Auth with ChangeNotifier {
         if (jwt["jti"] != null) {
           if (jwt["jti"].split('.').length == 3) {
             temp = json.decode(prefs.getString('whoami_data'));
-            //Image.memory(base64Decode(temp["avatar"].split(",")[1]))
             updateAuthMetadata(temp["id"], temp["username"], temp["email"],
-                CachedNetworkImageProvider(Config.APP_ICON), true);
+                MemoryImage(base64Decode(temp["avatar"].split(",")[1])), true);
           }
         } else {
           await prefs.remove('whoami_data');
@@ -68,15 +67,15 @@ class Auth with ChangeNotifier {
         final responseBody = await response.transform(utf8.decoder).join();
         await prefs.setString('whoami_data', responseBody);
         temp = json.decode(responseBody);
-        // Image.memory(base64Decode(temp["avatar"].split(",")[1]))
         updateAuthMetadata(temp["id"], temp["username"], temp["email"],
-            CachedNetworkImageProvider(Config.APP_ICON), true);
+            MemoryImage(base64Decode(temp["avatar"].split(",")[1])), true);
       } else {
         await prefs.remove('whoami_data');
         updateAuthMetadata("Guest", "Guest", "Please login",
             CachedNetworkImageProvider(Config.APP_ICON), false);
       }
-    } on Exception {
+    } on Exception catch (e) {
+      print(e);
       // network error
     }
     notifyListeners();

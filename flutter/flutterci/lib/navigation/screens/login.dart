@@ -69,17 +69,17 @@ class _LoginFormState extends State<_LoginForm> {
               controller: _emailController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email),
-                labelText: 'Alamat E-mail',
+                labelText: 'Email Address',
                 contentPadding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
               ),
               validator: (String value) {
                 if (value.isEmpty) {
-                  return 'Sila masukan alamat email';
+                  return 'Please enter email adrress';
                 }
                 if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value) ==
                     false) {
-                  return 'Sila masukan format alamat email yang betul';
+                  return 'Email address is invalid';
                 }
                 return null;
               },
@@ -95,16 +95,16 @@ class _LoginFormState extends State<_LoginForm> {
                     child:
                         Icon(_secure ? Icons.visibility : Icons.visibility_off),
                     onTap: _toggleSecure),
-                labelText: 'Kata Laluan',
+                labelText: 'Password',
                 contentPadding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
               ),
               obscureText: _secure,
               validator: (String value) {
                 if (value.isEmpty) {
-                  return 'Sila masukan kata laluan';
+                  return 'Please enter your password';
                 }
                 if (value.length < 10) {
-                  return 'Minimum 10 aksara';
+                  return 'Minimum 10 character';
                 }
                 return null;
               },
@@ -118,7 +118,7 @@ class _LoginFormState extends State<_LoginForm> {
                 child: RaisedButton(
                     color: Theme.of(context).primaryColor,
                     child: Text(
-                      'Daftar Masuk',
+                      'Login',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {

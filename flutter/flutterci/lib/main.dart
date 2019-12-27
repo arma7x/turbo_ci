@@ -38,20 +38,14 @@ class DrawerItem {
 class MyHomePage extends StatefulWidget {
   final drawerFragments = [
     new DrawerItem(
-        "Home",
+        "FlutterCI",
         Icons.home,
-        (Function loadingCb) => new Home(title: 'Register', loadingCb: loadingCb),
+        (Function loadingCb) => new Home(title: 'FlutterCI', loadingCb: loadingCb),
         null
     ),
   ];
 
   final drawerScreens = [
-    new DrawerItem(
-        "Register",
-        Icons.person_add,
-        (Function loadingCb) =>
-            new RegisterPage(title: 'Register', loadingCb: loadingCb),
-        false),
     new DrawerItem(
         "Login",
         Icons.exit_to_app,
@@ -59,10 +53,16 @@ class MyHomePage extends StatefulWidget {
             new LoginPage(title: 'Login', loadingCb: loadingCb),
         false),
     new DrawerItem(
+        "Register",
+        Icons.person_add,
+        (Function loadingCb) =>
+            new RegisterPage(title: 'Register', loadingCb: loadingCb),
+        false),
+    new DrawerItem(
         "Forgot Password",
         Icons.lock_open,
         (Function loadingCb) =>
-            new ForgotPassword(title: 'Lupa Kata Laluan', loadingCb: loadingCb),
+            new ForgotPassword(title: 'Forgot Password', loadingCb: loadingCb),
         false),
   ];
 
@@ -189,9 +189,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return new Scaffold(
-      //appBar: new AppBar(
-      //  title: new Text(widget.drawerFragments[_selectedDrawerFragmentIndex].title),
-      //),
+      appBar: new AppBar(
+        title: new Text(widget.drawerFragments[_selectedDrawerFragmentIndex].title),
+      ),
       drawer: new SizedBox(
         width: MediaQuery.of(context).size.width * 0.80,
         child: new Drawer(

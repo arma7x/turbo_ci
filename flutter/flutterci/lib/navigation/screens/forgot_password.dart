@@ -65,17 +65,17 @@ class _RegisterFormState extends State<_RegisterForm> {
               controller: _emailController,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email),
-                labelText: 'Alamat E-mail',
+                labelText: 'Email Address',
                 contentPadding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
               ),
               validator: (String value) {
                 if (value.isEmpty) {
-                  return 'Sila masukan alamat email';
+                  return 'Please enter email adrress';
                 }
                 if (RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                         .hasMatch(value) ==
                     false) {
-                  return 'Sila masukan format alamat email yang betul';
+                  return 'Email address is invalid';
                 }
                 return null;
               },
@@ -89,7 +89,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                 child: RaisedButton(
                     color: Theme.of(context).primaryColor,
                     child: Text(
-                      'Pohon Pautan Pemulihan',
+                      'Request Recovery Link',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
