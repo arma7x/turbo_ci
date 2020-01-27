@@ -692,7 +692,7 @@ function activate_account() {
     })
 }
 
-function reset() {
+function resetPassword() {
     $('#rst_btn').attr("disabled", "disabled")
     hideDangerMessage()
     $('#inputNewPasswordError').removeClass('border-danger')
