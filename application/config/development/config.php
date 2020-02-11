@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // CONFIG BEGIN HERE
-$DATABASE_URL = 'mysqli://root:root@localhost/ci_starter';
+$DATABASE_URL = 'mysqli://root:rootroot@localhost/ci_starter';
 $ENCRYPTION_KEY = '09FA7BE0A09C30D0050B05C6EE9974938094E5FF1C0FC59A3A6776242D0787D4';
 $EMAIL_URL = 'smtp://username@yahoo.com:password@smtp.mail.yahoo.com:587/tls';
 $APP_NAME = 'TurboCI';

@@ -41,12 +41,14 @@ $hook['post_controller_constructor'][] = function() {
 	if ($CI->jwt->token->hasClaim('uid')) {
 		$user = $CI->authenticator->get_user_by_index(array('id' => $CI->jwt->token->getClaim('uid')), 'id, username, email, role, access_level, status, avatar');
 		if ($user !== NULL) {
-			if ((int) $user['role'] === 0) {
-				$user['role_alias'] = lang('L_ADMIN');
-			} else if ((int) $user['role'] === 1) {
-				$user['role_alias'] = lang('L_MODERATOR');
-			} else {
-				$user['role_alias'] = lang('L_MEMBER');
+			if ($CI->authenticator->ROLE_DROPDOWN()[$user['role']]) {
+				$user['role_alias'] = $CI->authenticator->ROLE_DROPDOWN()[$user['role']];
+			}
+			if ($CI->authenticator->STATUS_DROPDOWN()[$user['status']]) {
+				$user['status_alias'] = $CI->authenticator->STATUS_DROPDOWN()[$user['status']];
+			}
+			if ($CI->authenticator->ACCESS_LEVEL_DROPDOWN()[$user['access_level']]) {
+				$user['access_level_alias'] = $CI->authenticator->ACCESS_LEVEL_DROPDOWN()[$user['access_level']];
 			}
 			$CI->container['user'] = $user;
 			if ((int) $user['status'] < 1) {

@@ -19,7 +19,34 @@ class Authenticator {
 	protected $CI;
 
 	public static function DEFAULT_AVATAR() {
-		return SELF::$DEFAULT_AVATAR;
+		return SELF::DEFAULT_AVATAR;
+	}
+
+	public static function ROLE_DROPDOWN() {
+		return array(
+			'' => lang('L_ROLE'),
+			'0' => lang('L_ADMIN'),
+			'1' => lang('L_MODERATOR'),
+			'127' => lang('L_MEMBER'),
+		);
+	}
+
+	public static function ACCESS_LEVEL_DROPDOWN() {
+		return array(
+			'' => lang('L_ACCESS_LEVEL'),
+			'0' => lang('L_READ').'|'.lang('L_WRITE').'|'.lang('L_MODIFY'),
+			'1' => lang('L_READ').'|'.lang('L_WRITE'),
+			'127' => lang('L_LIMITED'),
+		);
+	}
+
+	public static function STATUS_DROPDOWN() {
+		return array(
+			'' => lang('L_STATUS'),
+			'-1' => lang('L_BAN'),
+			'0' => lang('L_INACTIVE'),
+			'1' => lang('L_ACTIVE'),
+		);
 	}
 
 	public function __construct() {

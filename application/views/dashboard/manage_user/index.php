@@ -15,10 +15,9 @@
 					<div class="input-group-text"><i class="material-icons">&#xe8d3;</i></div>
 				</div>
 				<select id="role" class="form-control">
-					<option value=""<?php echo $filter['role'] === NULL ? ' selected' : '' ?>><?php echo lang('L_ROLE');?></option>
-					<option value="0"<?php echo $filter['role'] === 0 ? ' selected' : '' ?>><?php echo lang('L_ADMIN');?></option>
-					<option value="1"<?php echo $filter['role'] === 1 ? ' selected' : '' ?>><?php echo lang('L_MODERATOR');?></option>
-					<option value="127"<?php echo $filter['role'] === 127 ? ' selected' : '' ?>><?php echo lang('L_MEMBER');?></option>
+					<?php foreach($this->authenticator->ROLE_DROPDOWN() as $key => $role): ?>
+					<option value="<?php echo $key ?>"<?php echo $filter['role'] === $key ? ' selected' : '' ?>><?php echo $role;?></option>
+					<?php endforeach; ?>
 				</select>
 			</div>
 			<div class="input-group input-group-sm mr-sm-1 mb-1">
@@ -26,10 +25,9 @@
 					<div class="input-group-text"><i class="material-icons">&#xe565;</i></div>
 				</div>
 				<select id="access_level" class="form-control">
-					<option value=""<?php echo $filter['access_level'] === NULL ? ' selected' : '' ?>><?php echo lang('L_ACCESS_LEVEL');?></option>
-					<option value="0"<?php echo $filter['access_level'] === 0 ? ' selected' : '' ?>><?php echo lang('L_READ').'|'.lang('L_WRITE').'|'.lang('L_MODIFY');?></option>
-					<option value="1"<?php echo $filter['access_level'] === 1 ? ' selected' : '' ?>><?php echo lang('L_READ').'|'.lang('L_WRITE');?></option>
-					<option value="127"<?php echo $filter['access_level'] === 127 ? ' selected' : '' ?>><?php echo lang('L_LIMITED');?></option>
+					<?php foreach($this->authenticator->ACCESS_LEVEL_DROPDOWN() as $key => $level): ?>
+					<option value="<?php echo $key ?>"<?php echo $filter['access_level'] === $key ? ' selected' : '' ?>><?php echo $level;?></option>
+					<?php endforeach; ?>
 				</select>
 			</div>
 			<div class="input-group input-group-sm mr-sm-1 mb-1">
@@ -37,10 +35,9 @@
 					<div class="input-group-text"><i class="material-icons">&#xe8e8;</i></div>
 				</div>
 				<select id="status" class="form-control">
-					<option value=""<?php echo $filter['status'] === NULL ? ' selected' : '' ?>><?php echo lang('L_STATUS');?></option>
-					<option value="-1"<?php echo $filter['status'] === -1 ? ' selected' : '' ?>><?php echo lang('L_BAN');?></option>
-					<option value="0"<?php echo $filter['status'] === 0 ? ' selected' : '' ?>><?php echo lang('L_INACTIVE');?></option>
-					<option value="1"<?php echo $filter['status'] === 1 ? ' selected' : '' ?>><?php echo lang('L_ACTIVE');?></option>
+					<?php foreach($this->authenticator->STATUS_DROPDOWN() as $key => $status): ?>
+					<option value="<?php echo $key ?>"<?php echo $filter['status'] === $key ? ' selected' : '' ?>><?php echo $status;?></option>
+					<?php endforeach; ?>
 				</select>
 			</div>
 			<div class="input-group mr-sm-1 mb-2">
@@ -88,9 +85,9 @@
 										<div class="input-group-text"><i class="material-icons">&#xe8d3;</i></div>
 									</div>
 									<select id="role_<?php echo $user['id'] ?>" class="form-control"<?php echo $this->container['user']['id'] === $user['id'] || (int) $this->container['user']['role'] !== 0 ? ' disabled' : ''; ?>>
-										<option value="0"<?php echo (int) $user['role'] === 0 ? ' selected' : '' ?>><?php echo lang('L_ADMIN');?></option>
-										<option value="1"<?php echo (int) $user['role'] === 1 ? ' selected' : '' ?>><?php echo lang('L_MODERATOR');?></option>
-										<option value="127"<?php echo (int) $user['role'] === 127 ? ' selected' : '' ?>><?php echo lang('L_MEMBER');?></option>
+									<?php foreach($this->authenticator->ROLE_DROPDOWN() as $key => $role): ?>
+									<option value="<?php echo $key ?>"<?php echo (int) $user['role'] === (int) $key ? ' selected' : '' ?>><?php echo $role ?></option>
+									<?php endforeach; ?>
 									</select>
 								</div>
 								<?php if ((int) $this->container['user']['role'] === 0): ?>
@@ -107,9 +104,9 @@
 										<div class="input-group-text"><i class="material-icons">&#xe565;</i></div>
 									</div>
 									<select id="access_level_<?php echo $user['id'] ?>" class="form-control"<?php echo $this->container['user']['id'] === $user['id'] || (int) $this->container['user']['role'] !== 0 ? ' disabled' : ''; ?>>
-										<option value="0"<?php echo (int) $user['access_level'] === 0 ? ' selected' : '' ?>><?php echo lang('L_READ').'|'.lang('L_WRITE').'|'.lang('L_MODIFY');?></option>
-										<option value="1"<?php echo (int) $user['access_level'] === 1 ? ' selected' : '' ?>><?php echo lang('L_READ').'|'.lang('L_WRITE');?></option>
-										<option value="127"<?php echo (int) $user['access_level'] === 127 ? ' selected' : '' ?>><?php echo lang('L_LIMITED');?></option>
+										<?php foreach($this->authenticator->ACCESS_LEVEL_DROPDOWN() as $key => $level): ?>
+										<option value="<?php echo $key ?>"<?php echo (int) $user['access_level'] === (int) $key ? ' selected' : '' ?>><?php echo $level;?></option>
+										<?php endforeach; ?>
 									</select>
 								</div>
 								<?php if ((int) $this->container['user']['role'] === 0): ?>
@@ -126,9 +123,9 @@
 										<div class="input-group-text"><i class="material-icons">&#xe8e8;</i></div>
 									</div>
 									<select id="status_<?php echo $user['id'] ?>" class="form-control"<?php echo $this->container['user']['id'] === $user['id'] || (int) $this->container['user']['role'] !== 0 ? ' disabled' : ''; ?>>
-										<option value="-1"<?php echo (int) $user['status'] === -1 ? ' selected' : '' ?>><?php echo lang('L_BAN');?></option>
-										<option value="0"<?php echo (int) $user['status'] === 0 ? ' selected' : '' ?>><?php echo lang('L_INACTIVE');?></option>
-										<option value="1"<?php echo (int) $user['status'] === 1 ? ' selected' : '' ?>><?php echo lang('L_ACTIVE');?></option>
+										<?php foreach($this->authenticator->STATUS_DROPDOWN() as $key => $status): ?>
+										<option value="<?php echo $key ?>"<?php echo (int) $user['status'] === (int) $key ? ' selected' : '' ?>><?php echo $status;?></option>
+										<?php endforeach; ?>
 									</select>
 								</div>
 								<?php if ((int) $this->container['user']['role'] === 0): ?>
