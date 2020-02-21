@@ -159,6 +159,9 @@ function promptconfirmPasswordToken(id) {
 
 function deleteToken() {
     var text = '<?php echo lang('L_CONFIRM_REMOVE')?>'
+    if (getCookie('lang')[0] === 'malay') {
+      text = '<?php echo $malay_lang['L_CONFIRM_REMOVE'] ?>'
+    }
     if (confirm(text.replace('%s', $('#inputID').val()))) {
         $('#confirmPasswordToken').modal('hide')
         $('button.enabled').attr("disabled", "disabled")
@@ -214,6 +217,9 @@ function searchUser() {
 
 function updateRole(id) {
     var text = '<?php echo lang('L_CONFIRM_UPDATE_ROLE')?>'
+    if (getCookie('lang')[0] === 'malay') {
+      text = '<?php echo $malay_lang['L_CONFIRM_UPDATE_ROLE'] ?>'
+    }
     if (confirm(text.replace('%s', id))) {
         $('button.enabled').attr("disabled", "disabled")
         hideDangerMessage()
@@ -248,6 +254,9 @@ function updateRole(id) {
 
 function updateAccessLevel(id) {
     var text = '<?php echo lang('L_CONFIRM_UPDATE_ACCESS_LEVEL')?>'
+    if (getCookie('lang')[0] === 'malay') {
+      text = '<?php echo $malay_lang['L_CONFIRM_UPDATE_ACCESS_LEVEL'] ?>'
+    }
     if (confirm(text.replace('%s', id))) {
         $('button.enabled').attr("disabled", "disabled")
         hideDangerMessage()
@@ -282,6 +291,9 @@ function updateAccessLevel(id) {
 
 function updateStatus(id) {
     var text = '<?php echo lang('L_CONFIRM_UPDATE_STATUS')?>'
+    if (getCookie('lang')[0] === 'malay') {
+      text = '<?php echo $malay_lang['L_CONFIRM_UPDATE_STATUS'] ?>'
+    }
     if (confirm(text.replace('%s', id))) {
         $('button.enabled').attr("disabled", "disabled")
         hideDangerMessage()
@@ -316,6 +328,9 @@ function updateStatus(id) {
 
 function deleteUser(id) {
     var text = '<?php echo lang('L_CONFIRM_REMOVE')?>'
+    if (getCookie('lang')[0] === 'malay') {
+      text = '<?php echo $malay_lang['L_CONFIRM_REMOVE'] ?>'
+    }
     if (confirm(text.replace('%s', id))) {
         $('button.enabled').attr("disabled", "disabled")
         hideDangerMessage()
@@ -798,7 +813,11 @@ function update_password() {
 }
 
 function logout() {
-    if (confirm('<?php echo lang('L_CONFIRM_LOGOUT')?>') == false) {
+    var text = '<?php echo lang('L_CONFIRM_LOGOUT')?>'
+    if (getCookie('lang')[0] === 'malay') {
+      text = '<?php echo $malay_lang['L_CONFIRM_LOGOUT'] ?>'
+    }
+    if (confirm(text) == false) {
         return
     }
     var data = {}

@@ -13,6 +13,8 @@ class Src extends MY_Controller {
 	}
 
 	public function js() {
+		$english_lang = require(dirname(BASEPATH).'/application/language/malay/app_lang.php');
+		$this->data['malay_lang'] = $lang;
 		$this->_renderJS(array('src/js/app.js'));
 	}
 
